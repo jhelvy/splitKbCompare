@@ -16,7 +16,7 @@ ui <- fluidPage(
             font-weight: 500;
             margin-bottom: 20px;
         }
-        .col-sm-4 {
+        .col-sm-3 {
             color: #FFF;
             font-family: 'Exo';
         }"),
@@ -29,6 +29,7 @@ ui <- fluidPage(
 
     sidebarLayout(
         sidebarPanel(
+            width = 3,
             prettyCheckbox(
                 inputId = "ErgoDox", 
                 label = "ErgoDox",
