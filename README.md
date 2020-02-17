@@ -2,6 +2,8 @@
 
 Simple UI site to compare layouts of different split mechanical keyboards
 
+Go [here](https://jhelvy.shinyapps.io/splitkbcompare/) to view the site.
+
 Source of the plate files:
 
 - [Corne](https://github.com/foostan/crkbd)
