@@ -12,3 +12,6 @@ Plate file sources:
 - [Redox](https://github.com/mattdibi/redox-keyboard)
 
 Colors are from the [Dark2](http://colorbrewer2.org/#type=qualitative&scheme=Dark2&n=6) color palette from colorbrewer
+
+Screenshot:
+![](images/screenshot.png)
