@@ -1,10 +1,8 @@
 # splitKbCompare
 
-Simple UI site to compare layouts of different split mechanical keyboards
+Simple [website](https://jhelvy.shinyapps.io/splitkbcompare/) to compare layouts of different split mechanical keyboards.
 
-Go [here](https://jhelvy.shinyapps.io/splitkbcompare/) to view the site.
-
-Source of the plate files:
+Plate file sources:
 
 - [Corne](https://github.com/foostan/crkbd)
 - [ErgoDash](https://github.com/omkbd/ErgoDash)
@@ -12,3 +10,5 @@ Source of the plate files:
 - [Iris](https://github.com/keebio/iris-case)
 - [Kyria](https://github.com/splitkb/kyria)
 - [Redox](https://github.com/mattdibi/redox-keyboard)
+
+Colors are from the [Dark2](http://colorbrewer2.org/#type=qualitative&scheme=Dark2&n=6) color palette from colorbrewer
