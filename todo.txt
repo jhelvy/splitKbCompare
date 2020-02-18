@@ -12,3 +12,4 @@ Other boards:
 - Elephant 42: https://github.com/illness072/elephant42/tree/master/plates
 - Chimera 42
 - Interphase
+- Half of an atreus?
