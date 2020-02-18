@@ -9,9 +9,11 @@ Plate file sources:
 - [ErgoDox](https://github.com/Ergodox-io/ErgoDox)
 - [Iris](https://github.com/keebio/iris-case)
 - [Kyria](https://github.com/splitkb/kyria)
+- [Lily58](https://github.com/kata0510/Lily58)
+- [Minidox](https://github.com/dotdash32/Cases/tree/master/Minidox)
 - [Redox](https://github.com/mattdibi/redox-keyboard)
 
-Colors are from the [Dark2](http://colorbrewer2.org/#type=qualitative&scheme=Dark2&n=6) color palette from colorbrewer
+Colors are from the [Dark2](http://colorbrewer2.org/#type=qualitative&scheme=Dark2&n=8) color palette from colorbrewer
 
 Screenshot:
 ![](images/screenshot.png)

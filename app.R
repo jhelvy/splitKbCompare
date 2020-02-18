@@ -54,13 +54,19 @@ ui <- fluidPage(
                 animation = "pulse"),
             prettyCheckbox(
                 inputId = "Redox",
-                label = tags$span(style = "color: #e6ab02", "Redox"),
+                label = tags$span(style = "color: #fff", "Redox"),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
                 inputId = "Iris",
                 label = tags$span(style = "color: #e7298a", "Iris"),
+                value = FALSE,
+                shape = "curve",
+                animation = "pulse"),
+            prettyCheckbox(
+                inputId = "Lily58",
+                label = tags$span(style = "color: #e6ab02", "Lily58"),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
@@ -73,6 +79,12 @@ ui <- fluidPage(
             prettyCheckbox(
                 inputId = "Corne",
                 label = tags$span(style = "color: #d95f02", "Corne"),
+                value = FALSE,
+                shape = "curve",
+                animation = "pulse"),
+            prettyCheckbox(
+                inputId = "Minidox",
+                label = tags$span(style = "color: #a6761d", "Minidox"),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
@@ -115,13 +127,19 @@ server <- function(input, output) {
         if (input$Iris) {
             images <- c(images, getImage("Iris"))
         }
+        if (input$Lily58) {
+            images <- c(images, getImage("Lily58"))
+        }
         if (input$Kyria) {
             images <- c(images, getImage("Kyria"))
         }
         if (input$Corne) {
             images <- c(images, getImage("Corne"))
         }
-
+        if (input$Minidox) {
+            images <- c(images, getImage("Minidox"))
+        }
+        
         # Create a temp file of the overlay
         if (! is.null(images)) {
             tmpfile <- images %>%
