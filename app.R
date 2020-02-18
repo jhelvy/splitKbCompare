@@ -1,7 +1,7 @@
-library(shiny)
-library(shinyWidgets)
-library(magick)
+source('appFunctions.R')
+source('appConfig.R')
 
+# Create the UI
 ui <- fluidPage(
 
     # Edit CSS styling
@@ -29,66 +29,66 @@ ui <- fluidPage(
     titlePanel("Split keyboard comparison"),
 
     sidebarLayout(
-        
+
         sidebarPanel(
-            
+
             width = 2,
-            
+
             prettyCheckbox(
-                inputId = "ErgoDox",
-                label = tags$span(style = "color: #1b9e77", "ErgoDox"),
+                inputId = keyboards[1],
+                label = tags$span(style = colorLabels[1], keyboardNames[1]),
                 value = TRUE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
-                inputId = "ErgoDash1",
-                label = tags$span(style = "color: #7570b3", "ErgoDash 1"),
+                inputId = keyboards[2],
+                label = tags$span(style = colorLabels[2], keyboardNames[2]),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
-                inputId = "ErgoDash2",
-                label = tags$span(style = "color: #7570b3", "ErgoDash 2"),
+                inputId = keyboards[3],
+                label = tags$span(style = colorLabels[3], keyboardNames[3]),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
-                inputId = "Redox",
-                label = tags$span(style = "color: #fff", "Redox"),
+                inputId = keyboards[4],
+                label = tags$span(style = colorLabels[4], keyboardNames[4]),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
-                inputId = "Iris",
-                label = tags$span(style = "color: #e7298a", "Iris"),
+                inputId = keyboards[5],
+                label = tags$span(style = colorLabels[5], keyboardNames[5]),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
-                inputId = "Lily58",
-                label = tags$span(style = "color: #e6ab02", "Lily58"),
+                inputId = keyboards[6],
+                label = tags$span(style = colorLabels[6], keyboardNames[6]),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
-                inputId = "Kyria",
-                label = tags$span(style = "color: #66a61e", "Kyria"),
+                inputId = keyboards[7],
+                label = tags$span(style = colorLabels[7], keyboardNames[7]),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
-                inputId = "Corne",
-                label = tags$span(style = "color: #d95f02", "Corne"),
+                inputId = keyboards[8],
+                label = tags$span(style = colorLabels[8], keyboardNames[8]),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
             prettyCheckbox(
-                inputId = "Minidox",
-                label = tags$span(style = "color: #a6761d", "Minidox"),
+                inputId = keyboards[9],
+                label = tags$span(style = colorLabels[9], keyboardNames[9]),
                 value = FALSE,
                 shape = "curve",
                 animation = "pulse"),
-            
+
             tags$div(HTML('<br>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <a href="https://github.com/jhelvy/splitKbCompare">
@@ -98,57 +98,19 @@ ui <- fluidPage(
         mainPanel(
             imageOutput("layout")
         )
-        
+
     )
 )
 
 server <- function(input, output) {
 
-    getImage <- function(keyboard) {
-        image_read(file.path("images", paste0(keyboard, ".png")))
-    }
-
     output$layout <- renderImage({
 
-        # Load the images
-        images <- getImage("background")
-        if (input$ErgoDox) {
-            images <- c(images, getImage("ErgoDox"))
-        }
-        if (input$ErgoDash1) {
-            images <- c(images, getImage("ErgoDash1"))
-        }
-        if (input$ErgoDash2) {
-            images <- c(images, getImage("ErgoDash2"))
-        }
-        if (input$Redox) {
-            images <- c(images, getImage("Redox"))
-        }
-        if (input$Iris) {
-            images <- c(images, getImage("Iris"))
-        }
-        if (input$Lily58) {
-            images <- c(images, getImage("Lily58"))
-        }
-        if (input$Kyria) {
-            images <- c(images, getImage("Kyria"))
-        }
-        if (input$Corne) {
-            images <- c(images, getImage("Corne"))
-        }
-        if (input$Minidox) {
-            images <- c(images, getImage("Minidox"))
-        }
-        
-        # Create a temp file of the overlay
-        if (! is.null(images)) {
-            tmpfile <- images %>%
-                image_join() %>%
-                image_mosaic() %>%
-                image_write(tempfile(fileext = 'png'), format = 'png')
-        } else {
-            tmpfile <- NULL
-        }
+        # Create the image overlay from only the selected images
+        tmpfile <- getOverlay(input, keyboards) %>%
+            image_join() %>%
+            image_mosaic() %>%
+            image_write(tempfile(fileext = 'png'), format = 'png')
 
         # Render the file
         return(list(src = tmpfile,
