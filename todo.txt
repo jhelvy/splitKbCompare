@@ -1,0 +1,14 @@
+TODO:
+- adjust scaling of images to actual size for printing
+- dynamically generate colors from palette
+- move grid to top?
+- sort by number of keys, and add # of keys in ()
+- add cross hair on J key
+- add 10cm scaling reference
+- add "print" button to print out to actual size
+
+Other boards:
+- Gergo
+- Elephant 42: https://github.com/illness072/elephant42/tree/master/plates
+- Chimera 42
+- Interphase
