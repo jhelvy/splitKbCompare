@@ -2,7 +2,7 @@ library(tidyverse)
 library(shiny)
 library(shinyWidgets)
 library(magick)
-library(RColorBrewer)
+# library(ggthemes)
 
 # Define keyboards
 keyboards <- tribble(
@@ -19,7 +19,11 @@ keyboards <- tribble(
 )
 
 # Add color palette
-colors <- data.frame(
-    color = brewer.pal(nrow(keyboards), 'Set3'))
-colors$label <- paste0("color: ", colors$color)
-keyboards <- bind_cols(keyboards, colors)
+# color <- gdocs_pal()(nrow(keyboards))
+# color <- hue_pal()(nrow(keyboards))
+# Dark2 from RColorBrewer: 
+color <- c("#1B9E77", "#D95F02", "#D95F02", "#7570B3", "#E7298A", 
+           "#66A61E", "#E6AB02", "#A6761D", "#FFFFFF")
+label <- paste0("color: ", color)
+keyboards$color <- color
+keyboards$label <- label
