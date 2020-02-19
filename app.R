@@ -98,10 +98,14 @@ ui <- fluidPage(
                 shape     = "curve",
                 animation = "pulse"),
 
-            tags$div(HTML('<br>
+            tags$div(HTML('
+                <br>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <a href="https://github.com/jhelvy/splitKbCompare">
-                <i class="fa fa-github" style="color:white;"></i></a>'))
+                <i class="fa fa-github" style="color:white;"></i></a>
+                <br><br>')),
+            
+            downloadButton("print", "Print")
         ),
 
         mainPanel(
@@ -119,17 +123,49 @@ server <- function(input, output) {
         ids <- getInputIDs(input, keyboards)
         overlayColor <- makeImageOverlay(ids, keyboards, color = T)
 
-        # Define the paths to the image
-        tmpfile <- overlayColor %>%
+        # Define the path to the image
+        tmpImagePathColor <- overlayColor %>%
             image_write(tempfile(fileext = 'png'), format = 'png')
 
         # Render the file
-        return(list(src = tmpfile,
+        return(list(src = tmpImagePathColor,
                     width = 600,
                     alt = "Keyboard layout",
                     contentType = "image/png"))
 
     }, deleteFile = TRUE)
+    
+    output$print <- downloadHandler(
+        
+    filename = "splitKbComparison.pdf",
+    
+      content = function(file) {
+        # Copy the report file to a temporary directory before processing it, 
+        # in case we don't have write permissions to the current working dir 
+        # (which can happen when deployed).
+        tempReport <- file.path(tempdir(), "splitKbComparison.Rmd")
+        file.copy("splitKbComparison.Rmd", tempReport, overwrite = TRUE)
+
+        # Create the black and white image overlay
+        ids <- getInputIDs(input, keyboards)
+        overlayBw <- makeImageOverlay(ids, keyboards, color = F)
+
+        # Define the path to the image
+        tmpImagePathBw <- overlayBw %>%
+            image_write(tempfile(fileext = 'png'), format = 'png')
+        
+        # Prepare the path to be passed to the Rmd file
+        params <- list(path = tmpImagePathBw)
+
+        # Knit the document, passing in the `params` list, and eval it in a
+        # child of the global environment (this isolates the code in the document
+        # from the code in this app).
+        rmarkdown::render(tempReport, output_file = file,
+          params = params,
+          envir = new.env(parent = globalenv())
+        )
+      }
+    )
 }
 
 shinyApp(ui = ui, server = server)

@@ -1,0 +1,15 @@
+---
+title: ""
+output: pdf_document
+classoption: landscape
+geometry: margin=0.5in
+header-includes:
+    - \thispagestyle{empty}
+params:
+  path: NA
+---
+
+```{r, echo=FALSE, out.width="100%", warning=FALSE, message=FALSE}
+library(magick)
+image_read(params$path)
+```
