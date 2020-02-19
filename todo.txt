@@ -1,7 +1,6 @@
 TODO:
 - move grid to top?
 - sort by number of keys, and add # of keys in ()
-- add 10cm scaling reference
 
 Other boards to add?
 - Gergo
