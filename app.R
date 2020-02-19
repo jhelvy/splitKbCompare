@@ -119,7 +119,7 @@ server <- function(input, output) {
         imageName <- getImageName(input, keyboards)
         
         # Define the paths to the image
-        tmpfile <- image_read(makeSavePath(imageName, color = T)) %>% 
+        tmpfile <- image_read(makeOverlaySavePath(imageName, color = T)) %>% 
             image_write(tempfile(fileext = 'png'), format = 'png')
         
         # Render the file

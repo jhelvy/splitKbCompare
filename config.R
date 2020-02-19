@@ -10,6 +10,7 @@ keyboards <- tribble(
     'ergodox',   'Ergodox', 
     'ergodash2', 'Ergodash 2',
     'ergodash1', 'Ergodash 1',
+    'redox',     'Redox',
     'lily58',    'Lily58',
     'iris',      'Iris',
     'kyria',     'Kyria',

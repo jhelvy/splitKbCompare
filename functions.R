@@ -1,33 +1,31 @@
 # Functions for processing the images
-getImage <- function(keyboard) {
-    image_read(here::here("images", paste0(keyboard, ".png")))
+getImage <- function(keyboard, color) {
+    image_read(here::here('images', color, paste0(keyboard, ".png")))
 }
 
-getColorizedImage <- function(keyboard, color) {
-    image <- getImage(keyboard)
+makeColorizedImage <- function(keyboard, color) {
+    image <- getImage(keyboard, 'bw')
     return(image_colorize(image, 100, color))
 }
 
-getOverlayBw <- function(ids, keyboards) {
-    overlay <- getImage('bg-white')
+makeImageOverlay <- function(ids, keyboards, color = T) {
+    bg <- 'bg-white.png'
+    folder <- 'bw'
+    if (color) {
+        bg <- 'bg-black.png'
+        folder <- 'color'
+    }
+    overlay <- image_read(here::here('images', bg))
     for (id in ids) {
-        image <- getColorizedImage(id, 'black')
+        image <- getImage(id, folder)
         overlay <- c(overlay, image)
     }
-    return(overlay)
+    return(overlay %>% 
+           image_join() %>% 
+           image_mosaic())
 }
 
-getOverlayColor <- function(ids, keyboards) {
-    overlay <- getImage('bg-black')
-    for (id in ids) {
-        color <- as.character(keyboards[which(keyboards$id == id),]$color)
-        image <- getColorizedImage(id, color)
-        overlay <- c(overlay, image)
-    }
-    return(overlay)
-}
-
-makeSavePath <- function(imageName, color = T) {
+makeOverlaySavePath <- function(imageName, color = T) {
     imageName <- paste0(imageName, '.png')
     if (color) {
         return(here::here('images', 'overlays', 'color', imageName))
