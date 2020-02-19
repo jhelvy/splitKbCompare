@@ -9,3 +9,5 @@ Other boards to add?
 - Chimera 42
 - Interphase
 - Half of an atreus?
+
+https://github.com/diimdeep/awesome-split-keyboards
