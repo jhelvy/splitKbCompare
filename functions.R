@@ -8,6 +8,7 @@ makeColorizedImage <- function(keyboard, color) {
     return(image_colorize(image, 100, color))
 }
 
+# Functions for the server
 makeImageOverlay <- function(ids, keyboards, color = T) {
     bg <- 'bg-white.png'
     folder <- 'bw'
@@ -25,21 +26,11 @@ makeImageOverlay <- function(ids, keyboards, color = T) {
            image_mosaic())
 }
 
-makeOverlaySavePath <- function(imageName, color = T) {
-    imageName <- paste0(imageName, '.png')
-    if (color) {
-        return(here::here('images', 'overlays', 'color', imageName))
+getInputIDs <- function(input, keyboards) {
+    ids <- c()
+    for (i in 1:nrow(keyboards)) { 
+        name <- keyboards$id[i]
+        if (input[[name]]) { ids <- c(ids, name) }
     }
-    return(here::here('images', 'overlays', 'bw', imageName))
-}
-
-# Functions for the server
-getImageName <- function(input, keyboards) {
-    imageNames <- c()
-    for (id in keyboards$id) {
-        if (input[[id]]) {
-            imageNames <- c(imageNames, id)
-        }
-    }
-    return(str_c(imageNames, collapse = '_'))
+    return(ids)
 }
