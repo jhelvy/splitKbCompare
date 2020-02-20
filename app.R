@@ -32,8 +32,6 @@ ui <- fluidPage(
 
         sidebarPanel(
 
-            width = 2,
-
             prettyCheckbox(
                 inputId   = keyboards$id[1],
                 label     = tags$span(style = keyboards$label[1],
@@ -109,6 +107,7 @@ ui <- fluidPage(
         ),
 
         mainPanel(
+            
             imageOutput("layout")
         )
 

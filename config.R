@@ -7,15 +7,15 @@ library(magick)
 # Define keyboards
 keyboards <- tribble(
     ~id,         ~name,
-    'ergodox',   'Ergodox',
-    'ergodash2', 'Ergodash 2',
-    'ergodash1', 'Ergodash 1',
-    'redox',     'Redox',
-    'lily58',    'Lily58',
-    'iris',      'Iris',
-    'kyria',     'Kyria',
-    'corne',     'Corne',
-    'minidox',   'Minidox'
+    'ergodox',   'Ergodox (76 - 80)',
+    'ergodash2', 'Ergodash 2 (68 - 72)',
+    'ergodash1', 'Ergodash 1 (66 - 68)',
+    'redox',     'Redox (70)',
+    'lily58',    'Lily58 (58)',
+    'iris',      'Iris (54 - 56)',
+    'kyria',     'Kyria (46 - 50)',
+    'corne',     'Corne (42)',
+    'minidox',   'Minidox (36)'
 )
 
 # Add color palette
