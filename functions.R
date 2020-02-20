@@ -1,4 +1,3 @@
-# Functions for processing the images
 getImage <- function(keyboard, color) {
     image_read(here::here('images', color, paste0(keyboard, ".png")))
 }
@@ -8,7 +7,6 @@ makeColorizedImage <- function(keyboard, color) {
     return(image_colorize(image, 100, color))
 }
 
-# Functions for the server
 makeImageOverlay <- function(ids, keyboards, color = T) {
     bg <- 'bg-white.png'
     folder <- 'bw'
@@ -21,14 +19,14 @@ makeImageOverlay <- function(ids, keyboards, color = T) {
         image <- getImage(id, folder)
         overlay <- c(overlay, image)
     }
-    return(overlay %>% 
-           image_join() %>% 
+    return(overlay %>%
+           image_join() %>%
            image_mosaic())
 }
 
 getInputIDs <- function(input, keyboards) {
     ids <- c()
-    for (i in 1:nrow(keyboards)) { 
+    for (i in 1:nrow(keyboards)) {
         name <- keyboards$id[i]
         if (input[[name]]) { ids <- c(ids, name) }
     }

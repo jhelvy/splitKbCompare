@@ -9,7 +9,7 @@ ui <- fluidPage(
         @import url(https://fonts.googleapis.com/css?family=Exo);
         .well {
             background-color: #1A1917;
-            width: 140px;
+            width: 180px;
         }
         h1, h2, h3 {
             color: #FFF;
@@ -31,6 +31,7 @@ ui <- fluidPage(
     sidebarLayout(
 
         sidebarPanel(
+            width = 3,
 
             prettyCheckbox(
                 inputId   = keyboards$id[1],
@@ -102,12 +103,12 @@ ui <- fluidPage(
                 <a href="https://github.com/jhelvy/splitKbCompare">
                 <i class="fa fa-github" style="color:white;"></i></a>
                 <br><br>')),
-            
+
             downloadButton("print", "Print")
         ),
 
         mainPanel(
-            
+
             imageOutput("layout")
         )
 
@@ -133,17 +134,17 @@ server <- function(input, output) {
                     contentType = "image/png"))
 
     }, deleteFile = TRUE)
-    
+
     output$print <- downloadHandler(
-        
+
     filename = "splitKbComparison.pdf",
-    
+
       content = function(file) {
-        # Copy the report file to a temporary directory before processing it, 
-        # in case we don't have write permissions to the current working dir 
+        # Copy the report file to a temporary directory before processing it,
+        # in case we don't have write permissions to the current working dir
         # (which can happen when deployed).
-        tempReport <- file.path(tempdir(), "splitKbComparison.Rmd")
-        file.copy("splitKbComparison.Rmd", tempReport, overwrite = TRUE)
+        tempReport <- file.path(tempdir(), "print.Rmd")
+        file.copy("print.Rmd", tempReport, overwrite = TRUE)
 
         # Create the black and white image overlay
         ids <- getInputIDs(input, keyboards)
@@ -152,7 +153,7 @@ server <- function(input, output) {
         # Define the path to the image
         tmpImagePathBw <- overlayBw %>%
             image_write(tempfile(fileext = 'png'), format = 'png')
-        
+
         # Prepare the path to be passed to the Rmd file
         params <- list(path = tmpImagePathBw)
 
@@ -160,8 +161,7 @@ server <- function(input, output) {
         # child of the global environment (this isolates the code in the document
         # from the code in this app).
         rmarkdown::render(tempReport, output_file = file,
-          params = params,
-          envir = new.env(parent = globalenv())
+          params = params, envir = new.env(parent = globalenv())
         )
       }
     )
