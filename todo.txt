@@ -3,10 +3,11 @@ TODO:
 - sort by number of keys, and add # of keys in ()
 
 Other boards to add?
-- Gergo
-- Elephant 42: https://github.com/illness072/elephant42/tree/master/plates
-- Chimera 42
-- Interphase
-- Half of an atreus?
+- gergo
+- chimera42
+- elephant42: https://github.com/illness072/elephant42/tree/master/plates
+- orthodox
+- atreus?
+- interphase
 
 https://github.com/diimdeep/awesome-split-keyboards
