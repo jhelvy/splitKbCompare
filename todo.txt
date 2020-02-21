@@ -1,6 +1,5 @@
 TODO:
 - move grid to top?
-- sort by number of keys, and add # of keys in ()
 
 Other boards to add?
 - gergo
