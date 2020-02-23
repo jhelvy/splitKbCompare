@@ -1,6 +1,4 @@
-# splitKbCompare
-
-Interactive [tool](https://jhelvy.shinyapps.io/splitkbcompare/) for comparing layouts of different split mechanical keyboards.
+An interactive [tool](https://jhelvy.shinyapps.io/splitkbcompare/) for comparing layouts of different split mechanical keyboards.
 
 Supported keyboards (in order of number of keys):
 
