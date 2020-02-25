@@ -96,7 +96,28 @@ ui <- fluidPage(
                 value     = FALSE,
                 shape     = "curve",
                 animation = "pulse"),
-
+            prettyCheckbox(
+              inputId   = keyboards$id[10],
+              label     = tags$span(style = keyboards$label[10],
+                                    keyboards$name[10]),
+              value     = FALSE,
+              shape     = "curve",
+              animation = "pulse"),
+            prettyCheckbox(
+              inputId   = keyboards$id[11],
+              label     = tags$span(style = keyboards$label[11],
+                                    keyboards$name[11]),
+              value     = FALSE,
+              shape     = "curve",
+              animation = "pulse"),
+            prettyCheckbox(
+              inputId   = keyboards$id[12],
+              label     = tags$span(style = keyboards$label[12],
+                                    keyboards$name[12]),
+              value     = FALSE,
+              shape     = "curve",
+              animation = "pulse"),
+            
             tags$div(HTML('
                 <br>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

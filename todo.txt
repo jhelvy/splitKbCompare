@@ -2,7 +2,6 @@ TODO:
 - move grid to top?
 
 Other boards to add?
-- gergo
 - chimera42
 - elephant42: https://github.com/illness072/elephant42/tree/master/plates
 - orthodox

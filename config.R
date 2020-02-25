@@ -13,8 +13,11 @@ keyboards <- tribble(
     'lily58',    'Lily58 (58)',
     'iris',      'Iris (54 - 56)',
     'kyria',     'Kyria (46 - 50)',
+    'gergo',     'Gergo (46 - 50)',
     'corne',     'Corne (42)',
-    'minidox',   'Minidox (36)'
+    'minidox',   'Minidox (36)',
+    'gergoplex', 'Gergoplex (36)',
+    'georgi',    'Georgi (30)'
 )
 
 # Add color palette
