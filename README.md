@@ -10,6 +10,8 @@ Supported keyboards (in order of number of keys):
 - [Kyria (46 - 50)](https://github.com/splitkb/kyria)
 - [Gergo (46 - 50)](https://www.gboards.ca/)
 - [Corne (42)](https://github.com/foostan/crkbd)
+- [Atreus (42)](https://github.com/technomancy/atreus)
+- [Elephant42 (42)](https://github.com/illness072/elephant42)
 - [Minidox (36)](https://github.com/dotdash32/Cases/tree/master/Minidox)
 - [Gergoplex (36)](https://www.gboards.ca/)
 - [Georgi (30)](https://www.gboards.ca/)
