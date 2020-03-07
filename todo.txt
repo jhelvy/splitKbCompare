@@ -7,5 +7,6 @@ Other boards to add?
 - keyboardio
 - orthodox
 - interphase
+- nyquist
 
 https://github.com/diimdeep/awesome-split-keyboards
