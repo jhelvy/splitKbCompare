@@ -131,6 +131,13 @@ ui <- fluidPage(
               value     = FALSE,
               shape     = "curve",
               animation = "pulse"),
+            prettyCheckbox(
+              inputId   = keyboards$id[15],
+              label     = tags$span(style = keyboards$label[15],
+                                    keyboards$name[15]),
+              value     = FALSE,
+              shape     = "curve",
+              animation = "pulse"),
             
             tags$div(HTML('
                 <br>
