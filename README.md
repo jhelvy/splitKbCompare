@@ -6,6 +6,7 @@ Supported keyboards (in order of number of keys):
 - [ErgoDash (66 - 72)](https://github.com/omkbd/ErgoDash)
 - [Redox (70)](https://github.com/mattdibi/redox-keyboard)
 - [Keyboardio (64)](https://github.com/keyboardio)
+- [Nyquist (60)](https://github.com/keebio/nyquist-case)
 - [Lily58 (58)](https://github.com/kata0510/Lily58)
 - [Iris (54 - 56)](https://github.com/keebio/iris-case)
 - [Kyria (46 - 50)](https://github.com/splitkb/kyria)

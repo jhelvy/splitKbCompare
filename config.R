@@ -11,6 +11,7 @@ keyboards <- tribble(
     'ergodash1',  'Ergodash 1 (66 - 68)',
     'redox',      'Redox (70)',
     'keyboardio', 'Keyboardio (64)',
+    'nyquist',    'Nyquist (60)',
     'lily58',     'Lily58 (58)',
     'iris',       'Iris (54 - 56)',
     'kyria',      'Kyria (46 - 50)',

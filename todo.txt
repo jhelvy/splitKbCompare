@@ -3,10 +3,8 @@ TODO:
 
 Other boards to add?
 - chimera42
-- nyquist
 - keyboardio
 - orthodox
 - interphase
-- nyquist
 
 https://github.com/diimdeep/awesome-split-keyboards
