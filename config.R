@@ -24,7 +24,7 @@ keyboards <- tribble(
     'georgi',     'Georgi (30)'
 )
 
-# Add color palette
+# Define the color palette
 
 # library(ggthemes)
 # palette <- gdocs_pal()(nrow(keyboards))
@@ -35,10 +35,11 @@ keyboards <- tribble(
 
 # Colors from here: https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/
 palette <- c('#4363d8', '#3cb44b', '#ffe119', '#e6194b', '#f58231',
-             '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe',
+             '#911eb4', '#46f0f0', '#ffffff', '#bcf60c', '#fabebe',
              '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000',
-             '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080',
-             '#ffffff', '#000000')
+             '#aaffc3', '#808000', '#ffd8b1', '#000075', '#f032e6')
+
+# Add colors to data frame
 colors <- palette
 colors <- c(colors[1], rep(colors[2], 2), colors[3:length(colors)])
 colors <- colors[1:nrow(keyboards)]
