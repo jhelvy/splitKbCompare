@@ -6,5 +6,6 @@ Other boards to add?
 - keyboardio
 - orthodox
 - interphase
+- class44: https://github.com/yfuku/claw44
 
 https://github.com/diimdeep/awesome-split-keyboards
