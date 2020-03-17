@@ -1,34 +1,35 @@
-getImage <- function(keyboard, color) {
-    image_read(here::here('images', color, paste0(keyboard, ".png")))
+getImage <- function(id) {
+    imagePath <- file.path('images', paste0(id, ".png"))
+    return(image_read(imagePath))
 }
 
-makeColorizedImage <- function(keyboard, color) {
-    image <- getImage(keyboard, 'bw')
+getColorImage <- function(id, color) {
+    image <- getImage(id)
     return(image_colorize(image, 100, color))
 }
 
-makeImageOverlay <- function(ids, keyboards, color = T) {
+makeImageOverlay <- function(ids, colors = NULL) {
     bg <- 'bg-white.png'
-    folder <- 'bw'
-    if (color) {
-        bg <- 'bg-black.png'
-        folder <- 'color'
-    }
-    overlay <- image_read(here::here('images', bg))
-    for (id in ids) {
-        image <- getImage(id, folder)
-        overlay <- c(overlay, image)
+    if (length(colors) > 0) { bg <- 'bg-black.png' }
+    overlay <- image_read(file.path('images', bg))
+    if (length(ids) > 0) {
+        for (i in 1:length(ids)) {
+            id <- ids[i]
+            if (length(colors) > 0) {
+                image <- getColorImage(id, colors[i])
+            } else {
+                image <- getImage(id)
+            }
+            overlay <- c(overlay, image)
+        }
     }
     return(overlay %>%
            image_join() %>%
            image_mosaic())
 }
 
-getInputIDs <- function(input, keyboards) {
-    ids <- c()
-    for (i in 1:nrow(keyboards)) {
-        name <- keyboards$id[i]
-        if (input[[name]]) { ids <- c(ids, name) }
-    }
+getKeyboardIDs <- function(input, keyboards) {
+    names <- input$keyboards
+    ids <- keyboards[which(keyboards$name %in% names),]$id
     return(ids)
 }

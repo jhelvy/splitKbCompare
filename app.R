@@ -8,6 +8,7 @@ ui <- fluidPage(
     tags$style("
         @import url(https://fonts.googleapis.com/css?family=Exo);
         .well {
+            color: #FFF;
             background-color: #1A1917;
             width: 180px;
         }
@@ -29,148 +30,46 @@ ui <- fluidPage(
     titlePanel("Split keyboard comparison"),
 
     sidebarLayout(
-
         sidebarPanel(
             width = 3,
-
-            prettyCheckbox(
-                inputId   = keyboards$id[1],
-                label     = tags$span(style = keyboards$label[1],
-                                      keyboards$name[1]),
-                value     = TRUE,
+            prettyCheckboxGroup(
+                inputId   = 'keyboards',
+                label     = 'Select keyboards',
+                choices   = keyboards$name,
                 shape     = "curve",
                 animation = "pulse"),
-            prettyCheckbox(
-                inputId   = keyboards$id[2],
-                label     = tags$span(style = keyboards$label[2],
-                                      keyboards$name[2]),
-                value     = FALSE,
-                shape     = "curve",
-                animation = "pulse"),
-            prettyCheckbox(
-                inputId   = keyboards$id[3],
-                label     = tags$span(style = keyboards$label[3],
-                                      keyboards$name[3]),
-                value     = FALSE,
-                shape     = "curve",
-                animation = "pulse"),
-            prettyCheckbox(
-                inputId   = keyboards$id[4],
-                label     = tags$span(style = keyboards$label[4],
-                                      keyboards$name[4]),
-                value     = FALSE,
-                shape     = "curve",
-                animation = "pulse"),
-            prettyCheckbox(
-                inputId   = keyboards$id[5],
-                label     = tags$span(style = keyboards$label[5],
-                                      keyboards$name[5]),
-                value     = FALSE,
-                shape     = "curve",
-                animation = "pulse"),
-            prettyCheckbox(
-                inputId   = keyboards$id[6],
-                label     = tags$span(style = keyboards$label[6],
-                                      keyboards$name[6]),
-                value     = FALSE,
-                shape     = "curve",
-                animation = "pulse"),
-            prettyCheckbox(
-                inputId   = keyboards$id[7],
-                label     = tags$span(style = keyboards$label[7],
-                                      keyboards$name[7]),
-                value     = FALSE,
-                shape     = "curve",
-                animation = "pulse"),
-            prettyCheckbox(
-                inputId   = keyboards$id[8],
-                label     = tags$span(style = keyboards$label[8],
-                                      keyboards$name[8]),
-                value     = FALSE,
-                shape     = "curve",
-                animation = "pulse"),
-            prettyCheckbox(
-                inputId   = keyboards$id[9],
-                label     = tags$span(style = keyboards$label[9],
-                                      keyboards$name[9]),
-                value     = FALSE,
-                shape     = "curve",
-                animation = "pulse"),
-            prettyCheckbox(
-              inputId   = keyboards$id[10],
-              label     = tags$span(style = keyboards$label[10],
-                                    keyboards$name[10]),
-              value     = FALSE,
-              shape     = "curve",
-              animation = "pulse"),
-            prettyCheckbox(
-              inputId   = keyboards$id[11],
-              label     = tags$span(style = keyboards$label[11],
-                                    keyboards$name[11]),
-              value     = FALSE,
-              shape     = "curve",
-              animation = "pulse"),
-            prettyCheckbox(
-              inputId   = keyboards$id[12],
-              label     = tags$span(style = keyboards$label[12],
-                                    keyboards$name[12]),
-              value     = FALSE,
-              shape     = "curve",
-              animation = "pulse"),
-            prettyCheckbox(
-              inputId   = keyboards$id[13],
-              label     = tags$span(style = keyboards$label[13],
-                                    keyboards$name[13]),
-              value     = FALSE,
-              shape     = "curve",
-              animation = "pulse"),
-            prettyCheckbox(
-              inputId   = keyboards$id[14],
-              label     = tags$span(style = keyboards$label[14],
-                                    keyboards$name[14]),
-              value     = FALSE,
-              shape     = "curve",
-              animation = "pulse"),
-            prettyCheckbox(
-              inputId   = keyboards$id[15],
-              label     = tags$span(style = keyboards$label[15],
-                                    keyboards$name[15]),
-              value     = FALSE,
-              shape     = "curve",
-              animation = "pulse"),
-            prettyCheckbox(
-              inputId   = keyboards$id[16],
-              label     = tags$span(style = keyboards$label[16],
-                                    keyboards$name[16]),
-              value     = FALSE,
-              shape     = "curve",
-              animation = "pulse"),
-            
+            actionButton(inputId = "reset", label = "Reset"),
+            downloadButton("print", "Print"),
+            br(),
+            br(),
             tags$div(HTML('
-                <br>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <a href="https://github.com/jhelvy/splitKbCompare">
-                <i class="fa fa-github" style="color:white;"></i></a>
-                <br><br>')),
-
-            downloadButton("print", "Print")
+                <i class="fa fa-github" style="color:white;"></i></a>')),
         ),
-
         mainPanel(
-
             imageOutput("layout")
         )
-
     )
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
 
+    observeEvent(input$reset, {
+        updatePrettyCheckboxGroup(
+            session = session, 
+            inputId = "keyboards",
+            choices = keyboards$name, 
+            prettyOptions = list(animation = "pulse", shape = "curve")
+        )
+    }, ignoreInit = TRUE)
+  
     output$layout <- renderImage({
 
         # Create the color image overlay
-        ids <- getInputIDs(input, keyboards)
-        overlayColor <- makeImageOverlay(ids, keyboards, color = T)
+        ids <- getKeyboardIDs(input, keyboards)
+        colors <- palette[1:length(ids)]
+        overlayColor <- makeImageOverlay(ids, colors)
 
         # Define the path to the image
         tmpImagePathColor <- overlayColor %>%
@@ -196,8 +95,8 @@ server <- function(input, output) {
         file.copy("print.Rmd", tempReport, overwrite = TRUE)
 
         # Create the black and white image overlay
-        ids <- getInputIDs(input, keyboards)
-        overlayBw <- makeImageOverlay(ids, keyboards, color = F)
+        ids <- getKeyboardIDs(input, keyboards)
+        overlayBw <- makeImageOverlay(ids)
 
         # Define the path to the image
         tmpImagePathBw <- overlayBw %>%

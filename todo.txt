@@ -1,9 +1,5 @@
-TODO:
-- move grid to top?
-
-Other boards to add?
+Other boards to add:
 - chimera42
-- keyboardio
 - orthodox
 - interphase
 - class44: https://github.com/yfuku/claw44
