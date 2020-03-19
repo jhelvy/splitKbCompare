@@ -22,11 +22,12 @@ In order of number of keys:
 - [Gergoplex (36)](https://www.gboards.ca/)
 - [Georgi (30)](https://www.gboards.ca/)
 
-##Screenshot:
+## Screenshot:
 
 ![](images/screenshot.png)
 
 ## Detailed description:
+
 This app was built for the DIY [ergonomic keyboard community](https://www.reddit.com/r/ErgoMechKeyboards/).
 
 Many of us spend hours every day typing away at our computers, which can lead to multiple health issues such as Repetitive Strain Injury (RSI). Using a "split" keyboard offers an ergonomic solution, but finding which keyboard is right for you can be costly and difficult. Most split keyboards come as DIY kits, making it difficult (if not impossible) to compare different keyboard layouts prior to building them. This app offers a solution to this problem.
