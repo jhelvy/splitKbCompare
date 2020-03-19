@@ -45,7 +45,17 @@ ui <- fluidPage(
             tags$div(HTML('
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
                 <a href="https://github.com/jhelvy/splitKbCompare">
-                <i class="fa fa-github" style="color:white;"></i></a>')),
+                <i class="fa fa-github" style="color:white;"></i></a>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                <a href="https://creativecommons.org/licenses/by/4.0/">
+                <i class="fa fa-creative-commons" style="color:white;"></i></a>')),
+            br(), 
+            tags$div(HTML('
+                <p>
+                Built with
+                <a href="https://shiny.rstudio.com/">
+                <img alt="Shiny" src="https://www.rstudio.com/wp-content/uploads/2014/04/shiny.png" height="20">
+                </a></p>')),
         ),
         mainPanel(
             imageOutput("layout")
