@@ -23,6 +23,7 @@ In order of number of keys:
 - [Georgi (30)](https://www.gboards.ca/)
 
 ##Screenshot:
+
 ![](images/screenshot.png)
 
 ## Detailed description:
