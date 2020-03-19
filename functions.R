@@ -1,8 +1,8 @@
 getFilteredIDs <- function(input, keyboards) {
     # Filter based on max number of keys
-    ids <- which(keyboards$nKeysMax <= input$maxNumKeys)
+    idsNumKeys <- which(keyboards$nKeysMax <= input$maxNumKeys)
     # Filter based on number row
-    idsNumberRow <- ids
+    idsNumberRow <- idsNumKeys
     if (input$hasNumberRow == "Only with number row") { 
         idsNumberRow <- which(keyboards$hasNumRow == 1)
     }
@@ -10,11 +10,11 @@ getFilteredIDs <- function(input, keyboards) {
         idsNumberRow <- which(keyboards$hasNumRow == 0)
     }
     # Filter based on column stagger
-    idsColStagger <- ids
+    idsColStagger <- idsNumKeys
     if (input$colStagger != "All") { 
-        idsNumberRow <- which(keyboards$colStagger == input$colStagger)
+        idsColStagger <- which(keyboards$colStagger == input$colStagger)
     }
-    return(intersect(intersect(ids, idsNumberRow), idsColStagger))
+    return(intersect(intersect(idsNumKeys, idsNumberRow), idsColStagger))
 }
 
 getKeyboardIDs <- function(input, keyboards) {
