@@ -20,7 +20,5 @@ Supported keyboards (in order of number of keys):
 - [Gergoplex (36)](https://www.gboards.ca/)
 - [Georgi (30)](https://www.gboards.ca/)
 
-Colors are from [here](https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/)
-
 Screenshot:
 ![](images/screenshot.png)

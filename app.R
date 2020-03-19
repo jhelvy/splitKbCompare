@@ -1,8 +1,7 @@
 source('config.R')
 source('functions.R')
 
-ui <- dashboardPage(
-  dashboardHeader(
+header <- dashboardHeader(
     title      = "Split keyboard comparison", 
     titleWidth = 400,
     tags$li(class = "dropdown",
@@ -13,21 +12,26 @@ ui <- dashboardPage(
       <a href="https://creativecommons.org/licenses/by/4.0/">
       <i class="fa fa-creative-commons" style="color:white;"></i></a>'))
     )
-  ),
-  dashboardSidebar(
-    prettyCheckboxGroup(
-      inputId   = "features",
-      label     = "Features:",
-      choices   = c("Has number row"),
-      shape     = "curve",
-      animation = "pulse"),
-    sliderInput(
-      inputId = "maxNumKeys", 
-      label = "Max number of keys:", 
-      min   = min(keyboards$nKeysMin), 
-      max   = max(keyboards$nKeysMax), 
-      value = max(keyboards$nKeysMax),
-      step  = 1),
+  )
+
+sidebar <- dashboardSidebar(
+  sidebarMenu(
+    menuItem("Filters", icon = icon("filter"),
+       prettyCheckboxGroup(
+         inputId   = "features",
+         label     = "Features:",
+         choices   = c("Has number row"),
+         shape     = "curve",
+         animation = "pulse"),
+       sliderInput(
+         inputId = "maxNumKeys", 
+         label = "Max number of keys:", 
+         min   = min(keyboards$nKeysMin), 
+         max   = max(keyboards$nKeysMax), 
+         value = max(keyboards$nKeysMax),
+         step  = 1)
+    ),
+    hr(),
     prettyCheckboxGroup(
       inputId   = "keyboards",
       label     = "Select keyboards:",
@@ -41,15 +45,16 @@ ui <- dashboardPage(
       outputId = "print",
       label    = "Print"),
     br(),
-    br(),
     # Sidebar footer
     tags$div(HTML('
       <p class = "control-label">&nbsp;&nbsp; Built with
       <a href="https://shiny.rstudio.com/">
       <img alt="Shiny" src="https://www.rstudio.com/wp-content/uploads/2014/04/shiny.png" height="20">
       </a></p>'))
-  ),
-  dashboardBody(
+  )
+)
+  
+body <- dashboardBody(
     imageOutput("layout"),
     # Modify styling
     tags$head(tags$style(HTML('
@@ -70,19 +75,29 @@ ui <- dashboardPage(
     .skin-blue .main-sidebar {
       background-color: #1A1917;
     }
-    /* shiny image */
-    img {
-      vertical-align: middle;
-      margin: 6px 5px 6px -10px;
-    }
-    /* print button */
+    /* filter menu title */
     .skin-blue .sidebar a {
+      color: #FFF;
+    }    
+    /* print button */
+    .btn-default {
       color: #444;
       margin: 6px 5px 6px 15px;
     }
     /* toggle button when hovered  */
     .skin-blue .main-header .navbar .sidebar-toggle:hover{
       background-color: #1A1917;
+    }
+    /* filter submenu title */
+    .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
+        color: #fff;
+        background: #000;
+        border-left-color: #000;
+    }
+    /* filter submenu expanded */
+    .skin-blue .sidebar-menu>li>.treeview-menu {
+        margin: 0 1px;
+        background: #1A1917;
     }
     /* body */
     .content-wrapper, .right-side {
@@ -92,8 +107,8 @@ ui <- dashboardPage(
     .skin-blue .wrapper{
       background-color: #000;
     }')))
-  )
 )
+
 
 server <- function(input, output, session) {
   
@@ -187,4 +202,5 @@ server <- function(input, output, session) {
   )
 }
 
-shinyApp(ui = ui, server = server)
+shinyApp(ui = dashboardPage(header, sidebar, body),
+         server = server)
