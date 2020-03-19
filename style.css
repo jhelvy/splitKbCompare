@@ -1,0 +1,55 @@
+@import url(https://fonts.googleapis.com/css?family=Exo);
+/* fontawesome icons in header */
+.fa.fa-github {
+  margin: 18px 7px 0px 0px;
+}
+.fa.fa-creative-commons {
+  margin: 18px 7px 0px 0px;
+}
+/* header title */
+.main-header .logo {
+  font-family: Exo, sans-serif;
+  font-size: 30px;
+}
+/* header background */
+.skin-blue .main-header .logo {
+    background-color: #4682b4;
+}
+.skin-blue .main-header .navbar {
+    background-color: #4682b4;
+}
+/* sidebar */
+.skin-blue .main-sidebar {
+  background-color: #1A1917;
+}
+/* filter menu title */
+.skin-blue .sidebar a {
+  color: #FFF;
+}
+.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
+    color: #FFF;
+    background: #000;
+    border-left-color: #000;
+}
+/* filter submenu expanded */
+.skin-blue .sidebar-menu>li>.treeview-menu {
+    margin: 0 1px;
+    background: #1A1917;
+}
+/* print button */
+#print {
+  color: #444;
+  margin: 6px 5px 6px 15px;
+}
+/* toggle menu button when hovered  */
+.skin-blue .main-header .navbar .sidebar-toggle:hover{
+  background-color: #1A1917;
+}
+/* body */
+.content-wrapper, .right-side {
+  background-color: #000;
+}
+/* footer */
+.skin-blue .wrapper {
+  background-color: #000;
+}

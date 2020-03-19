@@ -6,23 +6,23 @@ library(magick)
 
 # Define keyboards
 keyboards <- tibble::tribble(
-    ~id,          ~nKeysMin, ~nKeysMax, ~hasNumRow,
-    'ergodox',    76,        80,        1,
-    'ergodash2',  68,        72,        1,
-    'ergodash1',  66,        68,        1,
-    'redox',      70,        70,        1,
-    'keyboardio', 64,        64,        1,
-    'nyquist',    60,        60,        1,
-    'lily58',     58,        58,        1,
-    'iris',       54,        56,        1,
-    'kyria',      46,        50,        0,
-    'gergo',      46,        50,        0,
-    'corne',      42,        42,        0,
-    'atreus',     42,        42,        0,
-    'elephant42', 42,        42,        0,
-    'minidox',    36,        36,        0,
-    'gergoplex',  36,        36,        0,
-    'georgi',     30,        30,        0
+    ~id,          ~nKeysMin, ~nKeysMax, ~hasNumRow, ~colStagger,
+    'ergodox',    76,        80,        1,          "Moderate", 
+    'ergodash2',  68,        72,        1,          "Moderate", 
+    'ergodash1',  66,        68,        1,          "Moderate", 
+    'redox',      70,        70,        1,          "Moderate", 
+    'keyboardio', 64,        64,        1,          "Strong", 
+    'nyquist',    60,        60,        1,          "None", 
+    'lily58',     58,        58,        1,          "Moderate", 
+    'iris',       54,        56,        1,          "Moderate", 
+    'kyria',      46,        50,        0,          "Strong", 
+    'gergo',      46,        50,        0,          "Moderate", 
+    'corne',      42,        42,        0,          "Moderate", 
+    'atreus',     42,        42,        0,          "Strong", 
+    'elephant42', 42,        42,        0,          "Strong", 
+    'minidox',    36,        36,        0,          "Moderate", 
+    'gergoplex',  36,        36,        0,          "Moderate", 
+    'georgi',     30,        30,        0,          "Moderate"
     ) %>% 
     dplyr::mutate(
         name = tools::toTitleCase(id),

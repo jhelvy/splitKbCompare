@@ -1,3 +1,28 @@
+getFilteredIDs <- function(input, keyboards) {
+    # Filter based on max number of keys
+    ids <- which(keyboards$nKeysMax <= input$maxNumKeys)
+    # Filter based on number row
+    idsNumberRow <- ids
+    if (input$hasNumberRow == "Only with number row") { 
+        idsNumberRow <- which(keyboards$hasNumRow == 1)
+    }
+    if (input$hasNumberRow == "Only without number row") {
+        idsNumberRow <- which(keyboards$hasNumRow == 0)
+    }
+    # Filter based on column stagger
+    idsColStagger <- ids
+    if (input$colStagger != "All") { 
+        idsNumberRow <- which(keyboards$colStagger == input$colStagger)
+    }
+    return(intersect(intersect(ids, idsNumberRow), idsColStagger))
+}
+
+getKeyboardIDs <- function(input, keyboards) {
+    names <- input$keyboards
+    ids <- keyboards[which(keyboards$name %in% names),]$id
+    return(ids)
+}
+
 getImage <- function(id) {
     imagePath <- file.path('images', paste0(id, ".png"))
     return(image_read(imagePath))
@@ -26,10 +51,4 @@ makeImageOverlay <- function(ids, colors = NULL) {
     return(overlay %>%
            image_join() %>%
            image_mosaic())
-}
-
-getKeyboardIDs <- function(input, keyboards) {
-    names <- input$keyboards
-    ids <- keyboards[which(keyboards$name %in% names),]$id
-    return(ids)
 }

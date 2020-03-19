@@ -5,45 +5,56 @@ header <- dashboardHeader(
     title      = "Split keyboard comparison", 
     titleWidth = 400,
     tags$li(class = "dropdown",
+    # Add font awesome icons in top-right
     tags$div(HTML('
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <a href="https://github.com/jhelvy/splitKbCompare">
       <i class="fa fa-github" style="color:white;"></i></a>
       <a href="https://creativecommons.org/licenses/by/4.0/">
       <i class="fa fa-creative-commons" style="color:white;"></i></a>'))
-    )
   )
+)
 
 sidebar <- dashboardSidebar(
+  # Filter options
   sidebarMenu(
     menuItem("Filters", icon = icon("filter"),
-       prettyCheckboxGroup(
-         inputId   = "features",
-         label     = "Features:",
-         choices   = c("Has number row"),
-         shape     = "curve",
-         animation = "pulse"),
-       sliderInput(
-         inputId = "maxNumKeys", 
-         label = "Max number of keys:", 
-         min   = min(keyboards$nKeysMin), 
-         max   = max(keyboards$nKeysMax), 
-         value = max(keyboards$nKeysMax),
-         step  = 1)
+      prettyRadioButtons(
+        inputId   = "hasNumberRow",
+        label     = "Number row:",
+        choices   = c("All", "Only with number row", "Only without number row"),
+        selected  = "All",
+        animation = "pulse"),
+      prettyRadioButtons(
+        inputId   = "colStagger",
+        label     = "Column stagger:",
+        choices   = c("All", "Strong", "Moderate", "None"),
+        selected  = "All",
+        animation = "pulse"),
+      sliderInput(
+        inputId = "maxNumKeys", 
+        label = "Max number of keys:", 
+        min   = min(keyboards$nKeysMin), 
+        max   = max(keyboards$nKeysMax), 
+        value = max(keyboards$nKeysMax),
+        step  = 1)
     ),
     hr(),
+    # Main keyboard selection options
     prettyCheckboxGroup(
       inputId   = "keyboards",
       label     = "Select keyboards:",
       choices   = keyboards$name,
       shape     = "curve",
+      outline   = TRUE,
       animation = "pulse"),
     actionButton(
       inputId = "reset", 
       label   = "Reset"),
     downloadButton(
       outputId = "print",
-      label    = "Print"),
+      label    = "Print to scale"),
+    br(),
     br(),
     # Sidebar footer
     tags$div(HTML('
@@ -55,94 +66,40 @@ sidebar <- dashboardSidebar(
 )
   
 body <- dashboardBody(
-    imageOutput("layout"),
-    # Modify styling
-    tags$head(tags$style(HTML('
-    @import url(https://fonts.googleapis.com/css?family=Exo);
-    /* fontawesome icons in header */
-    .fa.fa-github {
-      margin: 18px 7px 0px 0px;
-    }
-    .fa.fa-creative-commons {
-      margin: 18px 7px 0px 0px;
-    }
-    /* title */
-    .main-header .logo {
-      font-family: Exo, sans-serif;
-      font-size: 30px;
-    }
-    /* main sidebar */
-    .skin-blue .main-sidebar {
-      background-color: #1A1917;
-    }
-    /* filter menu title */
-    .skin-blue .sidebar a {
-      color: #FFF;
-    }    
-    /* print button */
-    .btn-default {
-      color: #444;
-      margin: 6px 5px 6px 15px;
-    }
-    /* toggle button when hovered  */
-    .skin-blue .main-header .navbar .sidebar-toggle:hover{
-      background-color: #1A1917;
-    }
-    /* filter submenu title */
-    .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
-        color: #fff;
-        background: #000;
-        border-left-color: #000;
-    }
-    /* filter submenu expanded */
-    .skin-blue .sidebar-menu>li>.treeview-menu {
-        margin: 0 1px;
-        background: #1A1917;
-    }
-    /* body */
-    .content-wrapper, .right-side {
-      background-color: #000;
-    }
-    /* footer */    
-    .skin-blue .wrapper{
-      background-color: #000;
-    }')))
+  # Add custom styling 
+  tags$head(tags$style(HTML(paste(readLines("style.css"), collapse=" ")))),
+  imageOutput("layout")
 )
 
-
 server <- function(input, output, session) {
-  
+
   # Control reset button
   observeEvent(input$reset, {
     updatePrettyCheckboxGroup(
       session = session, 
       inputId = "keyboards",
-      choices = keyboards$name, 
-      prettyOptions = list(animation = "pulse", shape = "curve")
+      choices = keyboards$name
     )
-    updatePrettyCheckboxGroup(
-      session = session, 
-      inputId = "features",
-      choices   = c("Has number row"),
-      prettyOptions = list(animation = "pulse", shape = "curve")
+    updatePrettyRadioButtons(
+      session  = session, 
+      inputId  = "hasNumberRow",
+      selected = "All"
+    )
+    updatePrettyRadioButtons(
+      session  = session, 
+      inputId  = "colStagger",
+      selected = "All"
     )
     updateSliderInput(
       session = session, 
       inputId = "maxNumKeys",
-      min     = min(keyboards$nKeysMin), 
-      max     = max(keyboards$nKeysMax), 
-      value   = max(keyboards$nKeysMax),
-      step    = 1
+      value   = max(keyboards$nKeysMax)
     )
   }, ignoreInit = TRUE)
 
-  # Filter keyboard options based on feature options and slider value
+  # Filter keyboard options based on filter options
   observe({
-    ids <- which(keyboards$nKeysMax <= input$maxNumKeys)
-    if ('Has number row' %in% input$features) { 
-      featureIds <- which(keyboards$hasNumRow == 1)
-      ids <- intersect(ids, featureIds)
-    }
+    ids <- getFilteredIDs(input, keyboards)
     updatePrettyCheckboxGroup(
       session = session, 
       inputId = "keyboards",
