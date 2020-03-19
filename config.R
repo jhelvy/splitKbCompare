@@ -1,28 +1,34 @@
-library(tibble)
+library(dplyr)
 library(shiny)
+library(shinydashboard)
 library(shinyWidgets)
 library(magick)
 
 # Define keyboards
-keyboards <- tribble(
-    ~id,          ~name,
-    'ergodox',    'Ergodox (76 - 80)',
-    'ergodash2',  'Ergodash 2 (68 - 72)',
-    'ergodash1',  'Ergodash 1 (66 - 68)',
-    'redox',      'Redox (70)',
-    'keyboardio', 'Keyboardio (64)',
-    'nyquist',    'Nyquist (60)',
-    'lily58',     'Lily58 (58)',
-    'iris',       'Iris (54 - 56)',
-    'kyria',      'Kyria (46 - 50)',
-    'gergo',      'Gergo (46 - 50)',
-    'corne',      'Corne (42)',
-    'atreus',     'Atreus (42)',
-    'elephant42', 'Elephant42 (42)',
-    'minidox',    'Minidox (36)',
-    'gergoplex',  'Gergoplex (36)',
-    'georgi',     'Georgi (30)'
-)
+keyboards <- tibble::tribble(
+    ~id,          ~nKeysMin, ~nKeysMax,
+    'ergodox',    76,        80,
+    'ergodash2',  68,        72,
+    'ergodash1',  66,        68,
+    'redox',      70,        70,
+    'keyboardio', 64,        64,
+    'nyquist',    60,        60,
+    'lily58',     58,        58,
+    'iris',       54,        56,
+    'kyria',      46,        50,
+    'gergo',      46,        50,
+    'corne',      42,        42,
+    'atreus',     42,        42,
+    'elephant42', 42,        42,
+    'minidox',    36,        36,
+    'gergoplex',  36,        36,
+    'georgi',     30,        30) %>% 
+    dplyr::mutate(
+        name = tools::toTitleCase(id),
+        name = ifelse(
+        nKeysMin == nKeysMax,
+        paste0(name, ' (', nKeysMin, ')'), 
+        paste0(name, ' (', nKeysMin, ' - ', nKeysMax, ')')))
 
 # Define the color palette
 
