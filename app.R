@@ -1,54 +1,114 @@
 source('config.R')
 source('functions.R')
 
-ui <- dashboardPage(skin = 'black',
-  dashboardHeader(title = "Split keyboard comparison"),
-  dashboardSidebar(
-    sliderInput(inputId = "maxNumKeys", label = "Max number of keys:", 
-                min   = min(keyboards$nKeysMin), 
-                max   = max(keyboards$nKeysMax), 
-                value = max(keyboards$nKeysMax),
-                step  = 1),
-    prettyCheckboxGroup(
-      inputId   = 'keyboards',
-      label     = 'Select keyboards',
-      choices   = keyboards$name,
-      shape     = "curve",
-      animation = "pulse"),
-    actionButton(inputId = "reset", label = "Reset"),
-    downloadButton("print", "Print"),
-    br(),
-    br(),
+ui <- dashboardPage(
+  dashboardHeader(
+    title      = "Split keyboard comparison", 
+    titleWidth = 400,
+    tags$li(class = "dropdown",
     tags$div(HTML('
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <a href="https://github.com/jhelvy/splitKbCompare">
       <i class="fa fa-github" style="color:white;"></i></a>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <a href="https://creativecommons.org/licenses/by/4.0/">
-      <i class="fa fa-creative-commons" style="color:white;"></i></a>')),
-    br(), 
+      <i class="fa fa-creative-commons" style="color:white;"></i></a>'))
+    )
+  ),
+  dashboardSidebar(
+    prettyCheckboxGroup(
+      inputId   = "features",
+      label     = "Features:",
+      choices   = c("Has number row"),
+      shape     = "curve",
+      animation = "pulse"),
+    sliderInput(
+      inputId = "maxNumKeys", 
+      label = "Max number of keys:", 
+      min   = min(keyboards$nKeysMin), 
+      max   = max(keyboards$nKeysMax), 
+      value = max(keyboards$nKeysMax),
+      step  = 1),
+    prettyCheckboxGroup(
+      inputId   = "keyboards",
+      label     = "Select keyboards:",
+      choices   = keyboards$name,
+      shape     = "curve",
+      animation = "pulse"),
+    actionButton(
+      inputId = "reset", 
+      label   = "Reset"),
+    downloadButton(
+      outputId = "print",
+      label    = "Print"),
+    br(),
+    br(),
+    # Sidebar footer
     tags$div(HTML('
-      <p>
-      Built with
+      <p class = "control-label">&nbsp;&nbsp; Built with
       <a href="https://shiny.rstudio.com/">
       <img alt="Shiny" src="https://www.rstudio.com/wp-content/uploads/2014/04/shiny.png" height="20">
       </a></p>'))
   ),
   dashboardBody(
-    tags$head(
-      tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
-    ),
-    imageOutput("layout")
+    imageOutput("layout"),
+    # Modify styling
+    tags$head(tags$style(HTML('
+    @import url(https://fonts.googleapis.com/css?family=Exo);
+    /* fontawesome icons in header */
+    .fa.fa-github {
+      margin: 18px 7px 0px 0px;
+    }
+    .fa.fa-creative-commons {
+      margin: 18px 7px 0px 0px;
+    }
+    /* title */
+    .main-header .logo {
+      font-family: Exo, sans-serif;
+      font-size: 30px;
+    }
+    /* main sidebar */
+    .skin-blue .main-sidebar {
+      background-color: #1A1917;
+    }
+    /* shiny image */
+    img {
+      vertical-align: middle;
+      margin: 6px 5px 6px -10px;
+    }
+    /* print button */
+    .skin-blue .sidebar a {
+      color: #444;
+      margin: 6px 5px 6px 15px;
+    }
+    /* toggle button when hovered  */
+    .skin-blue .main-header .navbar .sidebar-toggle:hover{
+      background-color: #1A1917;
+    }
+    /* body */
+    .content-wrapper, .right-side {
+      background-color: #000;
+    }
+    /* footer */    
+    .skin-blue .wrapper{
+      background-color: #000;
+    }')))
   )
 )
 
 server <- function(input, output, session) {
   
+  # Control reset button
   observeEvent(input$reset, {
     updatePrettyCheckboxGroup(
       session = session, 
       inputId = "keyboards",
       choices = keyboards$name, 
+      prettyOptions = list(animation = "pulse", shape = "curve")
+    )
+    updatePrettyCheckboxGroup(
+      session = session, 
+      inputId = "features",
+      choices   = c("Has number row"),
       prettyOptions = list(animation = "pulse", shape = "curve")
     )
     updateSliderInput(
@@ -60,15 +120,21 @@ server <- function(input, output, session) {
       step    = 1
     )
   }, ignoreInit = TRUE)
-  
-  observeEvent(input$maxNumKeys, {
+
+  # Filter keyboard options based on feature options and slider value
+  observe({
+    ids <- which(keyboards$nKeysMax <= input$maxNumKeys)
+    if ('Has number row' %in% input$features) { 
+      featureIds <- which(keyboards$hasNumRow == 1)
+      ids <- intersect(ids, featureIds)
+    }
     updatePrettyCheckboxGroup(
       session = session, 
       inputId = "keyboards",
-      choices = keyboards$name[which(keyboards$nKeysMax <= input$maxNumKeys)], 
+      choices = keyboards$name[ids],
       prettyOptions = list(animation = "pulse", shape = "curve")
     )
-  }, ignoreInit = TRUE)
+  })
   
   output$layout <- renderImage({
     

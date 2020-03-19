@@ -6,23 +6,24 @@ library(magick)
 
 # Define keyboards
 keyboards <- tibble::tribble(
-    ~id,          ~nKeysMin, ~nKeysMax,
-    'ergodox',    76,        80,
-    'ergodash2',  68,        72,
-    'ergodash1',  66,        68,
-    'redox',      70,        70,
-    'keyboardio', 64,        64,
-    'nyquist',    60,        60,
-    'lily58',     58,        58,
-    'iris',       54,        56,
-    'kyria',      46,        50,
-    'gergo',      46,        50,
-    'corne',      42,        42,
-    'atreus',     42,        42,
-    'elephant42', 42,        42,
-    'minidox',    36,        36,
-    'gergoplex',  36,        36,
-    'georgi',     30,        30) %>% 
+    ~id,          ~nKeysMin, ~nKeysMax, ~hasNumRow,
+    'ergodox',    76,        80,        1,
+    'ergodash2',  68,        72,        1,
+    'ergodash1',  66,        68,        1,
+    'redox',      70,        70,        1,
+    'keyboardio', 64,        64,        1,
+    'nyquist',    60,        60,        1,
+    'lily58',     58,        58,        1,
+    'iris',       54,        56,        1,
+    'kyria',      46,        50,        0,
+    'gergo',      46,        50,        0,
+    'corne',      42,        42,        0,
+    'atreus',     42,        42,        0,
+    'elephant42', 42,        42,        0,
+    'minidox',    36,        36,        0,
+    'gergoplex',  36,        36,        0,
+    'georgi',     30,        30,        0
+    ) %>% 
     dplyr::mutate(
         name = tools::toTitleCase(id),
         name = ifelse(
