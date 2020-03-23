@@ -71,7 +71,7 @@ body <- dashboardBody(
 )
 
 server <- function(input, output, session) {
-
+  
   # Control reset button
   observeEvent(input$reset, {
     updatePrettyCheckboxGroup(
@@ -120,7 +120,7 @@ server <- function(input, output, session) {
 
     # Render the file
     return(list(src = tmpImagePathColor,
-                width = 600,
+                width = 700,
                 alt = "Keyboard layout",
                 contentType = "image/png"))
 

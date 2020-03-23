@@ -5,3 +5,10 @@ Other boards to add:
 - class44: https://github.com/yfuku/claw44
 
 https://github.com/diimdeep/awesome-split-keyboards
+
+
+UI ideas:
+- Switch to a navbarPage layout instead of dashboard, add "about page":
+https://community.rstudio.com/t/how-do-i-add-tabs-to-the-dashboardheader/39674/2
+- Add a button to hide the sidebar:
+https://stackoverflow.com/questions/42159804/how-to-collapse-sidebarpanel-in-shiny-app
