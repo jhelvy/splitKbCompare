@@ -1,77 +1,35 @@
 @import url(https://fonts.googleapis.com/css?family=Exo);
-/* fontawesome icons in header */
+.navbar {
+  font-family: Exo, sans-serif;
+  font-size: 18px;
+  color: #888;
+}
+.navbar:hover {
+  color: #FFF;
+}
+.navbar-brand {
+  font-size: 25px;
+}
+h4 {
+  font-family: Exo, sans-serif;
+  font-size: 16px;
+}
+a {
+  color: #888;
+}
+a:hover, a:focus {
+  color: #FFF;
+  text-decoration: underline;
+}
 .fa.fa-github {
-  color: #777;
-  margin: 12px 5px 0px 0px;
+  color: #888;
 }
 .fa.fa-github:hover {
   color: #FFF;
 }
 .fa.fa-creative-commons {
-  color: #777;
-  margin: 0px 10px 0px 0px;
+  color: #888;
 }
 .fa.fa-creative-commons:hover {
   color: #FFF;
-}
-/* header title */
-.main-header .logo {
-  font-family: Exo, sans-serif;
-  font-size: 30px;
-}
-.skin-blue .main-header .logo:hover {
-  background-color: #1A1917;
-  color: #FFF;
-}
-/* header background */
-.skin-blue .main-header .logo {
-  background-color: #1A1917;
-  color: #bdbdbd;
-}
-.skin-blue .main-header .navbar {
-  background-color: #1A1917;
-}
-.skin-blue .main-header .navbar .sidebar-toggle {
-  color: #bdbdbd;
-}
-/* sidebar */
-.sidebar {
-  color: #bdbdbd;
-}
-/*.pretty input:hover {
-  color: #FFF;
-}*/
-.skin-blue .main-sidebar {
-  background-color: #1A1917;
-}
-/* filter menu title */
-.skin-blue .sidebar a {
-  color: #bdbdbd;
-}
-.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
-    color: #FFF;
-    border-left-color: #FFF;
-    background-color: #1A1917;
-}
-/* filter submenu expanded */
-.skin-blue .sidebar-menu>li>.treeview-menu {
-    margin: 0 1px;
-    background: #1A1917;
-}
-/* print button */
-#print {
-  color: #444;
-  margin: 6px 5px 6px 15px;
-}
-/* toggle menu button when hovered  */
-.skin-blue .main-header .navbar .sidebar-toggle:hover {
-  background-color: #1A1917;
-}
-/* body */
-.content-wrapper, .right-side {
-  background-color: #1A1917;
-}
-/* footer */
-.skin-blue .wrapper {
-  background-color: #1A1917;
 }

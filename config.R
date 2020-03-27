@@ -1,6 +1,6 @@
 library(dplyr)
 library(shiny)
-library(shinydashboard)
+library(shinythemes)
 library(shinyWidgets)
 library(magick)
 
