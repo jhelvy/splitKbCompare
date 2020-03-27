@@ -21,6 +21,14 @@ a:hover, a:focus {
   color: #FFF;
   text-decoration: underline;
 }
+/* about page */
+.col-sm-8 {
+  font-size: 16px;
+}
+.col-sm-8 a {
+  color: #FFF;
+}
+/* Font awesome logo colors */
 .fa.fa-github {
   color: #888;
 }
@@ -32,4 +40,11 @@ a:hover, a:focus {
 }
 .fa.fa-creative-commons:hover {
   color: #FFF;
+}
+/* Drop down background color */
+.sw-dropdown-content {
+  background-color: #111;
+}
+.sw-dropdown-in {
+  background-color: #111;
 }

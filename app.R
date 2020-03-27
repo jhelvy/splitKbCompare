@@ -1,73 +1,77 @@
 source('config.R')
 source('functions.R')
 
-header <- dashboardHeader(
-    title      = "Split keyboard comparison",
-    titleWidth = 400,
-    tags$li(class = "dropdown",
-    # Add font awesome icons in top-right
-    tags$div(HTML('
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <a href="https://github.com/jhelvy/splitKbCompare">
-      <i class="fa fa-github fa-2x"></i></a>
-      <a href="https://creativecommons.org/licenses/by/4.0/">
-      <i class="fa fa-creative-commons fa-2x"></i></a>'))
+ui = navbarPage("Split keyboard comparison", 
+  theme = shinytheme("cyborg"),
+  tabPanel("Compare keyboards", icon = icon(name = "keyboard", lib = "font-awesome"),
+    sidebarLayout(
+      sidebarPanel(
+        width = 3,
+        # Filter drop down menu
+        div(style="display: inline-block;vertical-align:top;",
+        dropdown(
+          label = "Filters",
+          prettyRadioButtons(
+            inputId   = "hasNumberRow",
+              label     = "Number row:",
+              choices   = c("All", "Only with number row", "Only without number row"),
+              selected  = "All",
+              animation = "pulse"),
+            prettyRadioButtons(
+              inputId   = "colStagger",
+              label     = "Column stagger:",
+              choices   = c("All", "Strong", "Moderate", "None"),
+              selected  = "All",
+              animation = "pulse"),
+            sliderInput(
+              inputId = "maxNumKeys",
+              label = "Max number of keys:",
+              min   = min(keyboards$nKeysMin),
+              max   = max(keyboards$nKeysMax),
+              value = max(keyboards$nKeysMax),
+              step  = 1)
+        )),
+        div(style="display: inline-block;vertical-align:top; width: 7px;",HTML("<br>")),
+        # Print button
+        div(style="display: inline-block;vertical-align:top;",
+        downloadButton(
+          outputId = "print",
+          label    = "Print to scale")),
+        # Main keyboard selection options
+        prettyCheckboxGroup(
+          inputId   = "keyboards",
+          label     = HTML('<h4>Select keyboards:</h4>'),
+          choices   = keyboards$name,
+          shape     = "curve",
+          outline   = TRUE,
+          animation = "pulse"),
+        actionButton(
+          inputId = "reset",
+          label   = "Reset"),
+        br(),br(),
+        # Sidebar footer
+        tags$div(HTML('
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <a href="https://github.com/jhelvy/splitKbCompare">
+          <i class="fa fa-github fa-fw"></i></a>
+          <a href="https://creativecommons.org/licenses/by/4.0/">
+          <i class="fa fa-creative-commons fa-fw"></i></a>
+          <a href="https://shiny.rstudio.com/">Built with
+          <img alt="Shiny" src="https://www.rstudio.com/wp-content/uploads/2014/04/shiny.png" height="20">
+          </a>'))
+      ),
+      mainPanel(
+        # Add custom styling
+        tags$head(tags$style(HTML(paste(readLines("style.css"), collapse=" ")))),
+        imageOutput("layout")
+      )
+    )
+  ),
+  tabPanel("About", icon = icon(name = "question-circle", lib = "font-awesome"), 
+    mainPanel(
+      includeMarkdown("about.md")
+    )
   )
-)
-
-sidebar <- dashboardSidebar(
-  # Filter options
-  sidebarMenu(
-    menuItem("Filters", icon = icon("filter"),
-      prettyRadioButtons(
-        inputId   = "hasNumberRow",
-        label     = "Number row:",
-        choices   = c("All", "Only with number row", "Only without number row"),
-        selected  = "All",
-        animation = "pulse"),
-      prettyRadioButtons(
-        inputId   = "colStagger",
-        label     = "Column stagger:",
-        choices   = c("All", "Strong", "Moderate", "None"),
-        selected  = "All",
-        animation = "pulse"),
-      sliderInput(
-        inputId = "maxNumKeys",
-        label = "Max number of keys:",
-        min   = min(keyboards$nKeysMin),
-        max   = max(keyboards$nKeysMax),
-        value = max(keyboards$nKeysMax),
-        step  = 1)
-    ),
-    hr(),
-    # Main keyboard selection options
-    prettyCheckboxGroup(
-      inputId   = "keyboards",
-      label     = "Select keyboards:",
-      choices   = keyboards$name,
-      shape     = "curve",
-      outline   = TRUE,
-      animation = "pulse"),
-    actionButton(
-      inputId = "reset",
-      label   = "Reset"),
-    downloadButton(
-      outputId = "print",
-      label    = "Print to scale"),
-    br(),
-    br(),
-    # Sidebar footer
-    tags$div(HTML('
-      <a href="https://shiny.rstudio.com/">&nbsp;&nbsp;&nbsp;&nbsp;Built with
-      <img alt="Shiny" src="https://www.rstudio.com/wp-content/uploads/2014/04/shiny.png" height="20">
-      </a>'))
-  )
-)
-
-body <- dashboardBody(
-  # Add custom styling
-  tags$head(tags$style(HTML(paste(readLines("style.css"), collapse=" ")))),
-  imageOutput("layout")
 )
 
 server <- function(input, output, session) {
@@ -158,5 +162,4 @@ server <- function(input, output, session) {
   )
 }
 
-shinyApp(ui = dashboardPage(header, sidebar, body),
-         server = server)
+shinyApp(ui = ui, server = server)
