@@ -1,4 +1,4 @@
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) <a href="https://github.com/jhelvy/splitKbCompare">
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) <a href="https://github.com/jhelvy/splitKbCompare" target="_blank">
 <i class="fa fa-github fa-lg"></i></a>
 
 This app is an interactive tool for comparing layouts of different split mechanical keyboards, built for the DIY [ergonomic keyboard community](https://www.reddit.com/r/ErgoMechKeyboards/).
