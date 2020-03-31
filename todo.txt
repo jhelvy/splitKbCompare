@@ -3,6 +3,7 @@ Other boards to add:
 - orthodox
 - interphase
 - class44: https://github.com/yfuku/claw44
+- Dygma Raise: https://www.dygma.com/
 
 https://github.com/diimdeep/awesome-split-keyboards
 

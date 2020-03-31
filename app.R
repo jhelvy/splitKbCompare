@@ -1,7 +1,7 @@
 source('config.R')
 source('functions.R')
 
-ui = navbarPage("Split keyboard comparison", 
+ui = navbarPage(title = "",
   theme = shinytheme("cyborg"),
   tabPanel("Compare keyboards", icon = icon(name = "keyboard", lib = "font-awesome"),
     sidebarLayout(
@@ -67,7 +67,7 @@ ui = navbarPage("Split keyboard comparison",
       )
     )
   ),
-  tabPanel("About", icon = icon(name = "question-circle", lib = "font-awesome"), 
+  tabPanel("About", icon = icon(name = "question-circle", lib = "font-awesome"),
     mainPanel(
       includeMarkdown("about.md")
     )
@@ -75,7 +75,7 @@ ui = navbarPage("Split keyboard comparison",
 )
 
 server <- function(input, output, session) {
-  
+
   # Control reset button
   observeEvent(input$reset, {
     updatePrettyCheckboxGroup(
