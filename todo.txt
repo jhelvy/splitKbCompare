@@ -1,11 +1,12 @@
+Other features to add:
+- Filter for board availability (pre-assembled, DIY only)
+
 Other boards to add:
+- Dygma Raise: https://www.dygma.com/
+- class44: https://github.com/yfuku/claw44
 - chimera42
 - orthodox
 - interphase
-- class44: https://github.com/yfuku/claw44
-- Dygma Raise: https://www.dygma.com/
 
+Source for lots of other boards:
 https://github.com/diimdeep/awesome-split-keyboards
-
-- Add a button to hide the sidebar?
-https://stackoverflow.com/questions/42159804/how-to-collapse-sidebarpanel-in-shiny-app
