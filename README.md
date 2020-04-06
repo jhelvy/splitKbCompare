@@ -5,7 +5,19 @@
 
 ### Overview
 
-This app is an interactive tool for comparing layouts of different split mechanical keyboards built for the community of [ergonomic keyboard](https://www.reddit.com/r/ErgoMechKeyboards/) users. Split keyboards offer an ergonomic solution to many issues that make regular keyboards painful or uncomfortable to use, but finding which keyboard is right for you can be costly and difficult. Most split keyboards come as DIY kits, making it difficult (if not impossible) to compare different keyboard layouts prior to building them. This app offers one solution to this problem.
+This app is an interactive [tool](https://jhelvy.shinyapps.io/splitkbcompare/) for comparing layouts of different split mechanical keyboards built for the community of [ergonomic keyboard](https://www.reddit.com/r/ErgoMechKeyboards/) users. Split keyboards offer an ergonomic solution to many issues that make regular keyboards painful or uncomfortable to use, but finding which keyboard is right for you can be costly and difficult. Most split keyboards come as DIY kits, making it difficult (if not impossible) to compare different keyboard layouts prior to building them. This app offers one solution to this problem.
+
+### Run locally
+
+To run this app locally on your computer, following these steps:
+
+1. Install [R](https://cloud.r-project.org/)
+2. Run this code in R to install the [shiny library](https://shiny.rstudio.com/): `install.packages("shiny")`
+3. Run this code in R to launch the app:
+```
+library(shiny)
+runGitHub('jhelvy/splitKbCompare')
+```
 
 ### Features
 
