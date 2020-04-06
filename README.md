@@ -19,8 +19,8 @@ This app is an interactive [tool](https://jhelvy.shinyapps.io/splitkbcompare/) f
 keyboard | # of keys | links
 ---------|-----------|---------------
 ErgoDox  | 76 - 80   | [source](https://github.com/Ergodox-io/ErgoDox), [store](https://ergodox-ez.com/)
-ErgoDash | 66 - 72   | [source](https://github.com/omkbd/ErgoDash)
-Redox    | 70        | [source](https://github.com/mattdibi/redox-keyboard)
+ErgoDash | 66 - 72   | [source](https://github.com/omkbd/ErgoDash), [store](https://falba.tech/)
+Redox    | 70        | [source](https://github.com/mattdibi/redox-keyboard), [store](https://falba.tech/)
 Keyboardio Model 01 | 64      | [source](https://github.com/keyboardio), [store](https://shop.keyboard.io/products/model-01-keyboard)
 Nyquist  | 60        | [source](https://github.com/keebio/nyquist-case), [store](https://keeb.io/)
 Lily58   | 58        | [source](https://github.com/kata0510/Lily58)
@@ -30,7 +30,7 @@ Gergo    | 46 - 50   | [store](https://www.gboards.ca/)
 Corne    | 42        | [source](https://github.com/foostan/crkbd)
 Atreus   | 42        | [source](https://github.com/technomancy/atreus)
 Elephant42 | 42      | [source](https://github.com/illness072/elephant42)
-Minidox  | 36        | [source](https://github.com/dotdash32/Cases/tree/master/Minidox)
+Minidox  | 36        | [source](https://github.com/dotdash32/Cases/tree/master/Minidox), [store](https://falba.tech/)
 Gergoplex | 36       | [store](https://www.gboards.ca/)
 Georgi   | 30        | [store](https://www.gboards.ca/)
 

@@ -23,6 +23,12 @@ ui <- navbarPage(title = "",
                         choices   = c("All", "Strong", "Moderate", "None"),
                         selected  = "All",
                         animation = "pulse"),
+                    prettyRadioButtons(
+                        inputId   = "availability",
+                        label     = "Availability:",
+                        choices   = c("All", "DIY", "Pre-built"),
+                        selected  = "All",
+                        animation = "pulse"),
                     sliderInput(
                         inputId = "maxNumKeys",
                         label = "Max number of keys:",
@@ -69,7 +75,7 @@ ui <- navbarPage(title = "",
 )
 
 server <- function(input, output, session) {
-    
+
     # Control reset button
     observeEvent(input$reset, {
         updatePrettyCheckboxGroup(
@@ -87,13 +93,18 @@ server <- function(input, output, session) {
             inputId  = "colStagger",
             selected = "All"
         )
+        updatePrettyRadioButtons(
+            session  = session,
+            inputId  = "availability",
+            selected = "All"
+        )
         updateSliderInput(
             session = session,
             inputId = "maxNumKeys",
             value   = max(keyboards$nKeysMax)
         )
     }, ignoreInit = TRUE)
-    
+
     # Filter keyboard options based on filter options
     observe({
         ids <- getFilteredIDs(input, keyboards)
@@ -104,48 +115,48 @@ server <- function(input, output, session) {
             prettyOptions = list(animation = "pulse", shape = "curve")
         )
     })
-    
+
     output$layout <- renderImage({
-        
+
         # Create the color image overlay
         ids <- getKeyboardIDs(input, keyboards)
         colors <- palette[1:length(ids)]
         overlayColor <- makeImageOverlay(ids, colors)
-        
+
         # Define the path to the image
         tmpImagePathColor <- overlayColor %>%
             image_write(tempfile(fileext = 'png'), format = 'png')
-        
+
         # Render the file
         return(list(src = tmpImagePathColor,
                     width = 700,
                     alt = "Keyboard layout",
                     contentType = "image/png"))
-        
+
     }, deleteFile = TRUE)
-    
+
     output$print <- downloadHandler(
-        
+
         filename = "splitKbComparison.pdf",
-        
+
         content = function(file) {
             # Copy the report file to a temporary directory before processing it,
             # in case we don't have write permissions to the current working dir
             # (which can happen when deployed).
             tempReport <- file.path(tempdir(), "print.Rmd")
             file.copy("print.Rmd", tempReport, overwrite = TRUE)
-            
+
             # Create the black and white image overlay
             ids <- getKeyboardIDs(input, keyboards)
             overlayBw <- makeImageOverlay(ids)
-            
+
             # Define the path to the image
             tmpImagePathBw <- overlayBw %>%
                 image_write(tempfile(fileext = 'png'), format = 'png')
-            
+
             # Prepare the path to be passed to the Rmd file
             params <- list(path = tmpImagePathBw)
-            
+
             # Knit the document, passing in the `params` list, and eval it in a
             # child of the global environment (this isolates the code in the document
             # from the code in this app).

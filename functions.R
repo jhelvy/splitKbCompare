@@ -1,20 +1,38 @@
 getFilteredIDs <- function(input, keyboards) {
-    # Filter based on max number of keys
     idsNumKeys <- which(keyboards$nKeysMax <= input$maxNumKeys)
-    # Filter based on number row
-    idsNumberRow <- idsNumKeys
-    if (input$hasNumberRow == "Only with number row") { 
-        idsNumberRow <- which(keyboards$hasNumRow == 1)
+    idsNumberRow <- filterNumberRow(input, idsNumKeys)
+    idsColStagger <- filterColStagger(input, idsNumKeys)
+    idsAvailability <- filterAvailability(input, idsNumKeys)
+    return(intersect(idsColStagger,
+            intersect(idsAvailability,
+                intersect(idsNumKeys, idsNumberRow))))
+}
+
+filterNumberRow <- function(input, ids) {
+    if (input$hasNumberRow == "Only with number row") {
+        ids <- which(keyboards$hasNumRow == 1)
     }
     if (input$hasNumberRow == "Only without number row") {
-        idsNumberRow <- which(keyboards$hasNumRow == 0)
+        ids <- which(keyboards$hasNumRow == 0)
     }
-    # Filter based on column stagger
-    idsColStagger <- idsNumKeys
-    if (input$colStagger != "All") { 
-        idsColStagger <- which(keyboards$colStagger == input$colStagger)
+    return(ids)
+}
+
+filterColStagger <- function(input, ids) {
+    if (input$colStagger != "All") {
+        ids <- which(keyboards$colStagger == input$colStagger)
     }
-    return(intersect(intersect(idsNumKeys, idsNumberRow), idsColStagger))
+    return(ids)
+}
+
+filterAvailability <- function(input, ids) {
+    if (input$availability == "DIY") {
+        ids <- which(keyboards$diy == 1)
+    }
+    if (input$availability == "Pre-built") {
+        ids <- which(keyboards$prebuilt == 1)
+    }
+    return(ids)
 }
 
 getKeyboardIDs <- function(input, keyboards) {
