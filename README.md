@@ -7,18 +7,6 @@
 
 This app is an interactive [tool](https://jhelvy.shinyapps.io/splitkbcompare/) for comparing layouts of different split mechanical keyboards built for the community of [ergonomic keyboard](https://www.reddit.com/r/ErgoMechKeyboards/) users. Split keyboards offer an ergonomic solution to many issues that make regular keyboards painful or uncomfortable to use, but finding which keyboard is right for you can be costly and difficult. Most split keyboards come as DIY kits, making it difficult (if not impossible) to compare different keyboard layouts prior to building them. This app offers one solution to this problem.
 
-### Run locally
-
-The app is hosted for [free online](https://jhelvy.shinyapps.io/splitkbcompare/), but you can also run the app locally on your computer by following these steps:
-
-1. Install [R](https://cloud.r-project.org/)
-2. Run this code in R to install the [shiny library](https://shiny.rstudio.com/): `install.packages("shiny")`
-3. Run this code in R to launch the app:
-```
-library(shiny)
-runGitHub('jhelvy/splitKbCompare')
-```
-
 ### Features
 
 - A filter for whether or not the keyboard has a number row at the top.
@@ -45,6 +33,24 @@ Elephant42 | 42      | [source](https://github.com/illness072/elephant42)
 Minidox  | 36        | [source](https://github.com/dotdash32/Cases/tree/master/Minidox)
 Gergoplex | 36       | [store](https://www.gboards.ca/)
 Georgi   | 30        | [store](https://www.gboards.ca/)
+
+### Run locally
+
+The app is hosted for [free online](https://jhelvy.shinyapps.io/splitkbcompare/), but you can also run the app locally on your computer by following these steps:
+
+1. Install [R](https://cloud.r-project.org/)
+2. Run this code in R to install the [shiny library](https://shiny.rstudio.com/):
+
+```
+install.packages("shiny")
+```
+
+3. Run this code in R to launch the app:
+
+```
+library(shiny)
+runGitHub('jhelvy/splitKbCompare')
+```
 
 ### Under the hood
 

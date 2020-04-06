@@ -30,6 +30,7 @@ a:hover, a:focus {
   color: #FFF;
   text-decoration: underline;
 }
+
 /* about page */
 .col-sm-6 {
   font-size: 16px;
@@ -50,6 +51,16 @@ thead {
 tr:last-child {
   border-bottom: solid #DCDCDC;
 }
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  color: #24292E;
+  border-radius: 3px;
+}
+
 /* Font awesome logo colors */
 .fa.fa-github {
   color: #999;
@@ -63,6 +74,7 @@ tr:last-child {
 .fa.fa-creative-commons:hover {
   color: #FFF;
 }
+
 /* Drop down background color */
 .sw-dropdown-content {
   background-color: #111;
