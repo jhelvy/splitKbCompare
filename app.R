@@ -49,16 +49,8 @@ ui = navbarPage(title = "",
           inputId = "reset",
           label   = "Reset"),
         br(),br(),
-        # Sidebar footer
-        tags$div(HTML('
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-          <a href="https://github.com/jhelvy/splitKbCompare" target="_blank">
-          <i class="fa fa-github fa-fw"></i></a>
-          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">
-          <i class="fa fa-creative-commons fa-fw"></i></a>
-          <a href="https://shiny.rstudio.com/" target="_blank">Built with
-          <img alt="Shiny" src="https://www.rstudio.com/wp-content/uploads/2014/04/shiny.png" height="20">
-          </a>'))
+        # Insert footer
+        tags$div(HTML(paste(readLines("footer.html"), collapse=" ")))
       ),
       mainPanel(
         # Add custom styling
@@ -68,8 +60,10 @@ ui = navbarPage(title = "",
     )
   ),
   tabPanel("About", icon = icon(name = "question-circle", lib = "font-awesome"),
-    mainPanel(
-      includeMarkdown("about.md")
+    mainPanel(width = 6,
+      includeMarkdown("README.md"),br(),
+      # Insert footer
+      tags$div(HTML(paste(readLines("footer.html"), collapse=" "))),br()
     )
   )
 )

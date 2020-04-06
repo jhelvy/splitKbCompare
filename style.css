@@ -1,42 +1,64 @@
 @import url(https://fonts.googleapis.com/css?family=Exo);
+body {
+  color: #999;
+}
 .navbar {
   font-family: Exo, sans-serif;
   font-size: 18px;
-  color: #888;
+  color: #999;
+}
+.navbar-default .navbar-nav>li>a {
+  color: #999;
 }
 .navbar:hover {
   color: #FFF;
 }
 .navbar-brand {
-  font-size: 25px;
+  padding: 0;
+}
+h3 {
+  font-size: 1.25em;
 }
 h4 {
   font-family: Exo, sans-serif;
   font-size: 16px;
 }
 a {
-  color: #888;
+  color: #999;
 }
 a:hover, a:focus {
   color: #FFF;
   text-decoration: underline;
 }
 /* about page */
-.col-sm-8 {
+.col-sm-6 {
   font-size: 16px;
 }
-.col-sm-8 a {
+.col-sm-6 a {
   color: #FFF;
+}
+table {
+  background-color: #060606;
+}
+td, th {
+  padding: 5px;
+}
+thead {
+  border-top: solid #DCDCDC;
+  border-bottom: solid #DCDCDC;
+}
+tr:last-child {
+  border-bottom: solid #DCDCDC;
 }
 /* Font awesome logo colors */
 .fa.fa-github {
-  color: #888;
+  color: #999;
 }
 .fa.fa-github:hover {
   color: #FFF;
 }
 .fa.fa-creative-commons {
-  color: #888;
+  color: #999;
 }
 .fa.fa-creative-commons:hover {
   color: #FFF;
