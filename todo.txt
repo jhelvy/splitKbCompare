@@ -1,5 +1,5 @@
 Other boards to add:
-- Dygma Raise: https://www.dygma.com/
+- Dygma Raise (68): https://www.dygma.com/
 - class44: https://github.com/yfuku/claw44
 - chimera42
 - orthodox
