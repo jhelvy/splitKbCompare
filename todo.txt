@@ -3,6 +3,7 @@ Other boards to add:
 - orthodox
 - interphase
 - centrometre
+- ergodash mini
 
 Source for lots of other boards:
 https://github.com/diimdeep/awesome-split-keyboards
