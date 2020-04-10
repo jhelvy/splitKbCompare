@@ -7,7 +7,8 @@ library(magick)
 # Define keyboards
 keyboards <- read.csv('keyboards.csv', header = T, stringsAsFactors = F) %>%
     dplyr::mutate(
-        name = tools::toTitleCase(id),
+        name = gsub('_', ' ', id),
+        name = tools::toTitleCase(name),
         name = ifelse(
         nKeysMin == nKeysMax,
         paste0(name, ' (', nKeysMin, ')'),
