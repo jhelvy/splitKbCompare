@@ -1,9 +1,9 @@
-source('config.R')
-source('functions.R')
+source(file.path('code', 'config.R'))
+source(file.path('code', 'functions.R'))
 
 ui <- navbarPage(title = "",
     theme = shinytheme("cyborg"),
-    tabPanel("Compare keyboards", icon = icon(name = "keyboard", lib = "font-awesome"),
+    tabPanel("Compare", icon = icon(name = "balance-scale", lib = "font-awesome"),
         sidebarLayout(
             sidebarPanel(
                 width = 3,
@@ -56,20 +56,33 @@ ui <- navbarPage(title = "",
                     label   = "Reset"),
                 br(),br(),
                 # Insert footer
-                tags$div(HTML(paste(readLines("footer.html"), collapse=" ")))
+                tags$div(HTML(paste(readLines(
+                    file.path("html", "footer.html")), collapse=" ")))
             ),
             mainPanel(
                 # Add custom styling
-                tags$head(tags$style(HTML(paste(readLines("style.css"), collapse=" ")))),
+                tags$head(tags$style(HTML(paste(readLines(
+                    file.path("html", "style.css")), collapse=" ")))),
                 imageOutput("layout")
             )
         )
     ),
-    tabPanel("About", icon = icon(name = "question-circle", lib = "font-awesome"),
+    tabPanel("Keyboards",
+        icon = icon(name = "keyboard", lib = "font-awesome"),
         mainPanel(width = 6,
-            includeMarkdown("README.md"),br(),
+            includeMarkdown(file.path("pages", "keyboards.md")),br(),
             # Insert footer
-            tags$div(HTML(paste(readLines("footer.html"), collapse=" "))),br()
+            tags$div(HTML(paste(readLines(
+                file.path("html", "footer.html")), collapse=" "))),br()
+        )
+    ),
+    tabPanel("About",
+        icon = icon(name = "question-circle", lib = "font-awesome"),
+        mainPanel(width = 6,
+            includeMarkdown(file.path("pages", "about.md")),br(),
+            # Insert footer
+            tags$div(HTML(paste(readLines(
+                file.path("html", "footer.html")), collapse=" "))),br()
         )
     )
 )
@@ -144,7 +157,7 @@ server <- function(input, output, session) {
             # in case we don't have write permissions to the current working dir
             # (which can happen when deployed).
             tempReport <- file.path(tempdir(), "print.Rmd")
-            file.copy("print.Rmd", tempReport, overwrite = TRUE)
+            file.copy(file.path("code", "print.Rmd"), tempReport, overwrite = TRUE)
 
             # Create the black and white image overlay
             ids <- getKeyboardIDs(input, keyboards)

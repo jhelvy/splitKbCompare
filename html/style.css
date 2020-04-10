@@ -31,7 +31,7 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
-/* about page */
+/* other page */
 .col-sm-6 {
   font-size: 16px;
 }
@@ -42,7 +42,7 @@ table {
   background-color: #060606;
 }
 td, th {
-  padding: 5px;
+  padding: 3px;
 }
 thead {
   border-top: solid #DCDCDC;
