@@ -37,7 +37,7 @@ filterAvailability <- function(input, ids) {
 
 getKeyboardIDs <- function(input, keyboards) {
     names <- input$keyboards
-    ids <- keyboards[which(keyboards$name %in% names),]$id
+    ids <- keyboards[which(keyboards$nameKeys %in% names),]$id
     return(ids)
 }
 

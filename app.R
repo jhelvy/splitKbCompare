@@ -47,7 +47,7 @@ ui <- navbarPage(title = "",
                 prettyCheckboxGroup(
                     inputId   = "keyboards",
                     label     = HTML('<h4>Select keyboards:</h4>'),
-                    choices   = keyboards$name,
+                    choices   = keyboards$nameKeys,
                     shape     = "curve",
                     outline   = TRUE,
                     animation = "pulse"),
@@ -94,7 +94,7 @@ server <- function(input, output, session) {
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
-            choices = keyboards$name
+            choices = keyboards$nameKeys
         )
         updatePrettyRadioButtons(
             session  = session,
@@ -124,7 +124,7 @@ server <- function(input, output, session) {
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
-            choices = keyboards$name[ids],
+            choices = keyboards$nameKeys[ids],
             prettyOptions = list(animation = "pulse", shape = "curve")
         )
     })

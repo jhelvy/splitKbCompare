@@ -41,6 +41,9 @@ a:hover, a:focus {
 table {
   background-color: #060606;
 }
+table, .table {
+  color: #999;
+}
 td, th {
   padding: 3px;
 }
