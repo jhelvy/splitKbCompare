@@ -2,21 +2,21 @@
 
 keyboard | # of keys | links
 ---------|-----------|---------------
-ErgoDox  | 76 - 80   | [source](https://github.com/Ergodox-io/ErgoDox), [store](https://ergodox-ez.com/)
-ErgoDash | 66 - 72   | [source](https://github.com/omkbd/ErgoDash), [store](https://falba.tech/)
-Redox    | 70        | [source](https://github.com/mattdibi/redox-keyboard), [store](https://falba.tech/)
-Dygma Raise | 68     | [store](https://www.dygma.com/)
-Keyboardio Model 01 | 64      | [source](https://github.com/keyboardio), [store](https://shop.keyboard.io/products/model-01-keyboard)
-Nyquist  | 60        | [source](https://github.com/keebio/nyquist-case), [store](https://keeb.io/)
-Lily58   | 58        | [source](https://github.com/kata0510/Lily58)
-Iris     | 54 - 56   | [source](https://github.com/keebio/iris-case), [store](https://keeb.io/)
-Kyria    | 46 - 50   | [source](https://github.com/splitkb/kyria), [store](https://splitkb.com/)
-Gergo    | 46 - 50   | [store](https://www.gboards.ca/)
-Claw44   | 44        | [source](https://github.com/yfuku/claw44)
-Corne    | 42        | [source](https://github.com/foostan/crkbd)
-Atreus   | 42        | [source](https://github.com/technomancy/atreus)
-Elephant42 | 42      | [source](https://github.com/illness072/elephant42)
-Minidox  | 36        | [source](https://github.com/dotdash32/Cases/tree/master/Minidox), [store](https://falba.tech/)
-Gergoplex | 36       | [store](https://www.gboards.ca/)
-Georgi   | 30        | [store](https://www.gboards.ca/)
+ErgoDox | 76 - 80 | <a href="https://github.com/Ergodox-io/ErgoDox" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://ergodox-ez.com/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+ErgoDash | 66 - 72 | <a href="https://github.com/omkbd/ErgoDash" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://falba.tech/customize-your-keyboard/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Redox | 70 | <a href="https://github.com/mattdibi/redox-keyboard" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://falba.tech/customize-your-keyboard/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Dygma Raise | 68 | <a href="https://www.dygma.com/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Keyboardio Model 01 | 64 | <a href="https://github.com/keyboardio" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://shop.keyboard.io/products/model-01-keyboard" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Nyquist | 60 | <a href="https://github.com/keebio/nyquist-case" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://keeb.io/products/nyquist-keyboard" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Lily58 | 58 | <a href="https://github.com/kata0510/Lily58" target="_blank"><i class="fa fa-github fa-lg"></i></a>
+Iris | 54 - 56 | <a href="https://github.com/keebio/iris-case" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://keeb.io/products/iris-keyboard-split-ergonomic-keyboard" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Kyria | 46 - 50 | <a href="https://github.com/splitkb/kyria" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://splitkb.com/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Gergo | 46 - 50 | <a href="https://www.gboards.ca/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Claw44 | 44 | <a href="https://github.com/yfuku/claw44" target="_blank"><i class="fa fa-github fa-lg"></i></a>
+Corne | 42 | <a href="https://github.com/foostan/crkbd" target="_blank"><i class="fa fa-github fa-lg"></i></a>
+Atreus | 42 | <a href="https://github.com/technomancy/atreus" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://falba.tech/customize-your-keyboard/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Elephant42 | 42 | <a href="https://github.com/illness072/elephant42" target="_blank"><i class="fa fa-github fa-lg"></i></a>
+Minidox | 36 | <a href="https://github.com/dotdash32/Cases/tree/master/Minidox" target="_blank"><i class="fa fa-github fa-lg"></i></a> <a href="https://falba.tech/customize-your-keyboard/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Gergoplex | 36 | <a href="https://www.gboards.ca/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
+Georgi | 30 | <a href="https://www.gboards.ca/" target="_blank"><i class="fa fa-shopping-cart fa-lg"></i></a>
 

@@ -31,7 +31,7 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
-/* other page */
+/* other pages */
 .col-sm-6 {
   font-size: 16px;
 }
@@ -61,17 +61,11 @@ tr:last-child {
   border-radius: 3px;
 }
 
-/* Font awesome logo colors */
-.fa.fa-github {
+/* Font awesome icons */
+.fa {
   color: #999;
 }
-.fa.fa-github:hover {
-  color: #FFF;
-}
-.fa.fa-creative-commons {
-  color: #999;
-}
-.fa.fa-creative-commons:hover {
+.fa:hover {
   color: #FFF;
 }
 
