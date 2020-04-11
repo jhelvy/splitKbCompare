@@ -1,3 +1,5 @@
+library(DT)
+library(dplyr)
 library(shiny)
 library(shinythemes)
 library(shinyWidgets)
@@ -23,3 +25,26 @@ palette <- c('#ffffff', '#e6194b', '#ffe119', '#3cb44b', '#4363d8', '#f58231',
 #              "#C4451C", "#FBE426", "#1CBE4F", "#FA0087", "#FC1CBF", "#F7E1A0",
 #              "#C075A6", "#782AB6", "#AAF400", "#BDCDFF", "#822E1C", "#B5EFB5",
 #              "#7ED7D1", "#1C7F93", "#D85FF7", "#683B79", "#66B0FF", "#3B00FB")
+
+# Create DT of keyboard table for "Keyboards" page
+keyboardTable <- read.csv(here::here('keyboards.csv'),
+                      header = T, stringsAsFactors = F) %>%
+    rename("Name" = name) %>%
+    mutate(`# of keys` = ifelse(
+        nKeysMin == nKeysMax, nKeysMin,
+        paste(nKeysMin, nKeysMax, sep = ' - ')),
+        `Column stagger` = colStagger,
+        `Number row?` = ifelse(hasNumRow == 1, 'X', ''),
+        `Available DIY?` = ifelse(diy == 1, 'X', ''),
+        `Available Pre-built?` = ifelse(prebuilt == 1, 'X', ''),
+        url_source = ifelse(
+            is.na(url_source), '',
+            paste0('<a href="', url_source,
+                   '" target="_blank"><i class="fa fa-github"></i></a> ')),
+        url_store = ifelse(
+            is.na(url_store), '',
+            paste0('<a href="', url_store,
+                   '" target="_blank"><i class="fa fa-shopping-cart"></i></a> ')),
+        Links = paste0(url_source, url_store)) %>%
+    select(Name, `# of keys`, `Column stagger`, `Number row?`, `Available DIY?`,
+           `Available Pre-built?`, Links)

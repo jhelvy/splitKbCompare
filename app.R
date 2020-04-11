@@ -70,7 +70,7 @@ ui <- navbarPage(title = "",
     tabPanel("Keyboards",
         icon = icon(name = "keyboard", lib = "font-awesome"),
         mainPanel(width = 6,
-            includeMarkdown(file.path("pages", "keyboards.md")),br(),
+            DT::dataTableOutput('keyboardTable'),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
                 file.path("html", "footer.html")), collapse=" "))),br()
@@ -79,7 +79,7 @@ ui <- navbarPage(title = "",
     tabPanel("About",
         icon = icon(name = "question-circle", lib = "font-awesome"),
         mainPanel(width = 6,
-            includeMarkdown(file.path("pages", "about.md")),br(),
+            includeMarkdown(file.path("html", "about.md")),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
                 file.path("html", "footer.html")), collapse=" "))),br()
@@ -88,6 +88,11 @@ ui <- navbarPage(title = "",
 )
 
 server <- function(input, output, session) {
+    
+    # Render keyboard table on "Keyboards" page
+    output$keyboardTable = DT::renderDataTable({
+        DT::datatable(keyboardTable, escape = FALSE)
+    })
 
     # Control reset button
     observeEvent(input$reset, {
