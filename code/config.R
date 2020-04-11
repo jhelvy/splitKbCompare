@@ -27,8 +27,7 @@ palette <- c('#ffffff', '#e6194b', '#ffe119', '#3cb44b', '#4363d8', '#f58231',
 #              "#7ED7D1", "#1C7F93", "#D85FF7", "#683B79", "#66B0FF", "#3B00FB")
 
 # Create DT of keyboard table for "Keyboards" page
-keyboardTable <- read.csv(here::here('keyboards.csv'),
-                      header = T, stringsAsFactors = F) %>%
+keyboardTable <- keyboards %>%
     rename("Name" = name) %>%
     mutate(`# of keys` = ifelse(
         nKeysMin == nKeysMax, nKeysMin,
