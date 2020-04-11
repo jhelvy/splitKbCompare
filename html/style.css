@@ -44,16 +44,6 @@ table {
 table, .table {
   color: #999;
 }
-td, th {
-  padding: 3px;
-}
-thead {
-  border-top: solid #DCDCDC;
-  border-bottom: solid #DCDCDC;
-}
-tr:last-child {
-  border-bottom: solid #DCDCDC;
-}
 .markdown-body pre {
   padding: 16px;
   overflow: auto;

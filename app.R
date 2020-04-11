@@ -91,7 +91,12 @@ server <- function(input, output, session) {
     
     # Render keyboard table on "Keyboards" page
     output$keyboardTable = DT::renderDataTable({
-        DT::datatable(keyboardTable, escape = FALSE)
+        DT::datatable(
+            keyboardTable, 
+            escape = FALSE, 
+            style = 'bootstrap',
+            rownames = FALSE,
+            options = list(pageLength = 20))
     })
 
     # Control reset button
