@@ -1,4 +1,5 @@
 Other boards to add:
+- squiggle
 - chimera42
 - orthodox
 - interphase
