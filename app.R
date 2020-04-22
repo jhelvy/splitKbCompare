@@ -48,6 +48,7 @@ ui <- navbarPage(title = "",
                     inputId   = "keyboards",
                     label     = HTML('<h4>Select keyboards:</h4>'),
                     choices   = keyboards$nameKeys,
+                    selected  = "Kyria (46 - 50)",
                     shape     = "curve",
                     outline   = TRUE,
                     animation = "pulse"),
@@ -88,9 +89,19 @@ ui <- navbarPage(title = "",
 )
 
 server <- function(input, output, session) {
+
+    # Filter keyboard options based on filter options
+    observe({
+        ids <- getFilteredIDs(input, keyboards)
+        updatePrettyCheckboxGroup(
+            session = session,
+            inputId = "keyboards",
+            choices = keyboards$nameKeys[ids]
+        )
+    })
     
     # Render keyboard table on "Keyboards" page
-    output$keyboardTable = DT::renderDataTable({
+    output$keyboardTable <- DT::renderDataTable({
         DT::datatable(
             keyboardTable, 
             escape = FALSE, 
@@ -128,17 +139,7 @@ server <- function(input, output, session) {
         )
     }, ignoreInit = TRUE)
 
-    # Filter keyboard options based on filter options
-    observe({
-        ids <- getFilteredIDs(input, keyboards)
-        updatePrettyCheckboxGroup(
-            session = session,
-            inputId = "keyboards",
-            choices = keyboards$nameKeys[ids],
-            prettyOptions = list(animation = "pulse", shape = "curve")
-        )
-    })
-
+    # Render overlay image
     output$layout <- renderImage({
 
         # Create the color image overlay
@@ -157,7 +158,8 @@ server <- function(input, output, session) {
                     contentType = "image/png"))
 
     }, deleteFile = TRUE)
-
+    
+    # Download overlay image
     output$print <- downloadHandler(
 
         filename = "splitKbComparison.pdf",

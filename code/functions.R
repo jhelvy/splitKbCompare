@@ -3,9 +3,10 @@ getFilteredIDs <- function(input, keyboards) {
     idsNumberRow <- filterNumberRow(input, idsNumKeys)
     idsColStagger <- filterColStagger(input, idsNumKeys)
     idsAvailability <- filterAvailability(input, idsNumKeys)
-    return(intersect(idsColStagger,
-            intersect(idsAvailability,
-                intersect(idsNumKeys, idsNumberRow))))
+    result <- intersect(idsColStagger, 
+                        intersect(idsAvailability,
+                                  intersect(idsNumKeys, idsNumberRow)))
+    return(result)
 }
 
 filterNumberRow <- function(input, ids) {
