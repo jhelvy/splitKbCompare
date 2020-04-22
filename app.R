@@ -99,12 +99,12 @@ server <- function(input, output, session) {
             choices = keyboards$nameKeys[ids]
         )
     })
-    
+
     # Render keyboard table on "Keyboards" page
     output$keyboardTable <- DT::renderDataTable({
         DT::datatable(
-            keyboardTable, 
-            escape = FALSE, 
+            keyboardTable,
+            escape = FALSE,
             style = 'bootstrap',
             rownames = FALSE,
             options = list(pageLength = 20))
@@ -158,7 +158,7 @@ server <- function(input, output, session) {
                     contentType = "image/png"))
 
     }, deleteFile = TRUE)
-    
+
     # Download overlay image
     output$print <- downloadHandler(
 
