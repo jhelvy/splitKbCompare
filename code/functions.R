@@ -1,42 +1,42 @@
-getFilteredIDs <- function(input, keyboards) {
-    idsNumKeys <- which(keyboards$nKeysMax <= input$maxNumKeys)
-    idsNumberRow <- filterNumberRow(input, idsNumKeys)
-    idsColStagger <- filterColStagger(input, idsNumKeys)
-    idsAvailability <- filterAvailability(input, idsNumKeys)
-    result <- intersect(idsColStagger, 
-                        intersect(idsAvailability,
-                                  intersect(idsNumKeys, idsNumberRow)))
-    return(result)
+getFilteredRows <- function(input, keyboards) {
+    rowsNumKeys <- which(keyboards$nKeysMax <= input$maxNumKeys)
+    rowsNumberRow <- filterNumberRow(input, rowsNumKeys)
+    rowsColStagger <- filterColStagger(input, rowsNumKeys)
+    rowsAvailability <- filterAvailability(input, rowsNumKeys)
+    rows <- intersect(rowsColStagger, 
+                        intersect(rowsAvailability,
+                                  intersect(rowsNumKeys, rowsNumberRow)))
+    return(rows)
 }
 
-filterNumberRow <- function(input, ids) {
+filterNumberRow <- function(input, rows) {
     if (input$hasNumberRow == "Only with number row") {
-        ids <- which(keyboards$hasNumRow == 1)
+        rows <- which(keyboards$hasNumRow == 1)
     }
     if (input$hasNumberRow == "Only without number row") {
-        ids <- which(keyboards$hasNumRow == 0)
+        rows <- which(keyboards$hasNumRow == 0)
     }
-    return(ids)
+    return(rows)
 }
 
-filterColStagger <- function(input, ids) {
+filterColStagger <- function(input, rows) {
     if (input$colStagger != "All") {
-        ids <- which(keyboards$colStagger == input$colStagger)
+        rows <- which(keyboards$colStagger == input$colStagger)
     }
-    return(ids)
+    return(rows)
 }
 
-filterAvailability <- function(input, ids) {
+filterAvailability <- function(input, rows) {
     if (input$availability == "DIY") {
-        ids <- which(keyboards$diy == 1)
+        rows <- which(keyboards$diy == 1)
     }
     if (input$availability == "Pre-built") {
-        ids <- which(keyboards$prebuilt == 1)
+        rows <- which(keyboards$prebuilt == 1)
     }
-    return(ids)
+    return(rows)
 }
 
-getKeyboardIDs <- function(input, keyboards) {
+getSelectedIDs <- function(input, keyboards) {
     names <- input$keyboards
     ids <- keyboards[which(keyboards$nameKeys %in% names),]$id
     return(ids)

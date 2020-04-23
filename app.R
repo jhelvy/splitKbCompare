@@ -48,7 +48,6 @@ ui <- navbarPage(title = "",
                     inputId   = "keyboards",
                     label     = HTML('<h4>Select keyboards:</h4>'),
                     choices   = keyboards$nameKeys,
-                    selected  = "Kyria (46 - 50)",
                     shape     = "curve",
                     outline   = TRUE,
                     animation = "pulse"),
@@ -92,14 +91,26 @@ server <- function(input, output, session) {
 
     # Filter keyboard options based on filter options
     observe({
-        ids <- getFilteredIDs(input, keyboards)
+        filteredRows <- getFilteredRows(input, keyboards)
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
-            choices = keyboards$nameKeys[ids]
+            choices = keyboards$nameKeys[filteredRows],
+            prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     })
 
+    # Set Kyria as initial starting layout
+    observeEvent("", {
+        updatePrettyCheckboxGroup(
+            session = session,
+            inputId = "keyboards",
+            choices   = keyboards$nameKeys,
+            selected = "Kyria (46 - 50)", 
+            prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
+        )
+    }, once = TRUE)
+    
     # Render keyboard table on "Keyboards" page
     output$keyboardTable <- DT::renderDataTable({
         DT::datatable(
@@ -143,9 +154,9 @@ server <- function(input, output, session) {
     output$layout <- renderImage({
 
         # Create the color image overlay
-        ids <- getKeyboardIDs(input, keyboards)
-        colors <- palette[1:length(ids)]
-        overlayColor <- makeImageOverlay(ids, colors)
+        selectedIds <- getSelectedIDs(input, keyboards)
+        colors <- palette[1:length(selectedIds)]
+        overlayColor <- makeImageOverlay(selectedIds, colors)
 
         # Define the path to the image
         tmpImagePathColor <- overlayColor %>%
@@ -172,8 +183,8 @@ server <- function(input, output, session) {
             file.copy(file.path("code", "print.Rmd"), tempReport, overwrite = TRUE)
 
             # Create the black and white image overlay
-            ids <- getKeyboardIDs(input, keyboards)
-            overlayBw <- makeImageOverlay(ids)
+            selectedIds <- getSelectedIDs(input, keyboards)
+            overlayBw <- makeImageOverlay(selectedIds)
 
             # Define the path to the image
             tmpImagePathBw <- overlayBw %>%
