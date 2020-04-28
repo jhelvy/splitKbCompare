@@ -1,5 +1,4 @@
 Other boards to add:
-- xenon https://github.com/narinari/xenon-keyboard
 - squiggle
 - chimera42
 - orthodox
