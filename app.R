@@ -24,6 +24,12 @@ ui <- navbarPage(title = "",
                         selected  = "All",
                         animation = "pulse"),
                     prettyRadioButtons(
+                        inputId   = "rotaryEncoder",
+                        label     = "Rotary encoder support:",
+                        choices   = c("All", "Yes", "No"),
+                        selected  = "All",
+                        animation = "pulse"),
+                    prettyRadioButtons(
                         inputId   = "availability",
                         label     = "Availability:",
                         choices   = c("All", "DIY", "Pre-built"),
@@ -136,6 +142,11 @@ server <- function(input, output, session) {
         updatePrettyRadioButtons(
             session  = session,
             inputId  = "colStagger",
+            selected = "All"
+        )
+        updatePrettyRadioButtons(
+            session  = session,
+            inputId  = "rotaryEncoder",
             selected = "All"
         )
         updatePrettyRadioButtons(
