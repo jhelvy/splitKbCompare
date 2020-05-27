@@ -20,7 +20,7 @@ ui <- navbarPage(title = "",
                     prettyRadioButtons(
                         inputId   = "colStagger",
                         label     = "Column stagger:",
-                        choices   = c("All", "Strong", "Moderate", "None"),
+                        choices   = c("All", "Aggressive", "Moderate", "None"),
                         selected  = "All",
                         animation = "pulse"),
                     prettyRadioButtons(
@@ -69,7 +69,7 @@ ui <- navbarPage(title = "",
     ),
     tabPanel("Keyboards",
         icon = icon(name = "keyboard", lib = "font-awesome"),
-        mainPanel(width = 6,
+        mainPanel(width = 7,
             DT::dataTableOutput('keyboardTable'),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
@@ -204,3 +204,7 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
+
+# runApp(
+#     appDir = list(ui = ui, server = server),
+#     launch.browser = TRUE)
