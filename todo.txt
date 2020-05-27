@@ -1,9 +1,12 @@
 Other boards to add:
-- absolem
+- absolem: https://zealot.hu/absolem/
+- sofle: https://github.com/josefadamcik/SofleKeyboard
+- interphase: https://github.com/Durburz/interphase
+
+Still need plate file or link to board:
 - squiggle
 - chimera42
 - orthodox
-- interphase
 - centrometre
 - ergodash travel?
 
