@@ -124,7 +124,7 @@ server <- function(input, output, session) {
             escape = FALSE,
             style = 'bootstrap',
             rownames = FALSE,
-            options = list(pageLength = 20))
+            options = list(pageLength = 25))
     })
 
     # Control reset button
@@ -214,8 +214,4 @@ server <- function(input, output, session) {
     )
 }
 
-shinyApp(ui = ui, server = server)
-
-# runApp(
-#     appDir = list(ui = ui, server = server),
-#     launch.browser = TRUE)
+shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))
