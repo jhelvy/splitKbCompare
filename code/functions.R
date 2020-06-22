@@ -3,11 +3,13 @@ getFilteredRows <- function(input, keyboards) {
     rowsNumberRow <- filterNumberRow(input, rowsNumKeys)
     rowsColStagger <- filterColStagger(input, rowsNumKeys)
     rowsRotarySupport <- filterRotarySupport(input, rowsNumKeys)
+    rowsWireless <- filterWireless(input, rowsNumKeys)
     rowsAvailability <- filterAvailability(input, rowsNumKeys)
     rows <- intersect(rowsColStagger, 
                 intersect(rowsRotarySupport,
-                    intersect(rowsAvailability,
-                        intersect(rowsNumKeys, rowsNumberRow))))
+                    intersect(rowsWireless,
+                        intersect(rowsAvailability,
+                            intersect(rowsNumKeys, rowsNumberRow)))))
     return(rows)
 }
 
@@ -34,6 +36,16 @@ filterRotarySupport <- function(input, rows) {
     }
     if (input$rotaryEncoder == "No") {
         rows <- which(keyboards$rotaryEncoder == 0)
+    }
+    return(rows)
+}
+
+filterWireless <- function(input, rows) {
+    if (input$wireless == "Yes") {
+        rows <- which(keyboards$wireless == 1)
+    }
+    if (input$wireless == "No") {
+        rows <- which(keyboards$wireless == 0)
     }
     return(rows)
 }

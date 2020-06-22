@@ -11,37 +11,38 @@ ui <- navbarPage(title = "",
                 div(style="display: inline-block;vertical-align:top;",
                 dropdown(
                     label = "Filters",
-                    prettyRadioButtons(
-                        inputId   = "hasNumberRow",
-                        label     = "Number row:",
-                        choices   = c("All", "Only with number row", "Only without number row"),
-                        selected  = "All",
-                        animation = "pulse"),
-                    prettyRadioButtons(
-                        inputId   = "colStagger",
-                        label     = "Column stagger:",
-                        choices   = c("All", "Aggressive", "Moderate", "None"),
-                        selected  = "All",
-                        animation = "pulse"),
-                    prettyRadioButtons(
-                        inputId   = "rotaryEncoder",
-                        label     = "Rotary encoder support:",
-                        choices   = c("All", "Yes", "No"),
-                        selected  = "All",
-                        animation = "pulse"),
-                    prettyRadioButtons(
-                        inputId   = "availability",
-                        label     = "Availability:",
-                        choices   = c("All", "DIY", "Pre-built"),
-                        selected  = "All",
-                        animation = "pulse"),
                     sliderInput(
                         inputId = "maxNumKeys",
                         label = "Max number of keys:",
                         min   = min(keyboards$nKeysMin),
                         max   = max(keyboards$nKeysMax),
                         value = max(keyboards$nKeysMax),
-                        step  = 1)
+                        step  = 1),
+                    prettyRadioButtons(
+                        inputId   = "hasNumberRow",
+                        label     = "Number row:",
+                        choices   = c("All", "Only with number row", "Only without number row"),
+                        animation = "pulse"),
+                    prettyRadioButtons(
+                        inputId   = "colStagger",
+                        label     = "Column stagger:",
+                        choices   = c("All", "Aggressive", "Moderate", "None"),
+                        animation = "pulse"),
+                    prettyRadioButtons(
+                        inputId   = "rotaryEncoder",
+                        label     = "Rotary encoder support:",
+                        choices   = c("All", "Yes", "No"),
+                        animation = "pulse"),
+                    prettyRadioButtons(
+                        inputId   = "wireless",
+                        label     = "Wireless:",
+                        choices   = c("All", "Yes", "No"),
+                        animation = "pulse"),
+                    prettyRadioButtons(
+                        inputId   = "availability",
+                        label     = "Availability:",
+                        choices   = c("All", "DIY", "Pre-built"),
+                        animation = "pulse")
                 )),
                 div(style="display: inline-block;vertical-align:top; width: 7px;",HTML("<br>")),
                 # Print button
@@ -129,6 +130,11 @@ server <- function(input, output, session) {
 
     # Control reset button
     observeEvent(input$reset, {
+        updateSliderInput(
+            session = session,
+            inputId = "maxNumKeys",
+            value   = max(keyboards$nKeysMax)
+        )
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
@@ -151,13 +157,13 @@ server <- function(input, output, session) {
         )
         updatePrettyRadioButtons(
             session  = session,
-            inputId  = "availability",
+            inputId  = "wireless",
             selected = "All"
         )
-        updateSliderInput(
-            session = session,
-            inputId = "maxNumKeys",
-            value   = max(keyboards$nKeysMax)
+        updatePrettyRadioButtons(
+            session  = session,
+            inputId  = "availability",
+            selected = "All"
         )
     }, ignoreInit = TRUE)
 
