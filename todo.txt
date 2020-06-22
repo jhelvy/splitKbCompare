@@ -1,6 +1,5 @@
 Other boards to add:
-- reviung39: https://github.com/gtips/reviung/tree/master/reviung39
-- squiggle: https://github.com/ibnuda/Squiggle
+
 
 Still need plate file or link to board:
 - chimera42

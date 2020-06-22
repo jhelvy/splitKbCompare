@@ -8,6 +8,7 @@ ui <- navbarPage(title = "",
             sidebarPanel(
                 width = 3,
                 # Filter drop down menu
+                h4("Select keyboards:"),
                 div(style="display: inline-block;vertical-align:top;",
                 dropdown(
                     label = "Filters",
@@ -44,23 +45,26 @@ ui <- navbarPage(title = "",
                         choices   = c("All", "DIY", "Pre-built"),
                         animation = "pulse")
                 )),
-                div(style="display: inline-block;vertical-align:top; width: 7px;",HTML("<br>")),
-                # Print button
                 div(style="display: inline-block;vertical-align:top;",
-                    downloadButton(
-                        outputId = "print",
-                        label    = "Print to scale")),
+                    actionButton(
+                        inputId = "reset",
+                        label   = "Reset")),
                 # Main keyboard selection options
                 prettyCheckboxGroup(
                     inputId   = "keyboards",
-                    label     = HTML('<h4>Select keyboards:</h4>'),
+                    label     = '',
                     choices   = keyboards$nameKeys,
                     shape     = "curve",
                     outline   = TRUE,
                     animation = "pulse"),
-                actionButton(
-                    inputId = "reset",
-                    label   = "Reset"),
+                # Print buttons
+                h4("Print to scale:"),
+                downloadButton(
+                    outputId = "printLetter",
+                    label    = "8.5x11"),
+                downloadButton(
+                    outputId = "printA4",
+                    label    = "A4"),
                 br(),br(),
                 # Insert footer
                 tags$div(HTML(paste(readLines(
@@ -98,7 +102,7 @@ server <- function(input, output, session) {
 
     # Filter keyboard options based on filter options
     observe({
-        filteredRows <- getFilteredRows(input, keyboards)
+        filteredRows <- getFilteredRows(input)
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
@@ -167,18 +171,40 @@ server <- function(input, output, session) {
         )
     }, ignoreInit = TRUE)
 
+    selectedIDs <- reactive({
+        names <- input$keyboards
+        return(keyboards[which(keyboards$nameKeys %in% names),]$id)
+    })
+    
+    makeImageOverlay <- function(color = FALSE) {
+        ids <- selectedIDs()
+        bg  <- 'bg-white.png'
+        if (color) { 
+            bg <- 'bg-black.png' 
+            colors <- palette[1:length(ids)]
+        }
+        overlay <- image_read(file.path('images', bg))
+        if (length(ids) > 0) {
+            for (i in 1:length(ids)) {
+                id <- ids[i]
+                if (color) {
+                    image <- getColorImage(id, colors[i])
+                } else {
+                    image <- getImage(id)
+                }
+                overlay <- c(overlay, image)
+            }
+        }
+        return(image_mosaic(image_join(overlay)))
+    }
+
     # Render overlay image
     output$layout <- renderImage({
-
         # Create the color image overlay
-        selectedIds <- getSelectedIDs(input, keyboards)
-        colors <- palette[1:length(selectedIds)]
-        overlayColor <- makeImageOverlay(selectedIds, colors)
-
+        overlayColor <- makeImageOverlay(color = TRUE)
         # Define the path to the image
         tmpImagePathColor <- overlayColor %>%
             image_write(tempfile(fileext = 'png'), format = 'png')
-
         # Render the file
         return(list(src = tmpImagePathColor,
                     width = 700,
@@ -187,37 +213,43 @@ server <- function(input, output, session) {
 
     }, deleteFile = TRUE)
 
-    # Download overlay image
-    output$print <- downloadHandler(
-
-        filename = "splitKbComparison.pdf",
-
-        content = function(file) {
-            # Copy the report file to a temporary directory before processing it,
-            # in case we don't have write permissions to the current working dir
-            # (which can happen when deployed).
-            tempReport <- file.path(tempdir(), "print.Rmd")
-            file.copy(file.path("code", "print.Rmd"), tempReport, overwrite = TRUE)
-
-            # Create the black and white image overlay
-            selectedIds <- getSelectedIDs(input, keyboards)
-            overlayBw <- makeImageOverlay(selectedIds)
-
-            # Define the path to the image
-            tmpImagePathBw <- overlayBw %>%
-                image_write(tempfile(fileext = 'png'), format = 'png')
-
-            # Prepare the path to be passed to the Rmd file
-            params <- list(path = tmpImagePathBw)
-
-            # Knit the document, passing in the `params` list, and eval it in a
-            # child of the global environment (this isolates the code in the document
-            # from the code in this app).
-            rmarkdown::render(tempReport, output_file = file,
-                              params = params, envir = new.env(parent = globalenv())
-            )
+    # Download overlay images
+    downloadImage <- function(size) {
+        template <- 'printLetter.Rmd'
+        sizeName <- '_8.5x11.pdf'
+        if (size == 'a4') { 
+            template <- 'printA4.Rmd' 
+            sizeName <- '_a4.pdf'
         }
-    )
+        downloadHandler(
+            filename = function() { 
+                paste0('compare_', paste(selectedIDs(), collapse='_'), sizeName)
+            },
+            content = function(file) {
+                # Copy the report file to a temporary directory before processing it,
+                # in case we don't have write permissions to the current working dir
+                # (which can happen when deployed).
+                tempReport <- file.path(tempdir(), "print.Rmd")
+                file.copy(file.path("code", template), tempReport, overwrite = TRUE)
+                # Create the black and white image overlay
+                overlayBw <- makeImageOverlay()
+                # Define the path to the image
+                tmpImagePathBw <- overlayBw %>%
+                    image_write(tempfile(fileext = 'png'), format = 'png')
+                # Prepare the path to be passed to the Rmd file
+                params <- list(path = tmpImagePathBw)
+                # Knit the document, passing in the `params` list, and eval it in a
+                # child of the global environment (this isolates the code in the document
+                # from the code in this app).
+                rmarkdown::render(tempReport, output_file = file,
+                                  params = params, envir = new.env(parent = globalenv())
+                )
+            }
+        )
+    }
+
+    output$printLetter <- downloadImage('letter')
+    output$printA4 <- downloadImage('a4')
 }
 
 shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))

@@ -26,6 +26,7 @@ offers one solution to this problem.
     top.
   - A filter for the degree of stagger across the key columns.
   - A filter for whether or not the keyboard supports rotary encoders.
+  - A filter for whether or not the keyboard is wireless.
   - A filter for the keyboard availability (DIY or pre-built).
   - A filter for the maximum number of keys.
   - A “print” button that downloads a PDF of the true-to-scale keyboard

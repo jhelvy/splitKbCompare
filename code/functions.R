@@ -1,4 +1,4 @@
-getFilteredRows <- function(input, keyboards) {
+getFilteredRows <- function(input) {
     rowsNumKeys <- which(keyboards$nKeysMax <= input$maxNumKeys)
     rowsNumberRow <- filterNumberRow(input, rowsNumKeys)
     rowsColStagger <- filterColStagger(input, rowsNumKeys)
@@ -60,12 +60,6 @@ filterAvailability <- function(input, rows) {
     return(rows)
 }
 
-getSelectedIDs <- function(input, keyboards) {
-    names <- input$keyboards
-    ids <- keyboards[which(keyboards$nameKeys %in% names),]$id
-    return(ids)
-}
-
 getImage <- function(id) {
     imagePath <- file.path('images', paste0(id, ".png"))
     return(image_read(imagePath))
@@ -74,24 +68,4 @@ getImage <- function(id) {
 getColorImage <- function(id, color) {
     image <- getImage(id)
     return(image_colorize(image, 100, color))
-}
-
-makeImageOverlay <- function(ids, colors = NULL) {
-    bg <- 'bg-white.png'
-    if (length(colors) > 0) { bg <- 'bg-black.png' }
-    overlay <- image_read(file.path('images', bg))
-    if (length(ids) > 0) {
-        for (i in 1:length(ids)) {
-            id <- ids[i]
-            if (length(colors) > 0) {
-                image <- getColorImage(id, colors[i])
-            } else {
-                image <- getImage(id)
-            }
-            overlay <- c(overlay, image)
-        }
-    }
-    return(overlay %>%
-           image_join() %>%
-           image_mosaic())
 }

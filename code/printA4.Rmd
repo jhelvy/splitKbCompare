@@ -1,0 +1,19 @@
+---
+title: ""
+output: pdf_document
+classoption: landscape
+documentclass: article
+papersize: a4
+geometry: margin=0.2in
+header-includes:
+    \thispagestyle{empty}
+    \AtBeginDocument{\let\maketitle\relax}
+    \usepackage{float}
+    \floatplacement{figure}{H}
+params:
+  path: NA
+---
+
+```{r, echo=FALSE, out.width="100%", warning=FALSE, message=FALSE}
+image_read(params$path)
+```
