@@ -1,7 +1,6 @@
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-
+[![License: MIT](https://img.shields.io/github/license/jhelvy/splitKbCompare)](https://github.com/jhelvy/splitKbCompare/blob/master/LICENSE.txt)
 <a href="https://github.com/jhelvy/splitKbCompare" target="_blank">
-<i class="fa fa-github fa-lg"></i></a>
+<i class="fa fa-github fa-lg"></i></a> Copyright (c) 2020 John Helveston
 
 ### Overview
 
