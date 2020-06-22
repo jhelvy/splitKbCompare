@@ -1,4 +1,5 @@
 [![License: MIT](https://img.shields.io/github/license/jhelvy/splitKbCompare)](https://github.com/jhelvy/splitKbCompare/blob/master/LICENSE.txt)
+
 <a href="https://github.com/jhelvy/splitKbCompare" target="_blank">
 <i class="fa fa-github fa-lg"></i></a> Copyright (c) 2020 John Helveston
 
