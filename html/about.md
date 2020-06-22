@@ -1,7 +1,7 @@
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![License: MIT](https://img.shields.io/github/license/jhelvy/splitKbCompare)](https://github.com/jhelvy/splitKbCompare/blob/master/LICENSE.txt)
 
 <a href="https://github.com/jhelvy/splitKbCompare" target="_blank">
-<i class="fa fa-github fa-lg"></i></a>
+<i class="fa fa-github fa-lg"></i></a> Copyright (c) 2020 John Helveston
 
 ### Overview
 
@@ -11,6 +11,7 @@ This app is an interactive [tool](https://jhelvy.shinyapps.io/splitkbcompare/) f
 
 - A filter for whether or not the keyboard has a number row at the top.
 - A filter for the degree of stagger across the key columns.
+- A filter for whether or not the keyboard supports rotary encoders.
 - A filter for the keyboard availability (DIY or pre-built).
 - A filter for the maximum number of keys.
 - A "print" button that downloads a PDF of the true-to-scale keyboard layout when printed on 8.5 x 11 inch paper.
