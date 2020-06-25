@@ -40,6 +40,11 @@ ui <- navbarPage(title = "",
                         choices   = c("All", "Yes", "No"),
                         animation = "pulse"),
                     prettyRadioButtons(
+                        inputId   = "onePiece",
+                        label     = "One-piece board?:",
+                        choices   = c("All", "One-piece", "Two halves"),
+                        animation = "pulse"),
+                    prettyRadioButtons(
                         inputId   = "availability",
                         label     = "Availability:",
                         choices   = c("All", "DIY", "Pre-built"),
@@ -162,6 +167,11 @@ server <- function(input, output, session) {
         updatePrettyRadioButtons(
             session  = session,
             inputId  = "wireless",
+            selected = "All"
+        )
+        updatePrettyRadioButtons(
+            session  = session,
+            inputId  = "onePiece",
             selected = "All"
         )
         updatePrettyRadioButtons(

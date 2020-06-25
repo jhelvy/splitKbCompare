@@ -38,6 +38,7 @@ keyboardTable <- keyboards %>%
         `Available pre-built?` = ifelse(prebuilt == 1, 'X', ''),
         `Rotary encoder?` = ifelse(rotaryEncoder == 1, 'X', ''),
         `Wireless?` = ifelse(wireless == 1, 'X', ''),
+        `One-piece board?` = ifelse(onePiece == 1, 'X', ''),
         url_source = ifelse(
             is.na(url_source), '',
             paste0('<a href="', url_source,
@@ -48,4 +49,5 @@ keyboardTable <- keyboards %>%
                    '" target="_blank"><i class="fa fa-shopping-cart"></i></a> ')),
         Links = paste0(url_source, url_store)) %>%
     select(Name, `# of keys`, `Column stagger`, `Number row?`, `Available DIY?`,
-           `Available pre-built?`, `Rotary encoder?`, `Wireless?`, Links)
+           `Available pre-built?`, `Rotary encoder?`, `Wireless?`, 
+           `One-piece board?`, Links)

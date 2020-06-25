@@ -4,12 +4,14 @@ getFilteredRows <- function(input) {
     rowsColStagger <- filterColStagger(input, rowsNumKeys)
     rowsRotarySupport <- filterRotarySupport(input, rowsNumKeys)
     rowsWireless <- filterWireless(input, rowsNumKeys)
+    rowsOnePiece <- filterOnePiece(input, rowsNumKeys)
     rowsAvailability <- filterAvailability(input, rowsNumKeys)
     rows <- intersect(rowsColStagger, 
                 intersect(rowsRotarySupport,
                     intersect(rowsWireless,
-                        intersect(rowsAvailability,
-                            intersect(rowsNumKeys, rowsNumberRow)))))
+                        intersect(rowsOnePiece,
+                            intersect(rowsAvailability,
+                                intersect(rowsNumKeys, rowsNumberRow))))))
     return(rows)
 }
 
@@ -46,6 +48,16 @@ filterWireless <- function(input, rows) {
     }
     if (input$wireless == "No") {
         rows <- which(keyboards$wireless == 0)
+    }
+    return(rows)
+}
+
+filterOnePiece <- function(input, rows) {
+    if (input$onePiece == "One-piece") {
+        rows <- which(keyboards$onePiece == 1)
+    }
+    if (input$onePiece == "Two halves") {
+        rows <- which(keyboards$onePiece == 0)
     }
     return(rows)
 }

@@ -9,12 +9,13 @@ This app is an interactive [tool](https://jhelvy.shinyapps.io/splitkbcompare/) f
 
 ### Features
 
+- A filter for the maximum number of keys.
 - A filter for whether or not the keyboard has a number row at the top.
 - A filter for the degree of stagger across the key columns.
 - A filter for whether or not the keyboard supports rotary encoders.
 - A filter for whether or not the keyboard is wireless.
+- A filter for whether or not the keyboard is a one-piece board or in two halves.
 - A filter for the keyboard availability (DIY or pre-built).
-- A filter for the maximum number of keys.
 - A "print" button that downloads a PDF of the true-to-scale keyboard layout when printed on 8.5 x 11 inch paper.
 
 ### Run locally
