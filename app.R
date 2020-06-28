@@ -95,7 +95,7 @@ ui <- navbarPage(title = "",
     tabPanel("About",
         icon = icon(name = "question-circle", lib = "font-awesome"),
         mainPanel(width = 6,
-            includeMarkdown(file.path("html", "about.md")),br(),
+            includeMarkdown("README.md"),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
                 file.path("html", "footer.html")), collapse=" "))),br()
@@ -122,11 +122,11 @@ server <- function(input, output, session) {
             session = session,
             inputId = "keyboards",
             choices   = keyboards$nameKeys,
-            selected = "Kyria (46 - 50)", 
+            selected = "Kyria (46 - 50)",
             prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     }, once = TRUE)
-    
+
     # Render keyboard table on "Keyboards" page
     output$keyboardTable <- DT::renderDataTable({
         DT::datatable(
@@ -185,12 +185,12 @@ server <- function(input, output, session) {
         names <- input$keyboards
         return(keyboards[which(keyboards$nameKeys %in% names),]$id)
     })
-    
+
     makeImageOverlay <- function(color = FALSE) {
         ids <- selectedIDs()
         bg  <- 'bg-white.png'
-        if (color) { 
-            bg <- 'bg-black.png' 
+        if (color) {
+            bg <- 'bg-black.png'
             colors <- palette[1:length(ids)]
         }
         overlay <- image_read(file.path('images', bg))
@@ -227,12 +227,12 @@ server <- function(input, output, session) {
     downloadImage <- function(size) {
         template <- 'printLetter.Rmd'
         sizeName <- '_8.5x11.pdf'
-        if (size == 'a4') { 
-            template <- 'printA4.Rmd' 
+        if (size == 'a4') {
+            template <- 'printA4.Rmd'
             sizeName <- '_a4.pdf'
         }
         downloadHandler(
-            filename = function() { 
+            filename = function() {
                 paste0('compare_', paste(selectedIDs(), collapse='_'), sizeName)
             },
             content = function(file) {

@@ -1,5 +1,5 @@
 Other boards to add:
-
+- ergotravel: https://github.com/jpconstantineau/ErgoTravel
 
 Still need plate file or link to board:
 - chimera42

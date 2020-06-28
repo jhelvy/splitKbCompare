@@ -1,11 +1,11 @@
 getFilteredRows <- function(input) {
-    rowsNumKeys <- which(keyboards$nKeysMax <= input$maxNumKeys)
-    rowsNumberRow <- filterNumberRow(input, rowsNumKeys)
-    rowsColStagger <- filterColStagger(input, rowsNumKeys)
+    rowsNumKeys       <- which(keyboards$nKeysMax <= input$maxNumKeys)
+    rowsNumberRow     <- filterNumberRow(input, rowsNumKeys)
+    rowsColStagger    <- filterColStagger(input, rowsNumKeys)
     rowsRotarySupport <- filterRotarySupport(input, rowsNumKeys)
-    rowsWireless <- filterWireless(input, rowsNumKeys)
-    rowsOnePiece <- filterOnePiece(input, rowsNumKeys)
-    rowsAvailability <- filterAvailability(input, rowsNumKeys)
+    rowsWireless      <- filterWireless(input, rowsNumKeys)
+    rowsOnePiece      <- filterOnePiece(input, rowsNumKeys)
+    rowsAvailability  <- filterAvailability(input, rowsNumKeys)
     rows <- intersect(rowsColStagger, 
                 intersect(rowsRotarySupport,
                     intersect(rowsWireless,
