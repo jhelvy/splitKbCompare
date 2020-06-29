@@ -1,11 +1,9 @@
 Other boards to add:
-- ergotravel: https://github.com/jpconstantineau/ErgoTravel
 
 Still need plate file or link to board:
 - chimera42
 - orthodox
 - centrometre
-- ergodash travel?
 
 Source for lots of other boards:
 https://github.com/diimdeep/awesome-split-keyboards

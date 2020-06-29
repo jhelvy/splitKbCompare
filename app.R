@@ -73,12 +73,12 @@ ui <- navbarPage(title = "",
                 br(),br(),
                 # Insert footer
                 tags$div(HTML(paste(readLines(
-                    file.path("html", "footer.html")), collapse=" ")))
+                    file.path("includes", "footer.html")), collapse=" ")))
             ),
             mainPanel(
                 # Add custom styling
                 tags$head(tags$style(HTML(paste(readLines(
-                    file.path("html", "style.css")), collapse=" ")))),
+                    file.path("includes", "style.css")), collapse=" ")))),
                 imageOutput("layout")
             )
         )
@@ -89,7 +89,7 @@ ui <- navbarPage(title = "",
             DT::dataTableOutput('keyboardTable'),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
-                file.path("html", "footer.html")), collapse=" "))),br()
+                file.path("includes", "footer.html")), collapse=" "))),br()
         )
     ),
     tabPanel("About",
@@ -98,7 +98,7 @@ ui <- navbarPage(title = "",
             includeMarkdown("README.md"),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
-                file.path("html", "footer.html")), collapse=" "))),br()
+                file.path("includes", "footer.html")), collapse=" "))),br()
         )
     )
 )
@@ -134,7 +134,7 @@ server <- function(input, output, session) {
             escape = FALSE,
             style = 'bootstrap',
             rownames = FALSE,
-            options = list(pageLength = 25))
+            options = list(pageLength = 30))
     })
 
     # Control reset button
