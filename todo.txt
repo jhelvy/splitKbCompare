@@ -1,11 +1,16 @@
 Other boards to add:
 - quefrency: https://github.com/keebio/quefrency-case
 - sinc: https://github.com/keebio/sinc-case
+- arch36: https://github.com/obosob/arch-36-case
+- Ultimate Hacking KeyBoard (uhk-ansi): https://ultimatehackingkeyboard.com/
 
 Still need plate file or link to board:
 - chimera42
 - orthodox
 - centrometre
+
+- Matias Ergo Pro: https://matias.ca/ergopro/pc/
+- Kinesis Freestyle Edge: https://gaming.kinesis-ergo.com/edge/
 
 Source for lots of other boards:
 https://github.com/diimdeep/awesome-split-keyboards
