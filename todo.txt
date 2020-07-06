@@ -1,7 +1,6 @@
 Other boards to add:
 - quefrency: https://github.com/keebio/quefrency-case
 - sinc: https://github.com/keebio/sinc-case
-- arch36: https://github.com/obosob/arch-36-case
 - Ultimate Hacking KeyBoard (uhk-ansi): https://ultimatehackingkeyboard.com/
 
 Still need plate file or link to board:
