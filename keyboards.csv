@@ -1,8 +1,11 @@
 id,nKeysMin,nKeysMax,name,nameKeys,hasNumRow,colStagger,rotaryEncoder,wireless,onePiece,diy,prebuilt,url_source,url_store
+sinc,95,96,Sinc,Sinc (95 - 96),1,None,1,0,0,1,0,https://github.com/keebio/sinc-case,https://keeb.io/products/sinc-split-staggered-75-keyboard
 ergodox,76,80,Ergodox,Ergodox (76 - 80),1,Moderate,0,0,0,1,1,https://github.com/Ergodox-io/ErgoDox,https://ergodox-ez.com/
 ergodash2,68,72,Ergodash 2,Ergodash 2 (68 - 72),1,Moderate,0,0,0,1,0,https://github.com/omkbd/ErgoDash,https://falba.tech/customize-your-keyboard/
 ergodash1,66,68,Ergodash 1,Ergodash 1 (66 - 68),1,Moderate,0,0,0,1,0,https://github.com/omkbd/ErgoDash,https://falba.tech/customize-your-keyboard/
 redox,70,70,Redox,Redox (70),1,Moderate,0,1,0,1,1,https://github.com/mattdibi/redox-keyboard,https://falba.tech/customize-your-keyboard/
+quefrency_rev2,65,82,Quefrency R2,Quefrency R2 (65 - 82),1,None,1,0,0,1,0,https://github.com/keebio/quefrency-case,https://keeb.io/collections/split-keyboard-parts/products/quefrency-rev-2-60-65-split-staggered-keyboard
+quefrency_rev1,65,72,Quefrency R1,Quefrency R1 (65 - 72),1,None,0,0,0,1,0,https://github.com/keebio/quefrency-case,https://keeb.io/products/quefrency-60-65-split-staggered-keyboard
 dygma_raise,68,68,Dygma Raise,Dygma Raise (68),1,None,0,0,0,0,1,NA,https://www.dygma.com/
 interphase,66,66,Interphase,Interphase (66),1,Aggressive,0,1,0,1,0,https://github.com/Durburz/interphase,NA
 keyboardio_model01,64,64,Keyboardio Model01,Keyboardio Model01 (64),1,Aggressive,0,0,0,0,1,https://github.com/keyboardio,https://shop.keyboard.io/products/model-01-keyboard
