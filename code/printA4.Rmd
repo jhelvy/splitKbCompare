@@ -4,7 +4,7 @@ output: pdf_document
 classoption: landscape
 documentclass: article
 papersize: a4
-geometry: margin=0.2in
+geometry: margin=0.15in
 header-includes:
     \thispagestyle{empty}
     \AtBeginDocument{\let\maketitle\relax}

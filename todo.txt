@@ -5,7 +5,6 @@ Still need plate file or link to board:
 - chimera42
 - orthodox
 - centrometre
-
 - Matias Ergo Pro: https://matias.ca/ergopro/pc/
 - Kinesis Freestyle Edge: https://gaming.kinesis-ergo.com/edge/
 

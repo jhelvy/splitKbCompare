@@ -9,14 +9,17 @@ This app is an interactive tool for comparing layouts of different split mechani
 
 ### Features
 
-- A filter for the maximum number of keys.
-- A filter for whether or not the keyboard has a number row at the top.
-- A filter for the degree of stagger across the key columns.
-- A filter for whether or not the keyboard supports rotary encoders.
-- A filter for whether or not the keyboard is wireless.
-- A filter for whether or not the keyboard is a one-piece board or in two halves.
-- A filter for the keyboard availability (DIY or pre-built).
-- A "print" button that downloads a PDF of the true-to-scale keyboard layout when printed on 8.5 x 11 inch paper.
+Click one of the "print" buttons to download a printable PDF of the true-to-scale keyboard layouts (8.5" x 11" or A4 sizes).
+
+Filter the keyboard list:
+
+- Maximum number of keys.
+- Has a number row at the top.
+- Degree of stagger across the key columns.
+- Supports rotary encoders.
+- Wireless.
+- One-piece board or two halves.
+- Availability: DIY and/or pre-built.
 
 ### Run locally
 
