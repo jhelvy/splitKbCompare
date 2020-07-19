@@ -1,4 +1,5 @@
 Other boards to add:
+- Ferris: https://github.com/pierrechevalier83/ferris/
 - Ultimate Hacking KeyBoard (uhk-ansi): https://ultimatehackingkeyboard.com/
 
 Still need plate file or link to board:
