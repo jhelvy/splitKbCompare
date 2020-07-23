@@ -134,7 +134,7 @@ server <- function(input, output, session) {
             escape = FALSE,
             style = 'bootstrap',
             rownames = FALSE,
-            options = list(pageLength = 30))
+            options = list(pageLength = 50))
     })
 
     # Control reset button
