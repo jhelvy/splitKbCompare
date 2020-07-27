@@ -1,3 +1,6 @@
+Todo:
+- Add button to print mirror image (left hand side)
+
 Other boards to add:
 - Ultimate Hacking KeyBoard (uhk-ansi): https://ultimatehackingkeyboard.com/
 
