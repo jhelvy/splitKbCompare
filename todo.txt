@@ -1,9 +1,8 @@
 Todo:
 - Add button to print mirror image (left hand side)
+- Add sort button on keyboard compare list
 
 Other boards to add:
-- torn: https://github.com/rtitmuss/torn
-- viterbi: https://github.com/keebio/viterbi-case, https://keeb.io/products/viterbi-keyboard-pcbs-5x7-70-split-ortholinear
 - Ultimate Hacking KeyBoard (uhk-ansi): https://ultimatehackingkeyboard.com/
 
 Still need plate file or link to board:

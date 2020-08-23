@@ -6,7 +6,10 @@ library(shinyWidgets)
 library(magick)
 
 # Define keyboards
-keyboards <- read.csv('keyboards.csv', header = T, stringsAsFactors = F)
+keyboards <- read.csv('keyboards.csv', header = T, stringsAsFactors = F) %>%
+    mutate(nameKeys = ifelse(nKeysMin == nKeysMax, 
+        paste0(name, ' (', nKeysMin, ')'), 
+        paste0(name, ' (', nKeysMin, ' - ', nKeysMax, ')')))
 
 # Create DT of keyboard table for "Keyboards" page
 check <- '✓'
@@ -32,7 +35,7 @@ keyboardTable <- keyboards %>%
                    '" target="_blank"><i class="fa fa-shopping-cart"></i></a> ')),
         Links = paste0(url_source, url_store)) %>%
     select(Name, `# of keys`, `Column stagger`, `Number row?`, `Available DIY?`,
-           `Available pre-built?`, `Rotary encoder?`, `Wireless?`, 
+           `Available pre-built?`, `Rotary encoder?`, `Wireless?`,
            `One-piece board?`, Links)
 
 # Define the color palette
@@ -43,9 +46,9 @@ palette1 <- c('white', RColorBrewer::brewer.pal(n = 8, name = "Dark2"))
 # OPTION 2
 # Colors from here: https://sashat.me/2017/01/11/list-of-20-simple-distinct-colors/
 palette2 <- c(
-    "#FFFFFF", "#E6194B", "#FFE119", "#3CB44B", "#4363D8", "#F58231", 
-    "#911EB4", "#46F0F0", "#BCF60C", "#FABEBE", "#008080", "#E6BEFF", 
-    "#9A6324", "#FFFAC8", "#AAFFC3", "#808000", "#FFD8B1", "#F032E6", 
+    "#FFFFFF", "#E6194B", "#FFE119", "#3CB44B", "#4363D8", "#F58231",
+    "#911EB4", "#46F0F0", "#BCF60C", "#FABEBE", "#008080", "#E6BEFF",
+    "#9A6324", "#FFFAC8", "#AAFFC3", "#808000", "#FFD8B1", "#F032E6",
     "#800000", "#000075")
 
 # OPTION 3
