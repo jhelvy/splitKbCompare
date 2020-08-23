@@ -30,6 +30,11 @@ a:hover, a:focus {
   color: #FFF;
   text-decoration: underline;
 }
+.control-label {
+  font-family: Exo, sans-serif;
+  font-size: 16px;
+  color: #FFF;
+}
 
 /* other pages */
 .col-sm-6 {

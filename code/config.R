@@ -12,13 +12,6 @@ keyboards <- read.csv('keyboards.csv', header = T, stringsAsFactors = F) %>%
         paste0(name, ' (', nKeysMin, ' - ', nKeysMax, ')'))) %>% 
     arrange(desc(nKeysMax), desc(nKeysMin), id)
 
-# Define list of keyboards to show
-keyboardNamesByKeys <- keyboards$nameKeys
-keyboardNamesByName <- keyboards %>% 
-    arrange(id, desc(nKeysMax), desc(nKeysMin)) %>% 
-    select(nameKeys)
-keyboardNamesByName <- keyboardNamesByName$nameKeys
-
 # Create DT of keyboard table for "Keyboards" page
 check <- '✓'
 keyboardTable <- keyboards %>%

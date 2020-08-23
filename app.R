@@ -8,14 +8,13 @@ ui <- navbarPage(title = "",
             sidebarPanel(
                 width = 3,
                 # Sort list 
-                h4("Sort keyboards:"),
-                div(style="display: inline-block;vertical-align:top;",
-                    actionButton(
-                        inputId = "sortKeys",
-                        label   = "# Keys"),
-                    actionButton(
-                        inputId = "sortNames",
-                        label   = "Name")),
+                prettyRadioButtons(
+                    inputId   = "sortKeyboards",
+                    label     = "Sort keyboards by:",
+                    choices   = c("# Keys", "Name"),
+                    animation = "pulse",
+                    shape     = "curve",
+                    inline    = TRUE),
                 # Filter drop down menu
                 h4("Select keyboards:"),
                 div(style="display: inline-block;vertical-align:top;",
@@ -67,7 +66,7 @@ ui <- navbarPage(title = "",
                 prettyCheckboxGroup(
                     inputId   = "keyboards",
                     label     = '',
-                    choices   = keyboardNamesByKeys,
+                    choices   = keyboards$nameKeys,
                     shape     = "curve",
                     outline   = TRUE,
                     animation = "pulse"),
@@ -116,11 +115,11 @@ server <- function(input, output, session) {
 
     # Filter keyboard options based on filter options
     observe({
-        filteredRows <- getFilteredRows(input)
+        keyboardNames <- getKeyboardNames(input)
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
-            choices = keyboards$nameKeys[filteredRows],
+            choices = keyboardNames,
             prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     })
@@ -145,20 +144,6 @@ server <- function(input, output, session) {
             rownames = FALSE,
             options = list(pageLength = 50))
     })
-    
-    # Control sort buttons
-    observeEvent(input$sortKeys, {
-        updatePrettyCheckboxGroup(
-            session = session,
-            inputId = "keyboards",
-            choices = keyboardNamesByKeys)
-    }, ignoreInit = TRUE)
-    observeEvent(input$sortNames, {
-        updatePrettyCheckboxGroup(
-            session = session,
-            inputId = "keyboards",
-            choices = keyboardNamesByName)
-    }, ignoreInit = TRUE)
     
     # Control reset button
     observeEvent(input$reset, {
