@@ -1,6 +1,5 @@
 Todo:
 - Add button to print mirror image (left hand side)
-- Add sort button on keyboard compare list
 
 Other boards to add:
 - Ultimate Hacking KeyBoard (uhk-ansi): https://ultimatehackingkeyboard.com/

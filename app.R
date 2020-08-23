@@ -7,6 +7,15 @@ ui <- navbarPage(title = "",
         sidebarLayout(
             sidebarPanel(
                 width = 3,
+                # Sort list 
+                h4("Sort keyboards:"),
+                div(style="display: inline-block;vertical-align:top;",
+                    actionButton(
+                        inputId = "sortKeys",
+                        label   = "# Keys"),
+                    actionButton(
+                        inputId = "sortNames",
+                        label   = "Name")),
                 # Filter drop down menu
                 h4("Select keyboards:"),
                 div(style="display: inline-block;vertical-align:top;",
@@ -58,7 +67,7 @@ ui <- navbarPage(title = "",
                 prettyCheckboxGroup(
                     inputId   = "keyboards",
                     label     = '',
-                    choices   = keyboards$nameKeys,
+                    choices   = keyboardNamesByKeys,
                     shape     = "curve",
                     outline   = TRUE,
                     animation = "pulse"),
@@ -136,7 +145,21 @@ server <- function(input, output, session) {
             rownames = FALSE,
             options = list(pageLength = 50))
     })
-
+    
+    # Control sort buttons
+    observeEvent(input$sortKeys, {
+        updatePrettyCheckboxGroup(
+            session = session,
+            inputId = "keyboards",
+            choices = keyboardNamesByKeys)
+    }, ignoreInit = TRUE)
+    observeEvent(input$sortNames, {
+        updatePrettyCheckboxGroup(
+            session = session,
+            inputId = "keyboards",
+            choices = keyboardNamesByName)
+    }, ignoreInit = TRUE)
+    
     # Control reset button
     observeEvent(input$reset, {
         updateSliderInput(
@@ -147,7 +170,7 @@ server <- function(input, output, session) {
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
-            choices = keyboards$nameKeys
+            choices = keyboardNamesByKeys
         )
         updatePrettyRadioButtons(
             session  = session,
