@@ -1,10 +1,10 @@
-Todo:
-- Add button to print mirror image (left hand side)
-
 Other boards to add:
 - Darknight:  https://github.com/macroxue/keyboard-diy
 - Ultimate Hacking KeyBoard (uhk-ansi): https://ultimatehackingkeyboard.com/
 - Kinesis Freestyle Edge: https://gaming.kinesis-ergo.com/edge/
+
+Todo:
+- Add button to print mirror image (left hand side)
 
 Still need plate file or link to board:
 - pinky4
