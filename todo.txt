@@ -7,6 +7,7 @@ Todo:
 - Add button to print mirror image (left hand side)
 
 Still need plate file or link to board:
+- ginny
 - pinky4
 - chimera42
 - orthodox
