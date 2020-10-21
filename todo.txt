@@ -3,6 +3,7 @@ Other boards to add:
 - Ultimate Hacking KeyBoard (uhk-ansi): https://ultimatehackingkeyboard.com/
 - Kinesis Freestyle Edge: https://gaming.kinesis-ergo.com/edge/
 - ginny
+- moonlander
 
 Todo:
 - Add button to show mirror image (for left hand side)
