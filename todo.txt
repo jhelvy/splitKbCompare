@@ -8,9 +8,11 @@ Other boards to add:
 - ginny
 - reviung39MkII
 - reviung41
+- microdox:
+    https://github.com/boardsource/microdox-goodies
+    https://boardsource.xyz/store/5f2e7e4a2902de7151494f92
 
 Still need plate file or link to board:
-- microdox: https://boardsource.xyz/store/5f2e7e4a2902de7151494f92
 - Rhymestone: https://boardsource.xyz/store/5ecb6aee86879c9a0c22da89
 - pinky4
 - chimera42
