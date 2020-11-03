@@ -7,9 +7,10 @@ library(magick)
 
 # Define keyboards
 keyboards <- read.csv('keyboards.csv', header = T, stringsAsFactors = F) %>%
-    mutate(nameKeys = ifelse(nKeysMin == nKeysMax, 
-        paste0(name, ' (', nKeysMin, ')'), 
-        paste0(name, ' (', nKeysMin, ' - ', nKeysMax, ')'))) %>% 
+    filter(include == 1) %>%
+    mutate(nameKeys = ifelse(nKeysMin == nKeysMax,
+        paste0(name, ' (', nKeysMin, ')'),
+        paste0(name, ' (', nKeysMin, ' - ', nKeysMax, ')'))) %>%
     arrange(desc(nKeysMax), desc(nKeysMin), id)
 
 # Create DT of keyboard table for "Keyboards" page
