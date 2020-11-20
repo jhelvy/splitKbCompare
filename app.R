@@ -11,7 +11,7 @@ ui <- navbarPage(title = "",
                 prettyRadioButtons(
                     inputId   = "sortKeyboards",
                     label     = "Sort keyboards by:",
-                    choices   = c("# Keys", "Name"),
+                    choices   = c("Name", "# Keys"),
                     animation = "pulse",
                     shape     = "curve",
                     inline    = TRUE),

@@ -1,11 +1,14 @@
 getKeyboardNames <- function(input) {
     filteredRows <- getFilteredRows(input)
     tempKeyboards <- keyboards[filteredRows,]
-    if (input$sortKeyboards == "# Keys") {
-        return(tempKeyboards$nameKeys)
+    if (input$sortKeyboards == "Name") {
+        tempKeyboards <- tempKeyboards %>% 
+            arrange(id, desc(nKeysMax), desc(nKeysMin))
     }
-    tempKeyboards <- tempKeyboards %>% 
-        arrange(id, desc(nKeysMax), desc(nKeysMin))
+    if (input$sortKeyboards == "# Keys") {
+        tempKeyboards <- tempKeyboards %>% 
+            arrange(desc(nKeysMax), desc(nKeysMin), id)
+    }
     return(tempKeyboards$nameKeys)
 }
 
