@@ -155,7 +155,7 @@ server <- function(input, output, session) {
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
-            choices = keyboardNamesByKeys
+            choices = keyboards$nameKeys
         )
         updatePrettyRadioButtons(
             session  = session,

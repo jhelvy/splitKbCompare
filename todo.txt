@@ -1,9 +1,4 @@
 Plate added, re-position labels:
-- moonlander
-- keyseebee
-- ginny
-- reviung41
-- microdox
 
 Have plate file, need to add:
 - Darknight:  https://github.com/macroxue/keyboard-diy
