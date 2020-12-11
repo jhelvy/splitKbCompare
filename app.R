@@ -100,7 +100,7 @@ ui <- navbarPage(title = "",
                 file.path("includes", "footer.html")), collapse=" "))),br()
         )
     ),
-    tabPanel("About",
+    tabPanel(HTML('About</a></li><li><a href="https://github.com/jhelvy/splitKbCompare" target="_blank"><i class="fa fa-github fa-fw"></i>'),
         icon = icon(name = "question-circle", lib = "font-awesome"),
         mainPanel(width = 6,
             includeMarkdown("README.md"),br(),
