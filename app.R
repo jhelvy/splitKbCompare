@@ -27,6 +27,13 @@ ui <- navbarPage(title = "",
                         max   = max(keyboards$nKeysMax),
                         value = max(keyboards$nKeysMax),
                         step  = 1),
+                    sliderInput(
+                        inputId = "maxNumRows",
+                        label = "Max number of rows:",
+                        min   = min(keyboards$numRows),
+                        max   = max(keyboards$numRows),
+                        value = max(keyboards$numRows),
+                        step  = 1),
                     prettyRadioButtons(
                         inputId   = "hasNumberRow",
                         label     = "Number row:",
@@ -36,6 +43,11 @@ ui <- navbarPage(title = "",
                         inputId   = "colStagger",
                         label     = "Column stagger:",
                         choices   = c("All", "Aggressive", "Moderate", "None"),
+                        animation = "pulse"),
+                    prettyRadioButtons(
+                        inputId   = "rowStagger",
+                        label     = "Has row stagger:",
+                        choices   = c("All", "Yes", "No"),
                         animation = "pulse"),
                     prettyRadioButtons(
                         inputId   = "rotaryEncoder",
@@ -152,6 +164,11 @@ server <- function(input, output, session) {
             inputId = "maxNumKeys",
             value   = max(keyboards$nKeysMax)
         )
+        updateSliderInput(
+            session = session,
+            inputId = "maxNumRows",
+            value   = max(keyboards$numRows)
+        )
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
@@ -165,6 +182,11 @@ server <- function(input, output, session) {
         updatePrettyRadioButtons(
             session  = session,
             inputId  = "colStagger",
+            selected = "All"
+        )
+        updatePrettyRadioButtons(
+            session  = session,
+            inputId  = "rowStagger",
             selected = "All"
         )
         updatePrettyRadioButtons(

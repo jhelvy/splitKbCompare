@@ -20,25 +20,34 @@ keyboardTable <- keyboards %>%
     mutate(`# of keys` = ifelse(
         nKeysMin == nKeysMax, nKeysMin,
         paste(nKeysMin, nKeysMax, sep = ' - ')),
-        `Column stagger` = colStagger,
-        `Number row?` = ifelse(hasNumRow == 1, check, ''),
-        `Available DIY?` = ifelse(diy == 1, check, ''),
+        `# of rows`            = numRows,
+        `Column stagger`       = colStagger,
+        `Row stagger?`         = ifelse(rowStagger == 1, check, ''),
+        `Number row?`          = ifelse(hasNumRow == 1, check, ''),
+        `Available DIY?`       = ifelse(diy == 1, check, ''),
         `Available pre-built?` = ifelse(prebuilt == 1, check, ''),
-        `Rotary encoder?` = ifelse(rotaryEncoder == 1, check, ''),
-        `Wireless?` = ifelse(wireless == 1, check, ''),
-        `One-piece board?` = ifelse(onePiece == 1, check, ''),
+        `Rotary encoder?`      = ifelse(rotaryEncoder == 1, check, ''),
+        `Wireless?`            = ifelse(wireless == 1, check, ''),
+        `One-piece board?`     = ifelse(onePiece == 1, check, ''),
         url_source = ifelse(
             is.na(url_source), '',
-            paste0('<a href="', url_source,
-                   '" target="_blank"><i class="fa fa-github"></i></a> ')),
+            paste0(
+                '<a href="', url_source,
+                '" target="_blank"><i class="fa fa-github"></i></a> '
+            )
+        ),
         url_store = ifelse(
             is.na(url_store), '',
-            paste0('<a href="', url_store,
-                   '" target="_blank"><i class="fa fa-shopping-cart"></i></a> ')),
+            paste0(
+                '<a href="', url_store,
+                '" target="_blank"><i class="fa fa-shopping-cart"></i></a> '
+            )
+        ),
         Links = paste0(url_source, url_store)) %>%
-    select(Name, `# of keys`, `Column stagger`, `Number row?`, `Available DIY?`,
-           `Available pre-built?`, `Rotary encoder?`, `Wireless?`,
-           `One-piece board?`, Links)
+    select(
+        Name, `# of keys`, `# of rows`, `Column stagger`, `Row stagger?`,
+        `Number row?`, `Available DIY?`,`Available pre-built?`,
+        `Rotary encoder?`, `Wireless?`, `One-piece board?`, Links)
 
 # Define the color palette
 

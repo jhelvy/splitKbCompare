@@ -13,77 +13,99 @@ getKeyboardNames <- function(input) {
 }
 
 getFilteredRows <- function(input) {
-    rowsNumKeys       <- which(keyboards$nKeysMax <= input$maxNumKeys)
-    rowsNumberRow     <- filterNumberRow(input, rowsNumKeys)
-    rowsColStagger    <- filterColStagger(input, rowsNumKeys)
-    rowsRotarySupport <- filterRotarySupport(input, rowsNumKeys)
-    rowsWireless      <- filterWireless(input, rowsNumKeys)
-    rowsOnePiece      <- filterOnePiece(input, rowsNumKeys)
-    rowsAvailability  <- filterAvailability(input, rowsNumKeys)
-    rows <- intersect(rowsColStagger, 
-                intersect(rowsRotarySupport,
-                    intersect(rowsWireless,
-                        intersect(rowsOnePiece,
-                            intersect(rowsAvailability,
-                                intersect(rowsNumKeys, rowsNumberRow))))))
+    rows <- filterNumKeys(input)
+    rows <- filterNumRows(input, rows)
+    rows <- filterNumberRow(input, rows)
+    rows <- filterColStagger(input, rows)
+    rows <- filterRowStagger(input, rows)
+    rows <- filterRotarySupport(input, rows)
+    rows <- filterWireless(input, rows)
+    rows <- filterOnePiece(input, rows)
+    rows <- filterAvailability(input, rows)
     return(rows)
 }
 
-filterNumberRow <- function(input, rows) {
+filterNumKeys <- function(input) {
+    return(which(keyboards$nKeysMax <= input$maxNumKeys))
+}
+
+filterNumRows <- function(input, temp) {
+    rows <- which(keyboards$numRows <= input$maxNumRows)
+    return(intersect(temp, rows))
+}
+
+filterNumberRow <- function(input, temp) {
+    rows <- temp
     if (input$hasNumberRow == "Only with number row") {
         rows <- which(keyboards$hasNumRow == 1)
     }
     if (input$hasNumberRow == "Only without number row") {
         rows <- which(keyboards$hasNumRow == 0)
     }
-    return(rows)
+    return(intersect(temp, rows))
 }
 
-filterColStagger <- function(input, rows) {
+filterColStagger <- function(input, temp) {
+    rows <- temp
     if (input$colStagger != "All") {
         rows <- which(keyboards$colStagger == input$colStagger)
     }
-    return(rows)
+    return(intersect(temp, rows))
 }
 
-filterRotarySupport <- function(input, rows) {
+filterRowStagger <- function(input, temp) {
+    rows <- temp
+    if (input$rowStagger == "Yes") {
+        rows <- which(keyboards$rowStagger == 1)
+    }
+    if (input$rowStagger == "No") {
+        rows <- which(keyboards$rowStagger == 0)
+    }
+    return(intersect(temp, rows))
+}
+
+filterRotarySupport <- function(input, temp) {
+    rows <- temp
     if (input$rotaryEncoder == "Yes") {
         rows <- which(keyboards$rotaryEncoder == 1)
     }
     if (input$rotaryEncoder == "No") {
         rows <- which(keyboards$rotaryEncoder == 0)
     }
-    return(rows)
+    return(intersect(temp, rows))
 }
 
-filterWireless <- function(input, rows) {
+filterWireless <- function(input, temp) {
+    rows <- temp
     if (input$wireless == "Yes") {
         rows <- which(keyboards$wireless == 1)
     }
     if (input$wireless == "No") {
         rows <- which(keyboards$wireless == 0)
     }
-    return(rows)
+    return(intersect(temp, rows))
 }
 
-filterOnePiece <- function(input, rows) {
+filterOnePiece <- function(input, temp) {
+    rows <- temp
     if (input$onePiece == "One-piece") {
         rows <- which(keyboards$onePiece == 1)
     }
     if (input$onePiece == "Two halves") {
         rows <- which(keyboards$onePiece == 0)
     }
-    return(rows)
+    return(intersect(temp, rows))
 }
 
-filterAvailability <- function(input, rows) {
+filterAvailability <- function(input, temp) {
+    rows <- temp
     if (input$availability == "DIY") {
         rows <- which(keyboards$diy == 1)
     }
     if (input$availability == "Pre-built") {
         rows <- which(keyboards$prebuilt == 1)
     }
-    return(rows)
+    return(intersect(temp, rows))
 }
 
 getImage <- function(id) {
