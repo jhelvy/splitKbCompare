@@ -34,7 +34,8 @@ redox,70,70,Redox,1,1,,5,Moderate,0,0,1,0,1,1,https://github.com/mattdibi/redox-
 reviung39,39,39,Reviung 39,1,0,,3,Moderate,0,0,0,1,1,0,https://github.com/gtips/reviung,NA
 reviung41,41,41,Reviung 41,1,0,,3,Moderate,0,0,0,1,1,0,https://github.com/gtips/reviung,NA
 sinc,94,100,Sinc,1,1,,6,None,1,1,0,0,1,0,https://github.com/keebio/sinc-case,https://keeb.io/products/sinc-split-staggered-75-keyboard
-sofle,58,58,Sofle,1,1,,4,Moderate,0,1,0,0,1,0,https://github.com/josefadamcik/SofleKeyboard,NA
+sofle_v1,58,58,Sofle V1,1,1,,4,Moderate,0,1,0,0,1,0,https://github.com/josefadamcik/SofleKeyboard,NA
+sofle_v2,58,58,Sofle V2,1,1,,4,Aggressive,0,1,0,0,1,0,https://github.com/josefadamcik/SofleKeyboard,NA
 sol2,64,68,Sol2,1,1,,5,None,0,0,0,0,1,0,https://github.com/RGBKB/Keyboard-files/tree/master/Sol,https://www.rgbkb.net/collections/sol-2
 squiggle,34,38,Squiggle,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/ibnuda/Squiggle,NA
 torn,44,46,Torn,1,0,,3,Moderate,0,1,0,0,1,0,https://github.com/rtitmuss/torn,NA
