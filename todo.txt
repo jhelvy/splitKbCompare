@@ -1,4 +1,5 @@
 Have plate file, need to add:
+- Zodiark
 - Rhymestone
 - Darknight
 - Ultimate Hacking KeyBoard (uhk-ansi)
