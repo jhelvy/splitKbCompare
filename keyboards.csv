@@ -2,8 +2,11 @@ id,nKeysMin,nKeysMax,name,include,hasNumRow,hasFuncRow,numRows,colStagger,rowSta
 absolem,36,36,Absolem,1,0,,3,Aggressive,0,0,0,1,1,0,https://zealot.hu/absolem/,NA
 arch36,36,36,Arch 36,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/obosob/arch-36-case,NA
 atreus,42,42,Atreus,1,0,,4,Aggressive,0,0,0,1,1,1,https://github.com/technomancy/atreus,https://falba.tech/customize-your-keyboard/
+balbuzard,36,36,Balbuzard,1,0,0,3,Agressive,0,0,0,1,1,0,https://github.com/brow/balbuzard,
 claw44,44,44,Claw44,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/yfuku/claw44,NA
 corne,36,42,Corne,1,0,,3,Moderate,0,0,0,0,1,0,https://github.com/foostan/crkbd,NA
+cornish_zen,36,42,Corn-ish Zen,1,0,0,3,Moderate,0,0,1,0,1,0,https://www.thingiverse.com/thing:4698210,https://lowprokb.ca/products/corne-ish-zen-2
+darknight,60,60,Darknight,1,1,,5,None,0,0,0,0,1,0,https://github.com/macroxue/keyboard-diy,NA
 dracuLad,34,36,DracuLad,1,0,0,3,Aggressive,0,1,0,0,1,0,https://github.com/MangoIV/dracuLad/,NA
 dygma_raise,68,68,Dygma Raise,1,1,,5,None,1,0,0,0,0,1,NA,https://www.dygma.com/
 elephant42,42,42,Elephant 42,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/illness072/elephant42,NA
@@ -13,12 +16,14 @@ ergodox,76,80,Ergodox,1,1,,5,Moderate,0,0,0,0,1,1,https://github.com/Ergodox-io/
 ergoslab,52,52,Ergoslab,1,0,0,5,Aggressive,0,0,0,0,1,0,https://github.com/tomsaleeba/ergoslab/,NA
 ergotravel,53,54,Ergotravel,1,0,,4,Moderate,0,0,0,0,1,0,https://github.com/jpconstantineau/ErgoTravel,NA
 ferris,34,34,Ferris,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/pierrechevalier83/ferris/,NA
+freestyle_edge_pro,95,95,Kinesis Freestyle Edge,1,1,1,6,None,1,0,0,0,0,1,NA,https://gaming.kinesis-ergo.com/edge/
 georgi,30,30,Georgi,1,0,,2,Moderate,0,0,0,0,1,1,NA,https://www.gboards.ca/
 gergo,46,50,Gergo,1,0,,3,Moderate,0,0,0,0,1,1,NA,https://www.gboards.ca/
 gergoplex,36,36,Gergoplex,1,0,,3,Moderate,0,0,0,0,1,1,NA,https://www.gboards.ca/
 ginny,10,10,Ginny,1,0,0,1,Moderate,0,0,0,0,1,0,NA,https://www.gboards.ca/
 interphase,66,66,Interphase,1,1,,5,Aggressive,0,0,1,0,1,0,https://github.com/Durburz/interphase,NA
 iris,54,56,Iris,1,1,,4,Moderate,0,1,0,0,1,0,https://github.com/keebio/iris-case,https://keeb.io/products/iris-keyboard-split-ergonomic-keyboard
+jklp,36,36,jklp,1,0,0,4,Agressive,0,0,0,1,1,0,https://github.com/brow/jklp,
 keyboardio_model01,64,64,Keyboardio Model01,1,1,,4,Aggressive,0,0,0,0,0,1,https://github.com/keyboardio,https://shop.keyboard.io/products/model-01-keyboard
 keyseebee,44,44,Keyseebee,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/TeXitoi/keyseebee,NA
 kyria,46,50,Kyria,1,0,,3,Aggressive,0,1,0,0,1,1,https://github.com/splitkb/kyria,https://splitkb.com/
@@ -33,24 +38,19 @@ quefrency_rev2,78,83,Quefrency R2,1,1,,5,None,1,1,0,0,1,0,https://github.com/kee
 redox,70,70,Redox,1,1,,5,Moderate,0,0,1,0,1,1,https://github.com/mattdibi/redox-keyboard,https://falba.tech/customize-your-keyboard/
 reviung39,39,39,Reviung 39,1,0,,3,Moderate,0,0,0,1,1,0,https://github.com/gtips/reviung,NA
 reviung41,41,41,Reviung 41,1,0,,3,Moderate,0,0,0,1,1,0,https://github.com/gtips/reviung,NA
+rhymestone,40,40,Rhymestone,1,0,0,4,None,0,0,0,0,1,0,https://github.com/marksard/Keyboards/tree/master/rhymestone,https://boardsource.xyz/store/5ecb6aee86879c9a0c22da89
 sinc,94,100,Sinc,1,1,,6,None,1,1,0,0,1,0,https://github.com/keebio/sinc-case,https://keeb.io/products/sinc-split-staggered-75-keyboard
 sofle_v1,58,58,Sofle V1,1,1,,4,Moderate,0,1,0,0,1,0,https://github.com/josefadamcik/SofleKeyboard,NA
 sofle_v2,58,58,Sofle V2,1,1,,4,Aggressive,0,1,0,0,1,0,https://github.com/josefadamcik/SofleKeyboard,NA
 sol2,64,68,Sol2,1,1,,5,None,0,0,0,0,1,0,https://github.com/RGBKB/Keyboard-files/tree/master/Sol,https://www.rgbkb.net/collections/sol-2
 squiggle,34,38,Squiggle,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/ibnuda/Squiggle,NA
 torn,44,46,Torn,1,0,,3,Moderate,0,1,0,0,1,0,https://github.com/rtitmuss/torn,NA
+uhk_ansi,63,66,Ultimate Hacking KeyBoard,1,1,,5,None,0,0,0,0,0,1,NA,https://ultimatehackingkeyboard.com/
 viterbi,68,70,Viterbi,1,1,,5,None,0,0,0,0,1,0,https://github.com/keebio/viterbi-case,https://keeb.io/products/viterbi-keyboard-pcbs-5x7-70-split-ortholinear
 xenon,44,54,Xenon,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/narinari/xenon-keyboard,NA
 zen2,64,68,Zen 2,1,1,,5,None,0,0,0,0,1,0,https://github.com/RGBKB/Keyboard-files/tree/master/Zen,https://www.rgbkb.net/products/zen-keyboard?variant=14061935624253
+zodiark,68,70,Zodiark,1,1,0,5,Agressive,0,1,0,0,1,0,https://github.com/Aleblazer/Zodiark-Case,https://www.splitlogic.xyz/
 zygomorph,56,60,Zygomorph,1,1,,5,None,0,0,0,0,1,0,https://github.com/RGBKB/Keyboard-files/tree/master/Zygomorph,https://www.rgbkb.net/products/zygomorph-keyboard?variant=12821537587261
-cornish_zen,36,42,Corn-ish Zen,0,0,0,3,Moderate,0,0,1,0,1,0,https://www.thingiverse.com/thing:4698210,https://lowprokb.ca/products/corne-ish-zen-2
-zodiark,68,70,Zodiark,0,1,0,5,Agressive,0,1,0,0,1,0,https://github.com/Aleblazer/Zodiark-Case,https://www.splitlogic.xyz/
 chimera52,52,52,Chimera,0,1,0,3,Agressive,0,0,1,0,1,0,https://github.com/GlenPickle/Chimera,NA
-darknight,60,60,Darknight,0,1,,5,None,0,0,0,0,1,0,https://github.com/macroxue/keyboard-diy,NA
-freestyle_edge_pro,95,95,Kinesis Freestyle Edge,0,1,1,6,None,1,0,0,0,0,1,NA,https://gaming.kinesis-ergo.com/edge/
 matias_ergo_pro,86,86,Matias Ergo Pro,0,1,1,6,None,1,0,0,0,0,1,NA,https://matias.ca/ergopro/pc/
 pinky4,64,64,Pinky4,0,1,0,4,Moderate,0,0,0,0,1,0,https://github.com/tamanishi/Pinky4,NA
-rhymestone,40,40,Rhymestone,0,0,0,4,None,0,0,0,0,1,0,https://github.com/marksard/Keyboards/tree/master/rhymestone,https://boardsource.xyz/store/5ecb6aee86879c9a0c22da89
-uhk-ansi,63,66,Ultimate Hacking KeyBoard,0,1,,5,None,0,0,0,0,0,1,NA,https://ultimatehackingkeyboard.com/
-jklp,36,36,jklp,0,0,0,4,Agressive,0,0,0,1,1,0,https://github.com/brow/jklp,
-balbuzard,36,36,Balbuzard,0,0,0,3,Agressive,0,0,0,1,1,0,https://github.com/brow/balbuzard,
