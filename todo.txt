@@ -1,4 +1,6 @@
 Have plate file, need to add:
+- jklp
+- Balbuzard
 - Corn-ish Zen
 - Zodiark
 - Rhymestone
