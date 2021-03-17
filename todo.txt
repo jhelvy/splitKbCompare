@@ -1,12 +1,5 @@
 Have plate file, need to add:
-- jklp
-- Balbuzard
-- Corn-ish Zen
-- Zodiark
-- Rhymestone
-- Darknight
-- Ultimate Hacking KeyBoard (uhk-ansi)
-- Kinesis Freestyle Edge
+
 
 Still need plate file:
 - Matias Ergo Pro: https://matias.ca/ergopro/pc/
