@@ -117,3 +117,13 @@ getColorImage <- function(id, color) {
     image <- getImage(id)
     return(image_colorize(image, 100, color))
 }
+
+getImageList <- function(keyboards) {
+    paths <- file.path('images', paste0(keyboards$id, ".png"))
+    images <- list()
+    for (i in seq_len(nrow(keyboards))) {
+        images[[i]] <- image_read(paths[i])
+    }
+    names(images) <- keyboards$id
+    return(images)
+}

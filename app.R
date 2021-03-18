@@ -215,7 +215,7 @@ server <- function(input, output, session) {
         names <- input$keyboards
         return(keyboards[which(keyboards$nameKeys %in% names),]$id)
     })
-
+    
     makeImageOverlay <- function(color = FALSE) {
         ids <- selectedIDs()
         bg  <- 'bg-white.png'
@@ -251,7 +251,7 @@ server <- function(input, output, session) {
                     alt = "Keyboard layout",
                     contentType = "image/png"))
 
-    }, deleteFile = TRUE)
+    })
 
     # Download overlay images
     downloadImage <- function(size) {
