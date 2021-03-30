@@ -1,5 +1,5 @@
 Have plate file, need to add:
-
+- pteron
 
 Still need plate file:
 - Matias Ergo Pro: https://matias.ca/ergopro/pc/
@@ -7,9 +7,3 @@ Still need plate file:
 - chimera42
 - orthodox
 - centrometre
-
-Other features:
-- Add button to show mirror image (for left hand side)
-
-Source for lots of other boards:
-https://github.com/diimdeep/awesome-split-keyboards
