@@ -34,6 +34,8 @@ minidox,36,36,Minidox,1,0,,3,Moderate,0,0,0,0,1,1,https://github.com/dotdash32/C
 mitosis,46,46,Mitosis,1,0,,3,Aggressive,0,0,1,0,1,0,https://github.com/joric/mitosis-hardware/tree/joric_kicad,NA
 moonlander,72,72,Moonlander,1,1,,5,Moderate,0,0,0,0,0,1,NA,https://www.zsa.io/moonlander/
 nyquist,60,60,Nyquist,1,1,,5,None,0,0,0,0,1,0,https://github.com/keebio/nyquist-case,https://keeb.io/products/nyquist-keyboard
+pteron,38,56,Pteron,1,1,0,4,Agressive,0,0,0,1,1,0,https://github.com/FSund/pteron-keyboard,NA
+pteron36,36,36,Pteron 36,1,0,0,3,Agressive,0,0,0,0,1,0,https://github.com/harshitgoel96/pteron36-split-keyboard,NA
 quefrency_rev1,63,72,Quefrency R1,1,1,,5,None,1,0,0,0,1,0,https://github.com/keebio/quefrency-case,https://keeb.io/products/quefrency-60-65-split-staggered-keyboard
 quefrency_rev2,78,83,Quefrency R2,1,1,,5,None,1,1,0,0,1,0,https://github.com/keebio/quefrency-case,https://keeb.io/collections/split-keyboard-parts/products/quefrency-rev-2-60-65-split-staggered-keyboard
 redox,70,70,Redox,1,1,,5,Moderate,0,0,1,0,1,1,https://github.com/mattdibi/redox-keyboard,https://falba.tech/customize-your-keyboard/
@@ -49,13 +51,11 @@ torn,44,46,Torn,1,0,,3,Moderate,0,1,0,0,1,0,https://github.com/rtitmuss/torn,NA
 uhk_ansi,63,66,Ultimate Hacking KeyBoard,1,1,,5,None,0,0,0,0,0,1,NA,https://ultimatehackingkeyboard.com/
 viterbi,68,70,Viterbi,1,1,,5,None,0,0,0,0,1,0,https://github.com/keebio/viterbi-case,https://keeb.io/products/viterbi-keyboard-pcbs-5x7-70-split-ortholinear
 xenon,44,54,Xenon,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/narinari/xenon-keyboard,NA
+yaemk,62,68,YAEMK,1,1,0,1,Agressive,0,1,0,0,1,0,https://karlk90.github.io/yaemk-split-kb/,NA
 zen2,64,68,Zen 2,1,1,,5,None,0,0,0,0,1,0,https://github.com/RGBKB/Keyboard-files/tree/master/Zen,https://www.rgbkb.net/products/zen-keyboard?variant=14061935624253
 zodiark,68,70,Zodiark,1,1,0,5,Agressive,0,1,0,0,1,0,https://github.com/Aleblazer/Zodiark-Case,https://www.splitlogic.xyz/
 zygomorph,56,60,Zygomorph,1,1,,5,None,0,0,0,0,1,0,https://github.com/RGBKB/Keyboard-files/tree/master/Zygomorph,https://www.rgbkb.net/products/zygomorph-keyboard?variant=12821537587261
+apoptosis,44,44,Apoptosis,0,0,0,3,Agressive,0,0,1,0,1,0,https://github.com/pseudoku/Apoptosis,NA
 chimera52,52,52,Chimera,0,1,0,3,Agressive,0,0,1,0,1,0,https://github.com/GlenPickle/Chimera,NA
 matias_ergo_pro,86,86,Matias Ergo Pro,0,1,1,6,None,1,0,0,0,0,1,NA,https://matias.ca/ergopro/pc/
 pinky4,64,64,Pinky4,0,1,0,4,Moderate,0,0,0,0,1,0,https://github.com/tamanishi/Pinky4,NA
-pteron,38,56,Pteron,0,1,0,4,Agressive,0,0,0,1,1,0,https://github.com/FSund/pteron-keyboard,NA
-pteron36,36,36,Pteron 36,0,0,0,3,Agressive,0,0,0,0,1,0,https://github.com/harshitgoel96/pteron36-split-keyboard,NA
-yaemk,62,68,YAEMK,0,1,0,1,Agressive,0,1,0,0,1,0,https://karlk90.github.io/yaemk-split-kb/,NA
-apoptosis,44,44,Apoptosis,0,0,0,3,Agressive,0,0,1,0,1,0,https://github.com/pseudoku/Apoptosis,NA

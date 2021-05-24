@@ -1,5 +1,6 @@
 source(file.path('code', 'config.R'))
-source(file.path('code', 'functions.R'))
+
+images <- loadImages()
 
 ui <- navbarPage(title = "",
     theme = shinytheme("cyborg"),
@@ -218,19 +219,19 @@ server <- function(input, output, session) {
     
     makeImageOverlay <- function(color = FALSE) {
         ids <- selectedIDs()
-        bg  <- 'bg-white.png'
+        bg  <- 'bg_white'
         if (color) {
-            bg <- 'bg-black.png'
+            bg <- 'bg_black'
             colors <- palette[1:length(ids)]
         }
-        overlay <- image_read(file.path('images', bg))
+        overlay <- getImage(images, bg)
         if (length(ids) > 0) {
             for (i in 1:length(ids)) {
                 id <- ids[i]
                 if (color) {
-                    image <- getColorImage(id, colors[i])
+                    image <- getColorImage(images, id, colors[i])
                 } else {
-                    image <- getImage(id)
+                    image <- getImage(images, id)
                 }
                 overlay <- c(overlay, image)
             }

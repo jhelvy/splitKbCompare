@@ -5,6 +5,8 @@ library(shinythemes)
 library(shinyWidgets)
 library(magick)
 
+source(file.path('code', 'functions.R'))
+
 # Define keyboards
 keyboards <- read.csv('keyboards.csv', header = T, stringsAsFactors = F) %>%
     filter(include == 1) %>%

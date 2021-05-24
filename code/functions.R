@@ -1,12 +1,20 @@
+loadImages <- function() {
+    imageNames <- c(paste0(keyboards$id, ".png"), "bg-white.png", "bg-black.png")
+    imagePaths <- file.path("images", imageNames)
+    images <- as.list(image_read(imagePaths))
+    names(images) <- c(keyboards$id, "bg_white", "bg_black")
+    return(images)
+}
+
 getKeyboardNames <- function(input) {
     filteredRows <- getFilteredRows(input)
     tempKeyboards <- keyboards[filteredRows,]
     if (input$sortKeyboards == "Name") {
-        tempKeyboards <- tempKeyboards %>% 
+        tempKeyboards <- tempKeyboards %>%
             arrange(id, desc(nKeysMax), desc(nKeysMin))
     }
     if (input$sortKeyboards == "# Keys") {
-        tempKeyboards <- tempKeyboards %>% 
+        tempKeyboards <- tempKeyboards %>%
             arrange(desc(nKeysMax), desc(nKeysMin), id)
     }
     return(tempKeyboards$nameKeys)
@@ -108,22 +116,11 @@ filterAvailability <- function(input, temp) {
     return(intersect(temp, rows))
 }
 
-getImage <- function(id) {
-    imagePath <- file.path('images', paste0(id, ".png"))
-    return(image_read(imagePath))
+getImage <- function(images, id) {
+    return(images[id])
 }
 
-getColorImage <- function(id, color) {
-    image <- getImage(id)
+getColorImage <- function(images, id, color) {
+    image <- getImage(images, id)
     return(image_colorize(image, 100, color))
-}
-
-getImageList <- function(keyboards) {
-    paths <- file.path('images', paste0(keyboards$id, ".png"))
-    images <- list()
-    for (i in seq_len(nrow(keyboards))) {
-        images[[i]] <- image_read(paths[i])
-    }
-    names(images) <- keyboards$id
-    return(images)
 }
