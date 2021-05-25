@@ -10,3 +10,8 @@ Still need plate file:
 - chimera42
 - orthodox
 - centrometre
+
+Features:
+- Add "open image in new tab" button
+- Move print buttons into main panel
+- Add border to layouts?
