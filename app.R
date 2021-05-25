@@ -1,6 +1,17 @@
-source(file.path('code', 'config.R'))
+library(DT)
+library(dplyr)
+library(shiny)
+library(shinythemes)
+library(shinyWidgets)
+library(magick)
 
+source(file.path('code', 'functions.R'))
+
+# Load data
+keyboards <- loadKeyboards()
+keyboardsDT <- loadKeyboardsDT(keyboards)
 images <- loadImages()
+palette <- loadColorPalette()
 
 ui <- navbarPage(title = "",
     theme = shinytheme("cyborg"),
@@ -8,7 +19,7 @@ ui <- navbarPage(title = "",
         sidebarLayout(
             sidebarPanel(
                 width = 3,
-                # Sort list 
+                # Sort list
                 prettyRadioButtons(
                     inputId   = "sortKeyboards",
                     label     = "Sort keyboards by:",
@@ -107,7 +118,7 @@ ui <- navbarPage(title = "",
     tabPanel("Keyboards",
         icon = icon(name = "keyboard", lib = "font-awesome"),
         mainPanel(width = 7,
-            DT::dataTableOutput('keyboardTable'),br(),
+            DT::dataTableOutput('keyboardsDT'),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
                 file.path("includes", "footer.html")), collapse=" "))),br()
@@ -128,7 +139,7 @@ server <- function(input, output, session) {
 
     # Filter keyboard options based on filter options
     observe({
-        keyboardNames <- getKeyboardNames(input)
+        keyboardNames <- getKeyboardNames(input, keyboards)
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboards",
@@ -149,15 +160,15 @@ server <- function(input, output, session) {
     }, once = TRUE)
 
     # Render keyboard table on "Keyboards" page
-    output$keyboardTable <- DT::renderDataTable({
+    output$keyboardsDT <- DT::renderDataTable({
         DT::datatable(
-            keyboardTable,
+            keyboardsDT,
             escape = FALSE,
             style = 'bootstrap',
             rownames = FALSE,
             options = list(pageLength = 50))
     })
-    
+
     # Control reset button
     observeEvent(input$reset, {
         updateSliderInput(
@@ -213,36 +224,26 @@ server <- function(input, output, session) {
     }, ignoreInit = TRUE)
 
     selectedIDs <- reactive({
-        names <- input$keyboards
-        return(keyboards[which(keyboards$nameKeys %in% names),]$id)
+        return(keyboards[which(keyboards$nameKeys %in% input$keyboards),]$id)
     })
-    
-    makeImageOverlay <- function(color = FALSE) {
-        ids <- selectedIDs()
-        bg  <- 'bg_white'
-        if (color) {
-            bg <- 'bg_black'
-            colors <- palette[1:length(ids)]
-        }
-        overlay <- getImage(images, bg)
-        if (length(ids) > 0) {
-            for (i in 1:length(ids)) {
-                id <- ids[i]
-                if (color) {
-                    image <- getColorImage(images, id, colors[i])
-                } else {
-                    image <- getImage(images, id)
-                }
-                overlay <- c(overlay, image)
-            }
-        }
-        return(image_mosaic(image_join(overlay)))
-    }
 
+    # Create joint overlay image 
+    makeImageOverlay <- function(images, palette, color = FALSE) {
+        ids <- selectedIDs()
+        if (length(ids) > 0) {
+            if (color) {
+                return(getImageOverlayColor(ids, images, palette))
+            } else {
+                return(getImageOverlay(ids, images))
+            }
+        } 
+        return(images$scale_black)
+    }
+    
     # Render overlay image
     output$layout <- renderImage({
         # Create the color image overlay
-        overlayColor <- makeImageOverlay(color = TRUE)
+        overlayColor <- makeImageOverlay(images, palette, color = TRUE)
         # Define the path to the image
         tmpImagePathColor <- overlayColor %>%
             image_write(tempfile(fileext = 'png'), format = 'png')
@@ -252,7 +253,7 @@ server <- function(input, output, session) {
                     alt = "Keyboard layout",
                     contentType = "image/png"))
 
-    })
+    }, deleteFile = TRUE)
 
     # Download overlay images
     downloadImage <- function(size) {
@@ -267,23 +268,25 @@ server <- function(input, output, session) {
                 paste0('compare_', paste(selectedIDs(), collapse='_'), sizeName)
             },
             content = function(file) {
-                # Copy the report file to a temporary directory before processing it,
-                # in case we don't have write permissions to the current working dir
+                # Copy the file to a temporary directory before processing it,
+                # in case we don't have write permissions to the current dir
                 # (which can happen when deployed).
                 tempReport <- file.path(tempdir(), "print.Rmd")
-                file.copy(file.path("code", template), tempReport, overwrite = TRUE)
+                file.copy(
+                    file.path("code", template), tempReport, overwrite = TRUE)
                 # Create the black and white image overlay
-                overlayBw <- makeImageOverlay()
+                overlayBw <- makeImageOverlay(images, palette, color = FALSE)
                 # Define the path to the image
                 tmpImagePathBw <- overlayBw %>%
                     image_write(tempfile(fileext = 'png'), format = 'png')
                 # Prepare the path to be passed to the Rmd file
                 params <- list(path = tmpImagePathBw)
-                # Knit the document, passing in the `params` list, and eval it in a
-                # child of the global environment (this isolates the code in the document
-                # from the code in this app).
-                rmarkdown::render(tempReport, output_file = file,
-                                  params = params, envir = new.env(parent = globalenv())
+                # Knit the document, passing in the `params` list, and eval it 
+                # in a child of the global environment (this isolates the code 
+                # in the document from the code in this app).
+                rmarkdown::render(
+                    tempReport, output_file = file, params = params, 
+                    envir = new.env(parent = globalenv())
                 )
             }
         )
