@@ -2,7 +2,7 @@
 name: Add Keyboard
 about: Please use this template to request a keyboard be added to the app
 title: ''
-labels: ''
+labels: add keyboard
 assignees: ''
 
 ---
