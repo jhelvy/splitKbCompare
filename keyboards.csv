@@ -48,7 +48,7 @@ sofle_v2,58,58,Sofle V2,1,1,,4,Aggressive,0,1,0,0,1,0,https://github.com/josefad
 sol2,64,68,Sol2,1,1,,5,None,0,0,0,0,1,0,https://github.com/RGBKB/Keyboard-files/tree/master/Sol,https://www.rgbkb.net/collections/sol-2
 squiggle,34,38,Squiggle,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/ibnuda/Squiggle,NA
 torn,44,46,Torn,1,0,,3,Moderate,0,1,0,0,1,0,https://github.com/rtitmuss/torn,NA
-uhk_ansi,63,66,Ultimate Hacking KeyBoard,1,1,,5,None,0,0,0,0,0,1,NA,https://ultimatehackingkeyboard.com/
+uhk_ansi,63,66,Ultimate Hacking KeyBoard,1,1,1,5,None,1,0,0,0,0,1,NA,https://ultimatehackingkeyboard.com/
 viterbi,68,70,Viterbi,1,1,,5,None,0,0,0,0,1,0,https://github.com/keebio/viterbi-case,https://keeb.io/products/viterbi-keyboard-pcbs-5x7-70-split-ortholinear
 xenon,44,54,Xenon,1,0,,3,Aggressive,0,0,0,0,1,0,https://github.com/narinari/xenon-keyboard,NA
 yaemk,62,68,YAEMK,1,1,0,1,Agressive,0,1,0,0,1,0,https://karlk90.github.io/yaemk-split-kb/,NA
