@@ -1,7 +1,6 @@
 Have plate file, need to add:
-- pteron
-- pteron36
-- yaemk
+- Fifi
+- Splay46
 
 Still need plate file:
 - Apoptosis
