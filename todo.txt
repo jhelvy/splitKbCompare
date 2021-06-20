@@ -1,11 +1,12 @@
 Have plate file, need to add:
-- Fifi
-- Splay46
+- Fifi (#50)
+- Splay46 (#48)
+- 3w6 (#51)
 
 Still need plate file:
-- Apoptosis
+- Apoptosis (#45)
 - Matias Ergo Pro: https://matias.ca/ergopro/pc/
-- pinky4
+- pinky4 (#18)
 - chimera42
 - orthodox
 - centrometre
@@ -13,4 +14,5 @@ Still need plate file:
 Features:
 - Add "open image in new tab" button
 - Move print buttons into main panel
-- Add border to layouts?
+- Add single instead of multiple select? (#39)
+- Add "mirror" image button (#17)
