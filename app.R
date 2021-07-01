@@ -88,7 +88,7 @@ ui <- navbarPage(title = "",
                         label   = "Reset")),
                 # Main keyboard selection options
                 prettyCheckboxGroup(
-                    inputId   = "keyboards",
+                    inputId   = "keyboard",
                     label     = '',
                     choices   = keyboards$nameKeys,
                     shape     = "curve",
@@ -142,19 +142,24 @@ server <- function(input, output, session) {
         keyboardNames <- getKeyboardNames(input, keyboards)
         updatePrettyCheckboxGroup(
             session = session,
-            inputId = "keyboards",
+            inputId = "keyboard",
             choices = keyboardNames,
             prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     })
-
-    # Set Kyria as initial starting layout
+    
+    # Set initial starting layout based on url parameter
     observeEvent("", {
+        query <- parseQueryString(session$clientData$url_search)
+        keyboardQuery <- query[['keyboard']]
+        if (is.null(keyboardQuery)) { 
+            keyboardQuery <- "kyria"
+        }
         updatePrettyCheckboxGroup(
             session = session,
-            inputId = "keyboards",
-            choices   = keyboards$nameKeys,
-            selected = "Kyria (46 - 50)",
+            inputId = "keyboard",
+            choices = keyboards$nameKeys,
+            selected = keyboards$nameKeys[which(keyboards$id == keyboardQuery)],
             prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     }, once = TRUE)
@@ -183,7 +188,7 @@ server <- function(input, output, session) {
         )
         updatePrettyCheckboxGroup(
             session = session,
-            inputId = "keyboards",
+            inputId = "keyboard",
             choices = keyboards$nameKeys
         )
         updatePrettyRadioButtons(
@@ -224,7 +229,7 @@ server <- function(input, output, session) {
     }, ignoreInit = TRUE)
 
     selectedIDs <- reactive({
-        return(keyboards[which(keyboards$nameKeys %in% input$keyboards),]$id)
+        return(keyboards[which(keyboards$nameKeys %in% input$keyboard),]$id)
     })
 
     # Create joint overlay image 
