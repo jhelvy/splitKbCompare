@@ -151,15 +151,19 @@ server <- function(input, output, session) {
     # Set initial starting layout based on url parameter
     observeEvent("", {
         query <- parseQueryString(session$clientData$url_search)
-        keyboardQuery <- query[['keyboard']]
+        keyboardQuery <- query[['keyboards']]
         if (is.null(keyboardQuery)) { 
-            keyboardQuery <- "kyria"
+            keyboardNames <- "kyria"
+        } else if (grepl(";", keyboardQuery)) {
+            keyboardNames <- strsplit(keyboardQuery, ";")[[1]]
+        } else {
+            keyboardNames <- keyboardQuery
         }
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboard",
             choices = keyboards$nameKeys,
-            selected = keyboards$nameKeys[which(keyboards$id == keyboardQuery)],
+            selected = keyboards$nameKeys[which(keyboards$id %in% keyboardNames)],
             prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     }, once = TRUE)
