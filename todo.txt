@@ -2,6 +2,7 @@ Have plate file, need to add:
 - Fifi (#50)
 - Splay46 (#48)
 - 3w6 (#51)
+- Pluckey (#52)
 
 Still need plate file:
 - Apoptosis (#45)
