@@ -86,20 +86,19 @@ ui <- navbarPage(title = "",
                     shape     = "curve",
                     outline   = TRUE,
                     animation = "pulse"),
+                # Insert footer
+                tags$div(HTML(paste(readLines(
+                    file.path("includes", "footer.html")), collapse=" ")))
+            ),
+            mainPanel(
                 # Print buttons
-                h4("Print to scale:"),
+                h4("Print to scale (PDF):"),
                 downloadButton(
                     outputId = "printLetter",
                     label    = "8.5x11"),
                 downloadButton(
                     outputId = "printA4",
                     label    = "A4"),
-                br(),br(),
-                # Insert footer
-                tags$div(HTML(paste(readLines(
-                    file.path("includes", "footer.html")), collapse=" ")))
-            ),
-            mainPanel(
                 # Add custom styling
                 tags$head(tags$style(HTML(paste(readLines(
                     file.path("includes", "style.css")), collapse=" ")))),
