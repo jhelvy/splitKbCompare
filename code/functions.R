@@ -89,7 +89,7 @@ loadColorPalette <- function() {
 }
 
 # Controls which keyboards to show based on filter controls
-getKeyboardNames <- function(input, keyboards) {
+getFilteredKeyboardNames <- function(input, keyboards) {
     filteredRows <- getFilteredRows(input, keyboards)
     tempKeyboards <- keyboards[filteredRows,]
     if (input$sortKeyboards == "Name") {

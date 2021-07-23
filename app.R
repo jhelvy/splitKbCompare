@@ -130,7 +130,7 @@ server <- function(input, output, session) {
 
     # Filter keyboard options based on filter options
     observe({
-        keyboardNames <- getKeyboardNames(input, keyboards)
+        keyboardNames <- getFilteredKeyboardNames(input, keyboards)
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboard",
