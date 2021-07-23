@@ -1,21 +1,11 @@
-library(DT)
-library(dplyr)
-library(shiny)
-library(shinythemes)
-library(shinyWidgets)
-library(magick)
-
-source(file.path('code', 'functions.R'))
-
-# Load data
-keyboards <- loadKeyboards()
-keyboardsDT <- loadKeyboardsDT(keyboards)
-images <- loadImages()
-palette <- loadColorPalette()
+# Load libraries, custom functions, and keyboard data
+source(file.path('code', 'setup.R'))
 
 ui <- navbarPage(title = "",
     theme = shinytheme("cyborg"),
-    tabPanel("Compare", icon = icon(name = "balance-scale", lib = "font-awesome"),
+    tabPanel(
+        title = "Compare", 
+        icon = icon(name = "balance-scale", lib = "font-awesome"),
         sidebarLayout(
             sidebarPanel(
                 width = 3,
@@ -49,7 +39,9 @@ ui <- navbarPage(title = "",
                     prettyRadioButtons(
                         inputId   = "hasNumberRow",
                         label     = "Number row:",
-                        choices   = c("All", "Only with number row", "Only without number row"),
+                        choices   = c(
+                            "All", "Only with number row", 
+                            "Only without number row"),
                         animation = "pulse"),
                     prettyRadioButtons(
                         inputId   = "colStagger",
