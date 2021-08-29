@@ -28,13 +28,17 @@ Filter the keyboard list:
 The app is hosted for [free online](https://jhelvy.shinyapps.io/splitkbcompare/), but you can also run the app locally on your computer by following these steps:
 
 1. Install [R](https://cloud.r-project.org/)
-2. Run this code in R to install the [shiny library](https://shiny.rstudio.com/):
+2. Run this code in an R terminal (run 'R', e.g. '/usr/bin/R' or 'Rgui.exe') to install the [shiny library](https://shiny.rstudio.com/):
 
 ```
 install.packages("shiny")
 ```
+3. Run this in R to install the other dependencies:
+```
+install.packages(c("DT", "dplyr", "shinythemes", "shinyWidgets", "magick", "readr", "RcolorBrewer", "markdown"))
+```
 
-3. Run this code in R to launch the app:
+4. Run this in R to launch the app:
 
 ```
 library(shiny)
