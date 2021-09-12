@@ -10,7 +10,7 @@ Still need plate file:
 - centrometre
 
 Features:
+- add filter kailh-choc vs cherry spacing
 - Add "open image in new tab" button
-- Move print buttons into main panel
 - Add single instead of multiple select? (#39)
 - Add "mirror" image button (#17)
