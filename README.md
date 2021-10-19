@@ -33,7 +33,7 @@ The app is hosted for [free online](https://jhelvy.shinyapps.io/splitkbcompare/)
 ```
 install.packages(c(
     "shiny", "DT", "dplyr", "shinythemes", "shinyWidgets", "magick", "readr",
-    "RcolorBrewer", "markdown"
+    "RColorBrewer", "markdown"
 ))
 ```
 
