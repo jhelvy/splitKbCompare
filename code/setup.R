@@ -10,6 +10,7 @@ library(shiny)
 library(shinythemes)
 library(shinyWidgets)
 library(magick)
+library(markdown)
 
 # Load custom functions
 source(file.path('code', 'functions.R'))
