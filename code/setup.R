@@ -1,3 +1,8 @@
+# install.packages(c(
+#     "shiny", "DT", "dplyr", "shinythemes", "shinyWidgets", "magick", "readr",
+#     "RColorBrewer", "markdown"
+# ))
+
 # Load libraries
 library(DT)
 library(dplyr)
