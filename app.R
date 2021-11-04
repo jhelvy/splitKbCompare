@@ -103,6 +103,14 @@ ui <- navbarPage(title = "",
                 downloadButton(
                     outputId = "printA4",
                     label    = "A4"),
+                downloadButton(
+                    outputId = "printLetterSep",
+                    label    = "8.5x11 Separate Pages",
+                    sepPages = TRUE),
+                downloadButton(
+                    outputId = "printA4Sep",
+                    label    = "A4 Separate Pages",
+                    sepPages = TRUE),
                 # Add custom styling
                 tags$head(tags$style(HTML(paste(readLines(
                     file.path("includes", "style.css")), collapse=" ")))),
@@ -246,13 +254,14 @@ server <- function(input, output, session) {
     })
 
     # Create joint overlay image 
-    makeImageOverlay <- function(images, palette, color = FALSE) {
-        ids <- selectedIDs()
-        if (length(ids) > 0) {
+    # If IDs isn't given, then uses the usual all-selected But can also get just
+    # a subset of (selected) keyboards
+    makeImageOverlay <- function(images, palette, color = FALSE, IDs = selectedIDs()) {
+        if (length(IDs) > 0) {
             if (color) {
-                return(getImageOverlayColor(ids, images, palette))
+                return(getImageOverlayColor(IDs, images, palette))
             } else {
-                return(getImageOverlay(ids, images))
+                return(getImageOverlay(IDs, images))
             }
         } 
         return(images$scale_black)
@@ -274,7 +283,7 @@ server <- function(input, output, session) {
     }, deleteFile = TRUE)
 
     # Download overlay images
-    downloadImage <- function(size) {
+    downloadImage <- function(size, sepPages=FALSE) {
         template <- 'printLetter.Rmd'
         sizeName <- '_8.5x11.pdf'
         if (size == 'a4') {
@@ -283,7 +292,13 @@ server <- function(input, output, session) {
         }
         downloadHandler(
             filename = function() {
-                paste0('compare_', paste(selectedIDs(), collapse='_'), sizeName)
+                selectedIDs_filename = paste(selectedIDs(), collapse='_')
+                # Magic number but avoid crazily long output filename if many
+                # keyboards. Could probably be set even smaller
+                if(length(selectedIDs()) > 10){
+                    selectedIDs_filename = "many"
+                }
+                paste0('compare_', selectedIDs_filename, sizeName)
             },
             content = function(file) {
                 # Copy the file to a temporary directory before processing it,
@@ -292,13 +307,42 @@ server <- function(input, output, session) {
                 tempReport <- file.path(tempdir(), "print.Rmd")
                 file.copy(
                     file.path("code", template), tempReport, overwrite = TRUE)
-                # Create the black and white image overlay
-                overlayBw <- makeImageOverlay(images, palette, color = FALSE)
-                # Define the path to the image
-                tmpImagePathBw <- overlayBw %>%
-                    image_write(tempfile(fileext = 'png'), format = 'png')
+
+
+                # Want to support one-page all-overlapping visualization as well
+                # as single keyboards. So pass a list of {keyboard groups} where
+                # a keyboard group can have any number of keyboards
+                
+                # Default is one big group so one list of list
+                # If only one selected, all overlay = separate page anyway,
+                # so don't print redundant page even if sepPages is set
+                if(!sepPages || length(selectedIDs()) == 1){
+                    id_groups = list(selectedIDs())
+                }else{
+                    # First page is all overlay like normal
+                    # Then subsequent pages is each keyb individually
+                    id_groups = c(list(selectedIDs()),
+                                  selectedIDs())
+                }
+
+                # Hold path to the image generated for each id_group
+                id_group_paths = c()
+                for(gp in id_groups){
+                    # Create the black and white image overlay
+                    overlayBw <- makeImageOverlay(images, palette,
+                                                  color = FALSE, IDs = gp)
+
+                    # Define the path to the image
+                    tmpImagePathBw <- overlayBw %>%
+                                          image_write(tempfile(fileext = '.png'),
+                                                      format = 'png')
+
+                    id_group_paths = c(id_group_paths,
+                                       tmpImagePathBw)
+                }
                 # Prepare the path to be passed to the Rmd file
-                params <- list(path = tmpImagePathBw)
+                params <- list(path = id_group_paths)
+
                 # Knit the document, passing in the `params` list, and eval it 
                 # in a child of the global environment (this isolates the code 
                 # in the document from the code in this app).
@@ -312,6 +356,9 @@ server <- function(input, output, session) {
 
     output$printLetter <- downloadImage('letter')
     output$printA4 <- downloadImage('a4')
+
+    output$printLetterSep <- downloadImage('letter', sepPages=T)
+    output$printA4Sep <- downloadImage('a4', sepPages=T)
 }
 
 shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))
