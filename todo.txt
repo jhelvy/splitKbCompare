@@ -14,3 +14,5 @@ Features:
 - Add "open image in new tab" button
 - Add single instead of multiple select? (#39)
 - Add "mirror" image button (#17)
+- Github action/CI to automatically generate mega-PDF with all keyboards for easy printing
+   - Generate one pdf per keyboard with nice URL for easy hot linking by original repos
