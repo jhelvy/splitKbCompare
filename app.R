@@ -78,6 +78,10 @@ ui <- navbarPage(title = "",
                     actionButton(
                         inputId = "reset",
                         label   = "Reset")),
+                div(style="display: inline-block;vertical-align:top;",
+                    actionButton(
+                        inputId = "selectAll",
+                        label   = "Select All Filtered")),
                 # Main keyboard selection options
                 prettyCheckboxGroup(
                     inputId   = "keyboard",
@@ -220,6 +224,20 @@ server <- function(input, output, session) {
             session  = session,
             inputId  = "availability",
             selected = "All"
+        )
+    }, ignoreInit = TRUE)
+
+    # Control Select All button
+    observeEvent(input$selectAll, {
+        # Select all displayed (filtered) keyboards
+        # Identical to filtering step but also set selected=`choices list`.
+        keyboardNames <- getFilteredKeyboardNames(input, keyboards)
+        updatePrettyCheckboxGroup(
+            session = session,
+            inputId = "keyboard",
+            choices = keyboardNames,
+            selected = keyboardNames,
+            prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     }, ignoreInit = TRUE)
 

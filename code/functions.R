@@ -201,7 +201,17 @@ filterAvailability <- function(input, keyboards, temp) {
 
 # Functions for creating the merged image overlays
 getImageOverlayColor <- function(ids, images, palette) {
-    colors <- c(palette[1:length(ids)], "white")
+    # Don't want to select an index past palette's length
+    # So modulo the required indices around palette's length
+    # (Note this will select the same color multiple times but it gets so hectic
+    # it's unnoticable)
+    colors <- c(palette[
+                  # Modulo works nicely with 0-indexed not 1 indexed indices, so
+                  # convert -> 0-indexed and then back
+                  ((seq_along(ids) - 1) %% length(palette)) + 1
+                ],
+                "white")
+
     ids <- c(ids, "border")
     i <- 1
     overlay <- images$scale_black
