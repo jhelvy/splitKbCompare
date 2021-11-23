@@ -295,7 +295,7 @@ server <- function(input, output, session) {
                 selectedIDs_filename = paste(selectedIDs(), collapse='_')
                 # Magic number but avoid crazily long output filename if many
                 # keyboards. Could probably be set even smaller
-                if(length(selectedIDs()) > 10){
+                if (length(selectedIDs()) > 5) {
                     selectedIDs_filename = "many"
                 }
                 paste0('compare_', selectedIDs_filename, sizeName)
