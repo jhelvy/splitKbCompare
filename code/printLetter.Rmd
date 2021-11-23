@@ -12,7 +12,11 @@ header-includes:
 params:
   path: NA
 ---
-
-```{r, echo=FALSE, out.width="100%", warning=FALSE, message=FALSE}
-image_read(params$path)
+```{r, echo=FALSE, results="asis", warning=FALSE, message=FALSE, out.width="100%"}
+# Known issue for knitr include_graphics: https://stackoverflow.com/questions/51268623/insert-images-using-knitrinclude-graphics-in-a-for-loop
+# Can't image_read outside top-level. So cheat and output markdown format image
+# inclusion and use result="asis"
+for(path in params$path){
+  cat(paste0("![](", path, ")"), "\n")
+}
 ```
