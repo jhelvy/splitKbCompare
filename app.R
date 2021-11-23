@@ -81,7 +81,7 @@ ui <- navbarPage(title = "",
                 div(style="display: inline-block;vertical-align:top;",
                     actionButton(
                         inputId = "selectAll",
-                        label   = "Select All Filtered")),
+                        label   = "Select All")),
                 # Main keyboard selection options
                 prettyCheckboxGroup(
                     inputId   = "keyboard",
