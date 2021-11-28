@@ -111,6 +111,10 @@ ui <- navbarPage(title = "",
                     outputId = "printA4Sep",
                     label    = "A4 Separate Pages",
                     sepPages = TRUE),
+                checkboxGroupButtons(
+                    inputId = "mirrorImage",
+                    label = "",
+                    choices = "Mirror Image"),
                 # Add custom styling
                 tags$head(tags$style(HTML(paste(readLines(
                     file.path("includes", "style.css")), collapse=" ")))),
@@ -271,6 +275,8 @@ server <- function(input, output, session) {
     output$layout <- renderImage({
         # Create the color image overlay
         overlayColor <- makeImageOverlay(images, palette, color = TRUE)
+        # Mirror when button is active. Non active button returns NULL.
+        if(!is.null(input$mirrorImage)) overlayColor <- image_flop(overlayColor)
         # Define the path to the image
         tmpImagePathColor <- overlayColor %>%
             image_write(tempfile(fileext = 'png'), format = 'png')
@@ -331,6 +337,9 @@ server <- function(input, output, session) {
                     # Create the black and white image overlay
                     overlayBw <- makeImageOverlay(images, palette,
                                                   color = FALSE, IDs = gp)
+                    
+                    # Mirror when button is active. Non active button returns NULL.
+                    if(!is.null(input$mirrorImage)) overlayBw <- image_flop(overlayBw)
 
                     # Define the path to the image
                     tmpImagePathBw <- overlayBw %>%
