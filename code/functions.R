@@ -40,7 +40,15 @@ loadKeyboardsDT <- function(keyboards) {
                     '" target="_blank"><i class="fa fa-shopping-cart"></i></a> '
                 )
             ),
-            Links = paste0(url_source, url_store)) %>%
+            pdf_path = ifelse(
+                is.na(pdf_path), '',
+                paste0(
+                    '<a href="', pdf_path,
+                    '" target="_blank"><i class="fa fa-file-pdf-o"></i></a> '
+                )
+                
+            ),
+            Links = paste0(url_source, url_store, pdf_path)) %>%
         select(
             Name, `# of keys`, `# of rows`, `Column stagger`, `Row stagger?`,
             `Number row?`, `Available DIY?`,`Available pre-built?`,
