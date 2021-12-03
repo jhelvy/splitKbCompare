@@ -54,6 +54,12 @@ ui <- navbarPage(title = "",
                         choices   = c("All", "Yes", "No"),
                         animation = "pulse"),
                     prettyRadioButtons(
+                        inputId   = "switchType",
+                        label     = "Switch type:",
+                        choices   = c("All", "Cherry", "Kailh Choc V1",
+                                      "Kailh Choc V2"),
+                        animation = "pulse"),
+                    prettyRadioButtons(
                         inputId   = "rotaryEncoder",
                         label     = "Rotary encoder support:",
                         choices   = c("All", "Yes", "No"),
@@ -103,7 +109,7 @@ ui <- navbarPage(title = "",
                 # Print/display option
                 div(style="display: inline-block;vertical-align:top;",
                     dropdown(
-                        icon = icon("gear"),
+                        icon = icon("cog"),
                         prettyRadioButtons(
                             inputId   = "printSize",
                             label     = "Print size:",
@@ -119,7 +125,7 @@ ui <- navbarPage(title = "",
                         prettyRadioButtons(
                             inputId = "keyboardHalf",
                             label   = "Keyboard half:",
-                            choices = c("Left", "Right"),
+                            choices = c("Left (mirrored)", "Right"),
                             selected = "Right",
                             animation = "pulse")
                     )),
@@ -288,7 +294,7 @@ server <- function(input, output, session) {
         # Create the color image overlay
         overlayColor <- makeImageOverlay(images, palette, color = TRUE)
         # Mirror when left half is selected.
-        if(input$keyboardHalf == "Left") overlayColor <- image_flop(overlayColor)
+        if(input$keyboardHalf == "Left (mirrored)") overlayColor <- image_flop(overlayColor)
         # Define the path to the image
         tmpImagePathColor <- overlayColor %>%
             image_write(tempfile(fileext = 'png'), format = 'png')
@@ -345,7 +351,7 @@ server <- function(input, output, session) {
                                               color = FALSE, IDs = gp)
                 
                 # Mirror when left half is selected.
-                if(input$keyboardHalf == "Left") overlayBw <- image_flop(overlayBw)
+                if(input$keyboardHalf== "Left (mirrored)") overlayBw <- image_flop(overlayBw)
                 
                 # Define the path to the image
                 tmpImagePathBw <- overlayBw %>%
