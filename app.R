@@ -54,6 +54,12 @@ ui <- navbarPage(title = "",
                         choices   = c("All", "Yes", "No"),
                         animation = "pulse"),
                     prettyRadioButtons(
+                        inputId   = "switchType",
+                        label     = "Switch type:",
+                        choices   = c("All", "Cherry", "Kailh Choc V1",
+                                      "Kailh Choc V2"),
+                        animation = "pulse"),
+                    prettyRadioButtons(
                         inputId   = "rotaryEncoder",
                         label     = "Rotary encoder support:",
                         choices   = c("All", "Yes", "No"),
@@ -95,25 +101,38 @@ ui <- navbarPage(title = "",
                     file.path("includes", "footer.html")), collapse=" ")))
             ),
             mainPanel(
-                # Print buttons
-                h4("Print to scale (PDF):"),
-                downloadButton(
-                    outputId = "printLetter",
-                    label    = "8.5x11"),
-                downloadButton(
-                    outputId = "printA4",
-                    label    = "A4"),
-                downloadButton(
-                    outputId = "printLetterSep",
-                    label    = "8.5x11 Separate Pages",
-                    sepPages = TRUE),
-                downloadButton(
-                    outputId = "printA4Sep",
-                    label    = "A4 Separate Pages",
-                    sepPages = TRUE),
+                # Print button
+                div(style="display: inline-block;vertical-align:top;",
+                    downloadButton(
+                        outputId = "printFile",
+                        label    = "Print to scale (PDF)")),
+                # Print/display option
+                div(style="display: inline-block;vertical-align:top;",
+                    dropdown(
+                        icon = icon("cog"),
+                        prettyRadioButtons(
+                            inputId   = "printSize",
+                            label     = "Print size:",
+                            choices   = list("A4" = "A4", "Letter (8.5x11)" = "Letter"),
+                            selected  = "A4",
+                            animation = "pulse"),
+                        prettyRadioButtons(
+                            inputId   = "printSepPages",
+                            label     = "Print on seperate pages?",
+                            choices   = list("Yes" = TRUE, "No" = FALSE),
+                            selected  = FALSE,
+                            animation = "pulse"),
+                        prettyRadioButtons(
+                            inputId = "keyboardHalf",
+                            label   = "Keyboard half:",
+                            choices = c("Left (mirrored)", "Right"),
+                            selected = "Right",
+                            animation = "pulse")
+                    )),
                 # Add custom styling
                 tags$head(tags$style(HTML(paste(readLines(
                     file.path("includes", "style.css")), collapse=" ")))),
+                # Image
                 imageOutput("layout")
             )
         )
@@ -139,7 +158,10 @@ ui <- navbarPage(title = "",
 )
 
 server <- function(input, output, session) {
-
+    
+    # Add pdf folder as ResourcePath
+    addResourcePath("pdf", file.path("images", "pdf"))
+    
     # Filter keyboard options based on filter options
     observe({
         keyboardNames <- getFilteredKeyboardNames(input, keyboards)
@@ -271,6 +293,8 @@ server <- function(input, output, session) {
     output$layout <- renderImage({
         # Create the color image overlay
         overlayColor <- makeImageOverlay(images, palette, color = TRUE)
+        # Mirror when left half is selected.
+        if(input$keyboardHalf == "Left (mirrored)") overlayColor <- image_flop(overlayColor)
         # Define the path to the image
         tmpImagePathColor <- overlayColor %>%
             image_write(tempfile(fileext = 'png'), format = 'png')
@@ -283,82 +307,72 @@ server <- function(input, output, session) {
     }, deleteFile = TRUE)
 
     # Download overlay images
-    downloadImage <- function(size, sepPages=FALSE) {
-        template <- 'printLetter.Rmd'
-        sizeName <- '_8.5x11.pdf'
-        if (size == 'a4') {
-            template <- 'printA4.Rmd'
-            sizeName <- '_a4.pdf'
-        }
-        downloadHandler(
-            filename = function() {
-                selectedIDs_filename = paste(selectedIDs(), collapse='_')
-                # Magic number but avoid crazily long output filename if many
-                # keyboards. Could probably be set even smaller
-                if (length(selectedIDs()) > 5) {
-                    selectedIDs_filename = "many"
-                }
-                paste0('compare_', selectedIDs_filename, sizeName)
-            },
-            content = function(file) {
-                # Copy the file to a temporary directory before processing it,
-                # in case we don't have write permissions to the current dir
-                # (which can happen when deployed).
-                tempReport <- file.path(tempdir(), "print.Rmd")
-                file.copy(
-                    file.path("code", template), tempReport, overwrite = TRUE)
-
-
-                # Want to support one-page all-overlapping visualization as well
-                # as single keyboards. So pass a list of {keyboard groups} where
-                # a keyboard group can have any number of keyboards
-                
-                # Default is one big group so one list of list
-                # If only one selected, all overlay = separate page anyway,
-                # so don't print redundant page even if sepPages is set
-                if(!sepPages || length(selectedIDs()) == 1){
-                    id_groups = list(selectedIDs())
-                }else{
-                    # First page is all overlay like normal
-                    # Then subsequent pages is each keyb individually
-                    id_groups = c(list(selectedIDs()),
-                                  selectedIDs())
-                }
-
-                # Hold path to the image generated for each id_group
-                id_group_paths = c()
-                for(gp in id_groups){
-                    # Create the black and white image overlay
-                    overlayBw <- makeImageOverlay(images, palette,
-                                                  color = FALSE, IDs = gp)
-
-                    # Define the path to the image
-                    tmpImagePathBw <- overlayBw %>%
-                                          image_write(tempfile(fileext = '.png'),
-                                                      format = 'png')
-
-                    id_group_paths = c(id_group_paths,
-                                       tmpImagePathBw)
-                }
-                # Prepare the path to be passed to the Rmd file
-                params <- list(path = id_group_paths)
-
-                # Knit the document, passing in the `params` list, and eval it 
-                # in a child of the global environment (this isolates the code 
-                # in the document from the code in this app).
-                rmarkdown::render(
-                    tempReport, output_file = file, params = params, 
-                    envir = new.env(parent = globalenv())
-                )
+    output$printFile <- downloadHandler(
+        filename = function() {
+            selectedIDs_filename = paste(selectedIDs(), collapse='_')
+            # Magic number but avoid crazily long output filename if many
+            # keyboards. Could probably be set even smaller
+            if (length(selectedIDs()) > 5) {
+                selectedIDs_filename = "many"
             }
-        )
-    }
-
-    output$printLetter <- downloadImage('letter')
-    output$printA4 <- downloadImage('a4')
-
-    output$printLetterSep <- downloadImage('letter', sepPages=T)
-    output$printA4Sep <- downloadImage('a4', sepPages=T)
+            paste0('compare_', selectedIDs_filename, '_', input$printSize, '.pdf')
+        },
+        content = function(file) {
+            # Copy the file to a temporary directory before processing it,
+            # in case we don't have write permissions to the current dir
+            # (which can happen when deployed).
+            tempReport <- file.path(tempdir(), "print.Rmd")
+            file.copy(
+                file.path("code", paste0('print', input$printSize, '.Rmd')), 
+                tempReport, overwrite = TRUE)
+            
+            
+            # Want to support one-page all-overlapping visualization as well
+            # as single keyboards. So pass a list of {keyboard groups} where
+            # a keyboard group can have any number of keyboards
+            
+            # Default is one big group so one list of list
+            # If only one selected, all overlay = separate page anyway,
+            # so don't print redundant page even if sepPages is set
+            if(input$printSepPages == FALSE || length(selectedIDs()) == 1){
+                id_groups = list(selectedIDs())
+            }else{
+                # First page is all overlay like normal
+                # Then subsequent pages is each keyb individually
+                id_groups = c(list(selectedIDs()),
+                              selectedIDs())
+            }
+            
+            # Hold path to the image generated for each id_group
+            id_group_paths = c()
+            for(gp in id_groups){
+                # Create the black and white image overlay
+                overlayBw <- makeImageOverlay(images, palette,
+                                              color = FALSE, IDs = gp)
+                
+                # Mirror when left half is selected.
+                if(input$keyboardHalf== "Left (mirrored)") overlayBw <- image_flop(overlayBw)
+                
+                # Define the path to the image
+                tmpImagePathBw <- overlayBw %>%
+                    image_write(tempfile(fileext = '.png'),
+                                format = 'png')
+                
+                id_group_paths = c(id_group_paths,
+                                   tmpImagePathBw)
+            }
+            # Prepare the path to be passed to the Rmd file
+            params <- list(path = id_group_paths)
+            
+            # Knit the document, passing in the `params` list, and eval it 
+            # in a child of the global environment (this isolates the code 
+            # in the document from the code in this app).
+            rmarkdown::render(
+                tempReport, output_file = file, params = params, 
+                envir = new.env(parent = globalenv())
+            )
+        }
+    )
 }
 
 shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))

@@ -26,6 +26,9 @@ loadKeyboardsDT <- function(keyboards) {
             `Rotary encoder?`      = ifelse(rotaryEncoder == 1, check, ''),
             `Wireless?`            = ifelse(wireless == 1, check, ''),
             `One-piece board?`     = ifelse(onePiece == 1, check, ''),
+            `Cherry MX?`           = ifelse(mxCompatible == 1, check, ''),
+            `Kailh Choc V1?`       = ifelse(chocV1 == 1, check, ''),
+            `Kailh Choc V2?`       = ifelse(chocV2 == 1, check, ''),
             url_source = ifelse(
                 is.na(url_source), '',
                 paste0(
@@ -40,11 +43,27 @@ loadKeyboardsDT <- function(keyboards) {
                     '" target="_blank"><i class="fa fa-shopping-cart"></i></a> '
                 )
             ),
-            Links = paste0(url_source, url_store)) %>%
+            pdf_path_a4 = ifelse(
+                is.na(pdf_path_a4), '',
+                paste0(
+                    '<a href="', pdf_path_a4,
+                    '" target="_blank" title="A4"><i class="fa fa-file-pdf-o"></i></a> '
+                )
+            ),
+            pdf_path_letter = ifelse(
+                is.na(pdf_path_letter), '',
+                paste0(
+                    '<a href="', pdf_path_letter,
+                    '" target="_blank" title="Letter"><i class="fa fa-file-pdf-o"></i></a> '
+                )
+            ),
+            Links = paste0(url_source, url_store),
+            PDF = paste(pdf_path_a4, pdf_path_letter)) %>%
         select(
             Name, `# of keys`, `# of rows`, `Column stagger`, `Row stagger?`,
             `Number row?`, `Available DIY?`,`Available pre-built?`,
-            `Rotary encoder?`, `Wireless?`, `One-piece board?`, Links)
+            `Rotary encoder?`, `Wireless?`, `One-piece board?`, `Cherry MX?`,
+            `Kailh Choc V1?`,`Kailh Choc V2?`, Links, PDF)
     return(keyboardsDT)
 }
 
@@ -109,6 +128,7 @@ getFilteredRows <- function(input, keyboards) {
     rows <- filterNumberRow(input, keyboards, rows)
     rows <- filterColStagger(input, keyboards, rows)
     rows <- filterRowStagger(input, keyboards, rows)
+    rows <- filterSwitchType(input, keyboards, rows)
     rows <- filterRotarySupport(input, keyboards, rows)
     rows <- filterWireless(input, keyboards, rows)
     rows <- filterOnePiece(input, keyboards, rows)
@@ -151,6 +171,20 @@ filterRowStagger <- function(input, keyboards, temp) {
     }
     if (input$rowStagger == "No") {
         rows <- which(keyboards$rowStagger == 0)
+    }
+    return(intersect(temp, rows))
+}
+   
+filterSwitchType <- function(input, keyboards, temp) {
+    rows <- temp
+    if (input$switchType == "Cherry") {
+        rows <- which(keyboards$mxCompatible == 1)
+    }
+    if (input$switchType == "Kailh Choc V1") {
+        rows <- which(keyboards$chocV1 == 1)
+    }
+    if (input$switchType == "Kailh Choc V2") {
+        rows <- which(keyboards$chocV2 == 1)
     }
     return(intersect(temp, rows))
 }
