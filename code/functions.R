@@ -43,19 +43,13 @@ loadKeyboardsDT <- function(keyboards) {
                     '" target="_blank"><i class="fa fa-shopping-cart"></i></a> '
                 )
             ),
-            pdf_path_a4 = ifelse(
-                is.na(pdf_path_a4), '',
-                paste0(
-                    '<a href="', pdf_path_a4,
-                    '" target="_blank" title="A4"><i class="fa fa-file-pdf-o"></i></a> '
-                )
+            pdf_path_a4 = paste0(
+                '<a href="pdf/a4/', id,
+                '.pdf" target="_blank" title="A4"><i class="fa fa-file-pdf-o"></i></a> '
             ),
-            pdf_path_letter = ifelse(
-                is.na(pdf_path_letter), '',
-                paste0(
-                    '<a href="', pdf_path_letter,
-                    '" target="_blank" title="Letter"><i class="fa fa-file-pdf-o"></i></a> '
-                )
+            pdf_path_letter = paste0(
+                '<a href="pdf/letter/', id,
+                '.pdf" target="_blank" title="Letter"><i class="fa fa-file-pdf-o"></i></a> '
             ),
             Links = paste0(url_source, url_store),
             PDF = paste(pdf_path_a4, pdf_path_letter)) %>%

@@ -160,7 +160,7 @@ ui <- navbarPage(title = "",
 server <- function(input, output, session) {
     
     # Add pdf folder as ResourcePath
-    addResourcePath("pdf", file.path("images", "pdf"))
+    addResourcePath(prefix = "pdf", directoryPath = file.path("images", "pdf"))
     
     # Filter keyboard options based on filter options
     observe({
