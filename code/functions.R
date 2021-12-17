@@ -116,115 +116,79 @@ getFilteredKeyboardNames <- function(input, keyboards) {
     return(tempKeyboards$nameKeys)
 }
 
+oneVarFilters <- function(input, keyboards) {
+    # Find active one variable filters
+    # One variable filters are based on only one column in the dataset
+    # e.g. Wireless with only the wireless (0, 1) column
+    oneVarFilterIds <- c("hasNumRow", "colStagger", "rowStagger", 
+                         "rotaryEncoder", "wireless", "onePiece")
+    oneVarInputs <- sapply(oneVarFilterIds, function(id) input[[id]])
+    activeOneVar <- oneVarInputs[sapply(oneVarInputs, isTruthy)]
+    
+    # Make logical vector assuming inputId corresponds with column and reactive
+    # value corresponds with desired value in column.
+    if (length(activeOneVar) > 0) {
+        oneVarLogical <- mapply(
+            function(inputId, reactiveVal) keyboards[[inputId]] %in% reactiveVal,
+            inputId = names(activeOneVar),
+            reactiveVal = activeOneVar,
+            SIMPLIFY = FALSE
+        )
+    } else { 
+        oneVarLogical <- NULL 
+    }
+    
+    return(oneVarLogical)
+}
+
+multiVarFilters <- function(input, keyboards) {
+    # Find active multi variable filters
+    # Multi variable filters are based on multiple columns in the dataset
+    # e.g. Switch Type with mxCompatible, chocV1 & chocV2
+    multiVarFilterIds <- c("availability", "switchType")
+    multiVarInputs <- sapply(multiVarFilterIds, function(id) input[[id]])
+    activeMultiVar <- multiVarInputs[sapply(multiVarInputs, isTruthy)]
+    
+    # Make logical vector assuming reactive value corresponds with column and
+    # that column is logical.
+    if (length(activeMultiVar) > 0) {
+        multiVarLogical <- list(
+            apply(
+                X = keyboards[, unlist(activeMultiVar)] == 1,
+                MARGIN = 1,
+                FUN = all
+            )
+        )
+    } else { 
+        multiVarLogical <- NULL 
+    }
+    
+    return(multiVarLogical)
+}
+
+rangeFilters <- function(input, keyboards) {
+    # Make logical vector from range filters (always active)
+    list(
+        keyboards$nKeysMin >= input$numKeys[[1]] & 
+            keyboards$nKeysMax <= input$numKeys[[2]] &
+            keyboards$numRows >= input$numRows[[1]] &
+            keyboards$numRows <= input$numRows[[2]]
+    )
+}
+
 getFilteredRows <- function(input, keyboards) {
-    rows <- filterNumKeys(input, keyboards)
-    rows <- filterNumRows(input, keyboards, rows)
-    rows <- filterNumberRow(input, keyboards, rows)
-    rows <- filterColStagger(input, keyboards, rows)
-    rows <- filterRowStagger(input, keyboards, rows)
-    rows <- filterSwitchType(input, keyboards, rows)
-    rows <- filterRotarySupport(input, keyboards, rows)
-    rows <- filterWireless(input, keyboards, rows)
-    rows <- filterOnePiece(input, keyboards, rows)
-    rows <- filterAvailability(input, keyboards, rows)
+    # Combine all logical vectors and find rows that are TRUE across all vectors
+    allFilters <- Reduce(
+        `&`, 
+        c(
+            rangeFilters(input, keyboards),
+            oneVarFilters(input, keyboards),
+            multiVarFilters(input, keyboards)
+        )
+    )
+    rows <- which(allFilters)
+    
     return(rows)
-}
-
-filterNumKeys <- function(input, keyboards) {
-    return(which(keyboards$nKeysMax <= input$maxNumKeys))
-}
-
-filterNumRows <- function(input, keyboards, temp) {
-    rows <- which(keyboards$numRows <= input$maxNumRows)
-    return(intersect(temp, rows))
-}
-
-filterNumberRow <- function(input, keyboards, temp) {
-    rows <- temp
-    if (input$hasNumberRow == "Only with number row") {
-        rows <- which(keyboards$hasNumRow == 1)
-    }
-    if (input$hasNumberRow == "Only without number row") {
-        rows <- which(keyboards$hasNumRow == 0)
-    }
-    return(intersect(temp, rows))
-}
-
-filterColStagger <- function(input, keyboards, temp) {
-    rows <- temp
-    if (input$colStagger != "All") {
-        rows <- which(keyboards$colStagger == input$colStagger)
-    }
-    return(intersect(temp, rows))
-}
-
-filterRowStagger <- function(input, keyboards, temp) {
-    rows <- temp
-    if (input$rowStagger == "Yes") {
-        rows <- which(keyboards$rowStagger == 1)
-    }
-    if (input$rowStagger == "No") {
-        rows <- which(keyboards$rowStagger == 0)
-    }
-    return(intersect(temp, rows))
-}
-   
-filterSwitchType <- function(input, keyboards, temp) {
-    rows <- temp
-    if (input$switchType == "Cherry") {
-        rows <- which(keyboards$mxCompatible == 1)
-    }
-    if (input$switchType == "Kailh Choc V1") {
-        rows <- which(keyboards$chocV1 == 1)
-    }
-    if (input$switchType == "Kailh Choc V2") {
-        rows <- which(keyboards$chocV2 == 1)
-    }
-    return(intersect(temp, rows))
-}
-
-filterRotarySupport <- function(input, keyboards, temp) {
-    rows <- temp
-    if (input$rotaryEncoder == "Yes") {
-        rows <- which(keyboards$rotaryEncoder == 1)
-    }
-    if (input$rotaryEncoder == "No") {
-        rows <- which(keyboards$rotaryEncoder == 0)
-    }
-    return(intersect(temp, rows))
-}
-
-filterWireless <- function(input, keyboards, temp) {
-    rows <- temp
-    if (input$wireless == "Yes") {
-        rows <- which(keyboards$wireless == 1)
-    }
-    if (input$wireless == "No") {
-        rows <- which(keyboards$wireless == 0)
-    }
-    return(intersect(temp, rows))
-}
-
-filterOnePiece <- function(input, keyboards, temp) {
-    rows <- temp
-    if (input$onePiece == "One-piece") {
-        rows <- which(keyboards$onePiece == 1)
-    }
-    if (input$onePiece == "Two halves") {
-        rows <- which(keyboards$onePiece == 0)
-    }
-    return(intersect(temp, rows))
-}
-
-filterAvailability <- function(input, keyboards, temp) {
-    rows <- temp
-    if (input$availability == "DIY") {
-        rows <- which(keyboards$diy == 1)
-    }
-    if (input$availability == "Pre-built") {
-        rows <- which(keyboards$prebuilt == 1)
-    }
-    return(intersect(temp, rows))
 }
 
 # Functions for creating the merged image overlays
