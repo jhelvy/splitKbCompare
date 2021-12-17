@@ -10,85 +10,144 @@ ui <- navbarPage(title = "",
             sidebarPanel(
                 width = 3,
                 # Sort list
-                prettyRadioButtons(
-                    inputId   = "sortKeyboards",
-                    label     = "Sort keyboards by:",
-                    choices   = c("Name", "# Keys"),
-                    animation = "pulse",
-                    shape     = "curve",
-                    inline    = TRUE),
                 # Filter drop down menu
-                h4("Select keyboards:"),
+                h4("Filters"),
                 div(style="display: inline-block;vertical-align:top;",
-                dropdown(
-                    label = "Filters",
-                    sliderInput(
-                        inputId = "maxNumKeys",
-                        label = "Max number of keys:",
-                        min   = min(keyboards$nKeysMin),
-                        max   = max(keyboards$nKeysMax),
-                        value = max(keyboards$nKeysMax),
-                        step  = 1),
-                    sliderInput(
-                        inputId = "maxNumRows",
-                        label = "Max number of rows:",
-                        min   = min(keyboards$numRows),
-                        max   = max(keyboards$numRows),
-                        value = max(keyboards$numRows),
-                        step  = 1),
-                    prettyRadioButtons(
+                    dropdown(
+                        label = "Number of Keys",
+                        sliderInput(
+                            inputId = "numKeys",
+                            label = NULL,
+                            min   = min(keyboards$nKeysMin),
+                            max   = max(keyboards$nKeysMax),
+                            value = c(
+                                min(keyboards$nKeysMin),
+                                max(keyboards$nKeysMax)
+                                ),
+                            step  = 1))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",    
+                    dropdown(
+                        label = "Number of Rows",
+                        sliderInput(
+                            inputId = "numRows",
+                            label = NULL,
+                            min   = min(keyboards$numRows),
+                            max   = max(keyboards$numRows),
+                            value = c(
+                                min(keyboards$numRows),
+                                max(keyboards$numRows)
+                                ),
+                            step  = 1))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",
+                    pickerInput(
                         inputId   = "hasNumberRow",
-                        label     = "Number row:",
-                        choices   = c(
-                            "All", "Only with number row", 
-                            "Only without number row"),
-                        animation = "pulse"),
-                    prettyRadioButtons(
+                        choices   = list(
+                            "Only with number row" = 1, 
+                            "Only without number row" = 0
+                            ),
+                        multiple = TRUE,
+                        options   = list(
+                            `selected-text-format` = "static",
+                            title = "Number Row"
+                        ))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",
+                    pickerInput(
                         inputId   = "colStagger",
-                        label     = "Column stagger:",
-                        choices   = c("All", "Aggressive", "Moderate", "None"),
-                        animation = "pulse"),
-                    prettyRadioButtons(
+                        choices   = list("Aggressive", "Moderate", "None"),
+                        multiple  = TRUE,
+                        options   = list(
+                            `selected-text-format` = "static",
+                            title = "Column Stagger"
+                        ))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",
+                    pickerInput(
                         inputId   = "rowStagger",
-                        label     = "Has row stagger:",
-                        choices   = c("All", "Yes", "No"),
-                        animation = "pulse"),
-                    prettyRadioButtons(
+                        choices   = list("Yes" = 1, "No" = 0),
+                        multiple  = TRUE,
+                        options   = list(
+                            `selected-text-format` = "static",
+                            title = "Row Stagger"
+                        ))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",    
+                    pickerInput(
                         inputId   = "switchType",
-                        label     = "Switch type:",
-                        choices   = c("All", "Cherry", "Kailh Choc V1",
-                                      "Kailh Choc V2"),
-                        animation = "pulse"),
-                    prettyRadioButtons(
+                        choices   = list(
+                            "Cherry MX" = "mxCompatible",
+                            "Kailh Choc V1" = "chocV1",
+                            "Kailh Choc V2" = "chocV2"
+                            ),
+                        multiple = TRUE,
+                        options   = list(
+                            `selected-text-format` = "static",
+                            title = "Switch Type"
+                        ))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",
+                    pickerInput(
                         inputId   = "rotaryEncoder",
-                        label     = "Rotary encoder support:",
-                        choices   = c("All", "Yes", "No"),
-                        animation = "pulse"),
-                    prettyRadioButtons(
+                        choices   = list("Yes" = 1, "No" = 0),
+                        multiple  = TRUE,
+                        options   = list(
+                            `selected-text-format` = "static",
+                            title = "Rotary Encoder"
+                        ))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",
+                    pickerInput(
                         inputId   = "wireless",
-                        label     = "Wireless:",
-                        choices   = c("All", "Yes", "No"),
-                        animation = "pulse"),
-                    prettyRadioButtons(
+                        choices   = list("Yes" = 1, "No" = 0),
+                        multiple  = TRUE,
+                        options   = list(
+                            `selected-text-format` = "static",
+                            title = "Wireless"
+                        ))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",
+                    pickerInput(
                         inputId   = "onePiece",
-                        label     = "One-piece board?:",
-                        choices   = c("All", "One-piece", "Two halves"),
-                        animation = "pulse"),
-                    prettyRadioButtons(
+                        choices   = list("One-piece" = 1, "Two halves" = 0),
+                        multiple  = TRUE,
+                        options   = list(
+                            `selected-text-format` = "static",
+                            title = "One-piece"
+                        ))
+                    ),
+                div(style="display: inline-block;vertical-align:top;",
+                    pickerInput(
                         inputId   = "availability",
-                        label     = "Availability:",
-                        choices   = c("All", "DIY", "Pre-built"),
-                        animation = "pulse")
-                )),
-                div(style="display: inline-block;vertical-align:top;",
-                    actionButton(
-                        inputId = "reset",
-                        label   = "Reset")),
-                div(style="display: inline-block;vertical-align:top;",
-                    actionButton(
-                        inputId = "selectAll",
-                        label   = "Select All")),
+                        choices   = list("DIY" = "diy", "Pre-built" = "prebuilt"),
+                        multiple  = TRUE,
+                        options   = list(
+                            `selected-text-format` = "static",
+                            title = "Availability"
+                        ))
+                    ),
                 # Main keyboard selection options
+                h4("Keyboards"),
+                pickerInput(
+                    inputId   = "sortKeyboards",
+                    choices   = c("Name", "# Keys"),
+                    selected  = "Name",
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "Sort"
+                    ),
+                    inline    = TRUE),
+                actionButton(
+                    inputId = "selectAll",
+                    label   = NULL,
+                    icon    = icon("check-square"),
+                    inline = TRUE),
+                actionButton(
+                    inputId = "reset",
+                    label   = NULL,
+                    icon    = icon("undo"),
+                    inline  = TRUE),
                 prettyCheckboxGroup(
                     inputId   = "keyboard",
                     label     = '',
@@ -140,6 +199,12 @@ ui <- navbarPage(title = "",
     tabPanel("Keyboards",
         icon = icon(name = "keyboard", lib = "font-awesome"),
         mainPanel(width = 7,
+            switchInput(
+                inputId = "showAll",
+                onLabel = "All Keyboards",
+                offLabel = "Filtered Keyboards",
+                value = FALSE
+            ),
             DT::dataTableOutput('keyboardsDT'),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
@@ -375,4 +440,4 @@ server <- function(input, output, session) {
     )
 }
 
-shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))
+shinyApp(ui = ui, server = server)
