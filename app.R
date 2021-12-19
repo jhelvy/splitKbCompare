@@ -18,6 +18,7 @@ ui <- navbarPage(title = "",
                         sliderInput(
                             inputId = "numKeys",
                             label = NULL,
+                            width = "100px",
                             min   = min(keyboards$nKeysMin),
                             max   = max(keyboards$nKeysMax),
                             value = c(
@@ -42,7 +43,7 @@ ui <- navbarPage(title = "",
                     ),
                 div(style="display: inline-block;vertical-align:top;",
                     pickerInput(
-                        inputId   = "hasNumberRow",
+                        inputId   = "hasNumRow",
                         choices   = list(
                             "Only with number row" = 1, 
                             "Only without number row" = 0

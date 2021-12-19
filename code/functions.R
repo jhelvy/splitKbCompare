@@ -117,84 +117,61 @@ getFilteredKeyboardNames <- function(input, keyboards) {
 }
 
 getFilteredRows <- function(input, keyboards) {
-    rows <- filterNumKeys(input, keyboards)
-    rows <- filterNumRows(input, keyboards, rows)
-    #rows <- filterNumberRow(input, keyboards, rows)
-    #rows <- filterColStagger(input, keyboards, rows)
-    #rows <- filterRowStagger(input, keyboards, rows)
-    #rows <- filterSwitchType(input, keyboards, rows)
-    #rows <- filterRotarySupport(input, keyboards, rows)
-    #rows <- filterWireless(input, keyboards, rows)
-    #rows <- filterOnePiece(input, keyboards, rows)
-    #rows <- filterAvailability(input, keyboards, rows)
-    return(rows)
-}
+    # Find active one variable filters
+    # One variable filters are based on only one column in the dataset
+    # e.g. Wireless with only the wireless (0, 1) column
+    oneVarFilterIds <- c("hasNumRow", "colStagger", "rowStagger", 
+                         "rotaryEncoder", "wireless", "onePiece")
+    oneVarInputs <- sapply(oneVarFilterIds, function(id) input[[id]])
+    activeOneVar <- oneVarInputs[sapply(oneVarInputs, isTruthy)]
+    
+    # Make logicals assuming inputId corresponds with column and reactive value
+    # corresponds with desired value in column.
+    if (length(activeOneVar) > 0) {
+        oneVarLogical <- mapply(
+            function(inputId, reactiveVal) keyboards[[inputId]] %in% reactiveVal,
+            inputId = names(activeOneVar),
+            reactiveVal = activeOneVar,
+            SIMPLIFY = FALSE
+        )
+    } else { 
+        oneVarLogical <- NULL 
+    }
+    
+    # Find active multi variable filters
+    # Multi variable filters are based on multiple columns in the dataset
+    # e.g. Switch Type with mxCompatible, chocV1 & chocV2
+    multiVarFilterIds <- c("availability", "switchType")
+    multiVarInputs <- sapply(multiVarFilterIds, function(id) input[[id]])
+    activeMultiVar <- multiVarInputs[sapply(multiVarInputs, isTruthy)]
 
-filterNumKeys <- function(input, keyboards) {
-    return(
-        which(
-            keyboards$nKeysMin >= input$numKeys[[1]] & 
-                keyboards$nKeysMax <= input$numKeys[[2]]
+    # Make logicals assuming reactive value corresponds with column and that
+    # column is logical.
+    if (length(activeMultiVar) > 0) {
+        multiVarLogical <- list(
+            apply(
+                X = keyboards[, unlist(activeMultiVar)] == 1,
+                MARGIN = 1,
+                FUN = all
             )
         )
-}
-
-filterNumRows <- function(input, keyboards, temp) {
-    rows <- which(
-        keyboards$numRows >= input$numRows[[1]] &
+    } else { 
+        multiVarLogical <- NULL 
+    }
+    
+    # Make logicals from rangeFilters (always active)
+    rangeFilters <- list(
+        keyboards$nKeysMin >= input$numKeys[[1]] & 
+            keyboards$nKeysMax <= input$numKeys[[2]] &
+            keyboards$numRows >= input$numRows[[1]] &
             keyboards$numRows <= input$numRows[[2]]
-        )
-    return(intersect(temp, rows))
-}
-
-filterNumberRow <- function(input, keyboards, temp) {
-    rows <- temp
-    rows <- which(keyboards$hasNumRow %in% req(input$hasNumRow))
-    return(intersect(temp, rows))
-}
-
-filterColStagger <- function(input, keyboards, temp) {
-    rows <- temp
-    rows <- which(keyboards$colStagger %in% req(input$colStagger))
-    return(intersect(temp, rows))
-}
-
-filterRowStagger <- function(input, keyboards, temp) {
-    rows <- temp
-    rows <- which(keyboards$rowStagger %in% req(input$rowStagger))
-    return(intersect(temp, rows))
-}
-   
-filterSwitchType <- function(input, keyboards, temp) {
-    rows <- temp
-    subset <- keyboards[, req(input$switchType)] == 1
-    rows <- which(apply(subset, 1, all))
-    return(intersect(temp, rows))
-}
-
-filterRotarySupport <- function(input, keyboards, temp) {
-    rows <- temp
-    rows <- which(keyboards$rotaryEncoder %in% req(input$rotaryEncoder))
-    return(intersect(temp, rows))
-}
-
-filterWireless <- function(input, keyboards, temp) {
-    rows <- temp
-    rows <- which(keyboards$wireless %in% req(input$wireless))
-    return(intersect(temp, rows))
-}
-
-filterOnePiece <- function(input, keyboards, temp) {
-    rows <- temp
-    rows <- which(keyboards$onePiece == req(input$onePiece))
-    return(intersect(temp, rows))
-}
-
-filterAvailability <- function(input, keyboards, temp) {
-    rows <- temp
-    subset <- keyboards[, req(input$availability)] == 1
-    rows <- which(apply(subset, 1, all))
-    return(intersect(temp, rows))
+    )
+    
+    # Combine all logicals and find rows that are TRUE across all filters
+    allFilters <- Reduce(`&`, c(rangeFilters, multiVarLogical, oneVarLogical))
+    rows <- which(allFilters)
+    
+    return(rows)
 }
 
 # Functions for creating the merged image overlays
