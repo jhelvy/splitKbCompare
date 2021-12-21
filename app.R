@@ -12,122 +12,97 @@ ui <- navbarPage(title = "",
                 # Sort list
                 # Filter drop down menu
                 h4("Filters"),
-                div(style="display: inline-block;vertical-align:top;",
-                    dropdown(
-                        label = "Number of Keys",
-                        sliderInput(
-                            inputId = "numKeys",
-                            label = NULL,
-                            width = "100px",
-                            min   = min(keyboards$nKeysMin),
-                            max   = max(keyboards$nKeysMax),
-                            value = c(
-                                min(keyboards$nKeysMin),
-                                max(keyboards$nKeysMax)
-                                ),
-                            step  = 1))
+                dropdown(
+                    label = "Number of Keys",
+                    width = "200%",
+                    sliderInput(
+                        inputId = "numKeys",
+                        label = NULL,
+                        min   = min(keyboards$nKeysMin),
+                        max   = max(keyboards$nKeysMax),
+                        value = c(min(keyboards$nKeysMin), max(keyboards$nKeysMax)),
+                        step  = 1)),
+                dropdown(
+                    label = "Number of Rows",
+                    width = "200%",
+                    sliderInput(
+                        inputId = "numRows",
+                        label = NULL,
+                        min   = min(keyboards$numRows),
+                        max   = max(keyboards$numRows),
+                        value = c(min(keyboards$numRows), max(keyboards$numRows)),
+                        step  = 1)),
+                pickerInput(
+                    inputId   = "hasNumRow",
+                    choices   = list(
+                        "Only with number row" = 1, 
+                        "Only without number row" = 0
                     ),
-                div(style="display: inline-block;vertical-align:top;",    
-                    dropdown(
-                        label = "Number of Rows",
-                        sliderInput(
-                            inputId = "numRows",
-                            label = NULL,
-                            min   = min(keyboards$numRows),
-                            max   = max(keyboards$numRows),
-                            value = c(
-                                min(keyboards$numRows),
-                                max(keyboards$numRows)
-                                ),
-                            step  = 1))
+                    multiple = TRUE,
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "Number Row"
+                    )),
+                pickerInput(
+                    inputId   = "colStagger",
+                    choices   = list("Aggressive", "Moderate", "None"),
+                    multiple  = TRUE,
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "Column Stagger"
+                    )),
+                pickerInput(
+                    inputId   = "rowStagger",
+                    choices   = list("Yes" = 1, "No" = 0),
+                    multiple  = TRUE,
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "Row Stagger"
+                    )),
+                pickerInput(
+                    inputId   = "switchType",
+                    choices   = list(
+                        "Cherry MX" = "mxCompatible",
+                        "Kailh Choc V1" = "chocV1",
+                        "Kailh Choc V2" = "chocV2"
                     ),
-                div(style="display: inline-block;vertical-align:top;",
-                    pickerInput(
-                        inputId   = "hasNumRow",
-                        choices   = list(
-                            "Only with number row" = 1, 
-                            "Only without number row" = 0
-                            ),
-                        multiple = TRUE,
-                        options   = list(
-                            `selected-text-format` = "static",
-                            title = "Number Row"
-                        ))
-                    ),
-                div(style="display: inline-block;vertical-align:top;",
-                    pickerInput(
-                        inputId   = "colStagger",
-                        choices   = list("Aggressive", "Moderate", "None"),
-                        multiple  = TRUE,
-                        options   = list(
-                            `selected-text-format` = "static",
-                            title = "Column Stagger"
-                        ))
-                    ),
-                div(style="display: inline-block;vertical-align:top;",
-                    pickerInput(
-                        inputId   = "rowStagger",
-                        choices   = list("Yes" = 1, "No" = 0),
-                        multiple  = TRUE,
-                        options   = list(
-                            `selected-text-format` = "static",
-                            title = "Row Stagger"
-                        ))
-                    ),
-                div(style="display: inline-block;vertical-align:top;",    
-                    pickerInput(
-                        inputId   = "switchType",
-                        choices   = list(
-                            "Cherry MX" = "mxCompatible",
-                            "Kailh Choc V1" = "chocV1",
-                            "Kailh Choc V2" = "chocV2"
-                            ),
-                        multiple = TRUE,
-                        options   = list(
-                            `selected-text-format` = "static",
-                            title = "Switch Type"
-                        ))
-                    ),
-                div(style="display: inline-block;vertical-align:top;",
-                    pickerInput(
-                        inputId   = "rotaryEncoder",
-                        choices   = list("Yes" = 1, "No" = 0),
-                        multiple  = TRUE,
-                        options   = list(
-                            `selected-text-format` = "static",
-                            title = "Rotary Encoder"
-                        ))
-                    ),
-                div(style="display: inline-block;vertical-align:top;",
-                    pickerInput(
-                        inputId   = "wireless",
-                        choices   = list("Yes" = 1, "No" = 0),
-                        multiple  = TRUE,
-                        options   = list(
-                            `selected-text-format` = "static",
-                            title = "Wireless"
-                        ))
-                    ),
-                div(style="display: inline-block;vertical-align:top;",
-                    pickerInput(
-                        inputId   = "onePiece",
-                        choices   = list("One-piece" = 1, "Two halves" = 0),
-                        multiple  = TRUE,
-                        options   = list(
-                            `selected-text-format` = "static",
-                            title = "One-piece"
-                        ))
-                    ),
-                div(style="display: inline-block;vertical-align:top;",
-                    pickerInput(
-                        inputId   = "availability",
-                        choices   = list("DIY" = "diy", "Pre-built" = "prebuilt"),
-                        multiple  = TRUE,
-                        options   = list(
-                            `selected-text-format` = "static",
-                            title = "Availability"
-                        ))
-                    ),
+                    multiple = TRUE,
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "Switch Type"
+                    )),
+                pickerInput(
+                    inputId   = "rotaryEncoder",
+                    choices   = list("Yes" = 1, "No" = 0),
+                    multiple  = TRUE,
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "Rotary Encoder"
+                    )),
+                pickerInput(
+                    inputId   = "wireless",
+                    choices   = list("Yes" = 1, "No" = 0),
+                    multiple  = TRUE,
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "Wireless"
+                    )),
+                pickerInput(
+                    inputId   = "onePiece",
+                    choices   = list("One-piece" = 1, "Two halves" = 0),
+                    multiple  = TRUE,
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "One-piece"
+                    )),
+                pickerInput(
+                    inputId   = "availability",
+                    choices   = list("DIY" = "diy", "Pre-built" = "prebuilt"),
+                    multiple  = TRUE,
+                    options   = list(
+                        `selected-text-format` = "static",
+                        title = "Availability"
+                    )),
                 # Main keyboard selection options
                 h4("Keyboards"),
                 pickerInput(
@@ -162,33 +137,31 @@ ui <- navbarPage(title = "",
             ),
             mainPanel(
                 # Print button
-                div(style="display: inline-block;vertical-align:top;",
-                    downloadButton(
-                        outputId = "printFile",
-                        label    = "Print to scale (PDF)")),
+                downloadButton(
+                    outputId = "printFile",
+                    label    = "Print to scale (PDF)"),
                 # Print/display option
-                div(style="display: inline-block;vertical-align:top;",
-                    dropdown(
-                        icon = icon("cog"),
-                        prettyRadioButtons(
-                            inputId   = "printSize",
-                            label     = "Print size:",
-                            choices   = list("A4" = "A4", "Letter (8.5x11)" = "Letter"),
-                            selected  = "A4",
-                            animation = "pulse"),
-                        prettyRadioButtons(
-                            inputId   = "printSepPages",
-                            label     = "Print on seperate pages?",
-                            choices   = list("Yes" = TRUE, "No" = FALSE),
-                            selected  = FALSE,
-                            animation = "pulse"),
-                        prettyRadioButtons(
-                            inputId = "keyboardHalf",
-                            label   = "Keyboard half:",
-                            choices = c("Left (mirrored)", "Right"),
-                            selected = "Right",
-                            animation = "pulse")
-                    )),
+                dropdown(
+                    icon = icon("cog"),
+                    prettyRadioButtons(
+                        inputId   = "printSize",
+                        label     = "Print size:",
+                        choices   = list("A4" = "A4", "Letter (8.5x11)" = "Letter"),
+                        selected  = "A4",
+                        animation = "pulse"),
+                    prettyRadioButtons(
+                        inputId   = "printSepPages",
+                        label     = "Print on seperate pages?",
+                        choices   = list("Yes" = TRUE, "No" = FALSE),
+                        selected  = FALSE,
+                        animation = "pulse"),
+                    prettyRadioButtons(
+                        inputId = "keyboardHalf",
+                        label   = "Keyboard half:",
+                        choices = c("Left (mirrored)", "Right"),
+                        selected = "Right",
+                        animation = "pulse")
+                ),
                 # Add custom styling
                 tags$head(tags$style(HTML(paste(readLines(
                     file.path("includes", "style.css")), collapse=" ")))),
@@ -200,12 +173,6 @@ ui <- navbarPage(title = "",
     tabPanel("Keyboards",
         icon = icon(name = "keyboard", lib = "font-awesome"),
         mainPanel(width = 7,
-            switchInput(
-                inputId = "showAll",
-                onLabel = "All Keyboards",
-                offLabel = "Filtered Keyboards",
-                value = FALSE
-            ),
             DT::dataTableOutput('keyboardsDT'),br(),
             # Insert footer
             tags$div(HTML(paste(readLines(
@@ -273,54 +240,28 @@ server <- function(input, output, session) {
     observeEvent(input$reset, {
         updateSliderInput(
             session = session,
-            inputId = "maxNumKeys",
-            value   = max(keyboards$nKeysMax)
+            inputId = "numKeys",
+            value   = c(min(keyboards$nKeysMin), max(keyboards$nKeysMax))
         )
         updateSliderInput(
             session = session,
-            inputId = "maxNumRows",
-            value   = max(keyboards$numRows)
+            inputId = "numRows",
+            value   = c(min(keyboards$numRows), max(keyboards$numRows))
         )
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboard",
             choices = keyboards$nameKeys
         )
-        updatePrettyRadioButtons(
-            session  = session,
-            inputId  = "hasNumberRow",
-            selected = "All"
-        )
-        updatePrettyRadioButtons(
-            session  = session,
-            inputId  = "colStagger",
-            selected = "All"
-        )
-        updatePrettyRadioButtons(
-            session  = session,
-            inputId  = "rowStagger",
-            selected = "All"
-        )
-        updatePrettyRadioButtons(
-            session  = session,
-            inputId  = "rotaryEncoder",
-            selected = "All"
-        )
-        updatePrettyRadioButtons(
-            session  = session,
-            inputId  = "wireless",
-            selected = "All"
-        )
-        updatePrettyRadioButtons(
-            session  = session,
-            inputId  = "onePiece",
-            selected = "All"
-        )
-        updatePrettyRadioButtons(
-            session  = session,
-            inputId  = "availability",
-            selected = "All"
-        )
+        pickerIds <- c("hasNumRow", "colStagger", "rowStagger", "rotaryEncoder", 
+                       "wireless", "onePiece", "availability", "switchType")
+        for (id in pickerIds) {
+            updatePickerInput(
+                session = session,
+                inputId = id,
+                selected = character(0)
+            )
+        }
     }, ignoreInit = TRUE)
 
     # Control Select All button

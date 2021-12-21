@@ -116,7 +116,7 @@ getFilteredKeyboardNames <- function(input, keyboards) {
     return(tempKeyboards$nameKeys)
 }
 
-getFilteredRows <- function(input, keyboards) {
+oneVarFilters <- function(input, keyboards) {
     # Find active one variable filters
     # One variable filters are based on only one column in the dataset
     # e.g. Wireless with only the wireless (0, 1) column
@@ -125,8 +125,8 @@ getFilteredRows <- function(input, keyboards) {
     oneVarInputs <- sapply(oneVarFilterIds, function(id) input[[id]])
     activeOneVar <- oneVarInputs[sapply(oneVarInputs, isTruthy)]
     
-    # Make logicals assuming inputId corresponds with column and reactive value
-    # corresponds with desired value in column.
+    # Make logical vector assuming inputId corresponds with column and reactive
+    # value corresponds with desired value in column.
     if (length(activeOneVar) > 0) {
         oneVarLogical <- mapply(
             function(inputId, reactiveVal) keyboards[[inputId]] %in% reactiveVal,
@@ -138,15 +138,19 @@ getFilteredRows <- function(input, keyboards) {
         oneVarLogical <- NULL 
     }
     
+    return(oneVarLogical)
+}
+
+multiVarFilters <- function(input, keyboards) {
     # Find active multi variable filters
     # Multi variable filters are based on multiple columns in the dataset
     # e.g. Switch Type with mxCompatible, chocV1 & chocV2
     multiVarFilterIds <- c("availability", "switchType")
     multiVarInputs <- sapply(multiVarFilterIds, function(id) input[[id]])
     activeMultiVar <- multiVarInputs[sapply(multiVarInputs, isTruthy)]
-
-    # Make logicals assuming reactive value corresponds with column and that
-    # column is logical.
+    
+    # Make logical vector assuming reactive value corresponds with column and
+    # that column is logical.
     if (length(activeMultiVar) > 0) {
         multiVarLogical <- list(
             apply(
@@ -159,16 +163,29 @@ getFilteredRows <- function(input, keyboards) {
         multiVarLogical <- NULL 
     }
     
-    # Make logicals from rangeFilters (always active)
-    rangeFilters <- list(
+    return(multiVarLogical)
+}
+
+rangeFilters <- function(input, keyboards) {
+    # Make logical vector from range filters (always active)
+    list(
         keyboards$nKeysMin >= input$numKeys[[1]] & 
             keyboards$nKeysMax <= input$numKeys[[2]] &
             keyboards$numRows >= input$numRows[[1]] &
             keyboards$numRows <= input$numRows[[2]]
     )
-    
-    # Combine all logicals and find rows that are TRUE across all filters
-    allFilters <- Reduce(`&`, c(rangeFilters, multiVarLogical, oneVarLogical))
+}
+
+getFilteredRows <- function(input, keyboards) {
+    # Combine all logical vectors and find rows that are TRUE across all vectors
+    allFilters <- Reduce(
+        `&`, 
+        c(
+            rangeFilters(input, keyboards),
+            oneVarFilters(input, keyboards),
+            multiVarFilters(input, keyboards)
+        )
+    )
     rows <- which(allFilters)
     
     return(rows)
