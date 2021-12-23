@@ -13,13 +13,8 @@ Still need plate file:
 - centrometre
 
 Features:
-- add filter kailh-choc vs cherry spacing
+- Filter the DT in the Keyboards pane based on the filters of the compare pane. Adding a switch on the Keyboards pane to decide if you want to use the filters from the compare pane or show all.
+- Add an open-source filter.
 - Add "open image in new tab" button
 - Add single instead of multiple select? (#39)
-- Add "mirror" image button (#17)
-- Github action/CI to automatically generate mega-PDF with all keyboards for easy printing
-   - Generate one pdf per keyboard with nice URL for easy hot linking by original repos
-- Make a hotlink for the PDF of each keyboard by writing a short R script in the "code" folder that loops through each keyboard and saves the PDF in a "pdf" folder ("images/pdf")
-- Add a PDF icon in the table on the "keyboards" page that links to the PDF so you could download it from that page as well.
-- Consider changing the "separate pages" buttons to a drop down?
 - Consider reducing the image size for speed?
