@@ -1,5 +1,5 @@
 ################################################################################
-# Libraries --------------------------------------------------------------- 
+# Libraries ---------------------------------------------------------------
 ################################################################################
 
 library(magick)
@@ -20,8 +20,8 @@ kbNames <- fs::path_ext_remove(images)
 
 # Create output directory if necessary
 if (!dir.exists(file.path("images", "pdf"))) {
-  dir.create(file.path("images", "pdf", "a4"), recursive = TRUE)
-  dir.create(file.path("images", "pdf", "letter"))
+    dir.create(file.path("images", "pdf", "a4"), recursive = TRUE)
+    dir.create(file.path("images", "pdf", "letter"))
 }
 
 # Only render new keyboards
@@ -36,17 +36,17 @@ if (!dir.exists(file.path("images", "pdf"))) {
 # Render .pdf's in the a4 & letter format
 # Save .pdf's in images/pdf/a4 or images/pdf/letter
 for (size in c("A4", "Letter")) {
-  for(kbName in kbNames){
-    rmarkdown::render(
-      input = file.path("code", paste0("print", size, ".Rmd")),
-      output_file = file.path("..", "images", "pdf", size, paste0(kbName, ".pdf")),
-      params = list(path = file.path("..", "images", "png", paste0(kbName, ".png")))
+    for (kbName in kbNames) {
+        rmarkdown::render(
+            input = file.path("code", paste0("print", size, ".Rmd")),
+            output_file = file.path("..", "images", "pdf", size, paste0(kbName, ".pdf")),
+            params = list(path = file.path("..", "images", "png", paste0(kbName, ".png")))
+        )
+    }
+    # Check if all images are (most likely) rendered
+    stopifnot(
+        length(list.files(file.path("images", "pdf", size))) == length(kbNames)
     )
-  }
-  # Check if all images are (most likely) rendered  
-  stopifnot(
-    length(list.files(file.path("images", "pdf", size))) == length(kbNames)
-    ) 
 }
 
 ################################################################################
@@ -54,12 +54,12 @@ for (size in c("A4", "Letter")) {
 ################################################################################
 
 kbPdfLinks <- data.frame(
-    id = kbNames, 
+    id = kbNames,
     pdf_path_a4 = file.path("/pdf", "a4", paste0(kbNames, ".pdf")),
     pdf_path_letter = file.path("/pdf", "letter", paste0(kbNames, ".pdf"))
-    )
+)
 
-keyboards <- readr::read_csv("keyboards.csv") %>% 
-  select(-any_of(c("pdf_path_a4", "pdf_path_letter")))
+keyboards <- readr::read_csv("keyboards.csv") %>%
+    select(-any_of(c("pdf_path_a4", "pdf_path_letter")))
 keyboards <- left_join(keyboards, kbPdfLinks, by = "id")
 readr::write_csv(keyboards, "keyboards.csv")
