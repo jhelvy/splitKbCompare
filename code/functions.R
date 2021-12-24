@@ -1,6 +1,6 @@
 # Loads the keyboards.csv file as a data frame
 loadKeyboards <- function() {
-    keyboards <- readr::read_csv(file.path("dataset", "keyboards.csv")) %>%
+    keyboards <- readr::read_csv(file.path("data", "keyboards.csv")) %>%
         filter(include == 1) %>%
         mutate(
             nameKeys = ifelse(
