@@ -13,7 +13,7 @@ library(magick)
 library(markdown)
 
 # Load custom functions
-source(file.path('code', 'functions.R'))
+source(file.path("code", "functions.R"))
 
 # Load data
 keyboards <- loadKeyboards()
