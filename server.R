@@ -69,7 +69,8 @@ server <- function(input, output, session) {
             )
             pickerIds <- c(
                 "hasNumRow", "colStagger", "rowStagger", "rotaryEncoder",
-                "wireless", "onePiece", "availability", "switchType"
+                "wireless", "onePiece", "availability", "switchType", 
+                "openSource"
             )
             for (id in pickerIds) {
                 updatePickerInput(
@@ -124,7 +125,9 @@ server <- function(input, output, session) {
             # Create the color image overlay
             overlayColor <- makeImageOverlay(images, palette, color = TRUE)
             # Mirror when left half is selected.
-            if (input$keyboardHalf == "Left (mirrored)") overlayColor <- image_flop(overlayColor)
+            if (input$keyboardHalf == "Left (mirrored)") {
+                overlayColor <- image_flop(overlayColor)
+            }
             # Define the path to the image
             tmpImagePathColor <- overlayColor %>%
                 image_write(tempfile(fileext = "png"), format = "png")
@@ -183,19 +186,15 @@ server <- function(input, output, session) {
                 overlayBw <- makeImageOverlay(images, palette, color = FALSE, IDs = gp)
 
                 # Mirror when left half is selected.
-                if (input$keyboardHalf == "Left (mirrored)") overlayBw <- image_flop(overlayBw)
+                if (input$keyboardHalf == "Left (mirrored)") {
+                    overlayBw <- image_flop(overlayBw)
+                }
 
                 # Define the path to the image
                 tmpImagePathBw <- overlayBw %>%
-                    image_write(
-                        tempfile(fileext = ".png"),
-                        format = "png"
-                    )
+                    image_write(tempfile(fileext = ".png"), format = "png")
 
-                id_group_paths <- c(
-                    id_group_paths,
-                    tmpImagePathBw
-                )
+                id_group_paths <- c(id_group_paths, tmpImagePathBw)
             }
             # Prepare the path to be passed to the Rmd file
             params <- list(path = id_group_paths)

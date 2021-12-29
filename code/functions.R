@@ -7,7 +7,8 @@ loadKeyboards <- function() {
                 nKeysMin == nKeysMax,
                 paste0(name, " (", nKeysMin, ")"),
                 paste0(name, " (", nKeysMin, " - ", nKeysMax, ")")
-            )
+            ),
+            openSource = !is.na(url_source)
         ) %>%
         arrange(id, desc(nKeysMax), desc(nKeysMin))
     return(keyboards)
@@ -135,7 +136,7 @@ oneVarFilters <- function(input, keyboards) {
     # e.g. Wireless with only the wireless (0, 1) column
     oneVarFilterIds <- c(
         "hasNumRow", "colStagger", "rowStagger", "rotaryEncoder", "wireless",
-        "onePiece"
+        "onePiece", "openSource"
     )
     oneVarInputs <- sapply(oneVarFilterIds, function(id) input[[id]])
     activeOneVar <- oneVarInputs[sapply(oneVarInputs, isTruthy)]

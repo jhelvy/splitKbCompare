@@ -15,6 +15,9 @@ library(markdown)
 # Load custom functions
 source(file.path("code", "functions.R"))
 
+# Load ui elements
+source(file.path("code", "uiElements.R"))
+
 # Load data
 keyboards <- loadKeyboards()
 keyboardsDT <- loadKeyboardsDT(keyboards)
