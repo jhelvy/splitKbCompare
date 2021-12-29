@@ -5,6 +5,7 @@ ui <- navbarPage(
     tabPanel(
         title = "Compare",
         icon = icon(name = "balance-scale", lib = "font-awesome"),
+        includeCSS(file.path("includes", "style.css")),
         sidebarLayout(
             sidebarPanel(
                 width = 3,
@@ -179,14 +180,7 @@ ui <- navbarPage(
                     animation = "pulse"
                 ),
                 # Insert footer
-                div(
-                    HTML(
-                        paste(
-                            readLines(file.path("includes", "footer.html")),
-                            collapse = " "
-                        )
-                    )
-                )
+                includeHTML(file.path("includes", "footer.html"))
             ),
             mainPanel(
                 # Print button
@@ -222,17 +216,6 @@ ui <- navbarPage(
                         )
                     )
                 ),
-                # Add custom styling
-                tags$head(
-                    tags$style(
-                        HTML(
-                            paste(
-                                readLines(file.path("includes", "style.css")),
-                                collapse = " "
-                            )
-                        )
-                    )
-                ),
                 # Image
                 imageOutput("layout")
             )
@@ -243,16 +226,10 @@ ui <- navbarPage(
         icon = icon(name = "keyboard", lib = "font-awesome"),
         mainPanel(
             width = 7,
-            DT::dataTableOutput("keyboardsDT"), br(),
+            DT::dataTableOutput("keyboardsDT"),
+            br(),
             # Insert footer
-            div(
-                HTML(
-                    paste(
-                        readLines(file.path("includes", "footer.html")),
-                        collapse = " "
-                    )
-                )
-            ),
+            includeHTML(file.path("includes", "footer.html")),
             br()
         )
     ),
@@ -264,16 +241,8 @@ ui <- navbarPage(
             includeMarkdown("README.md"),
             br(),
             # Insert footer
-            div(
-                HTML(
-                    paste(
-                        readLines(file.path("includes", "footer.html")),
-                        collapse = " "
-                    )
-                )
-            ),
+            includeHTML(file.path("includes", "footer.html")),
             br()
         )
     )
 )
-
