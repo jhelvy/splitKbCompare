@@ -69,7 +69,8 @@ server <- function(input, output, session) {
             )
             pickerIds <- c(
                 "hasNumRow", "colStagger", "rowStagger", "rotaryEncoder",
-                "wireless", "onePiece", "availability", "switchType"
+                "wireless", "onePiece", "availability", "switchType", 
+                "openSource"
             )
             for (id in pickerIds) {
                 updatePickerInput(

@@ -145,6 +145,18 @@ ui <- navbarPage(
                         )
                     )
                 ),
+                div(
+                    style = "display: inline-block",
+                    pickerInput(
+                        inputId = "openSource",
+                        choices = list("Yes" = TRUE, "No" = FALSE),
+                        multiple = TRUE,
+                        options = list(
+                            `selected-text-format` = "static",
+                            title = "Open Source"
+                        )
+                    )
+                ),
                 # Main keyboard selection options
                 h4("Keyboards"),
                 div(
