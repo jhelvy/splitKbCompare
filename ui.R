@@ -94,6 +94,12 @@ ui <- navbarPage(
         icon = icon(name = "keyboard", lib = "font-awesome"),
         mainPanel(
             width = 7,
+            switchInput(
+                inputId = "filterDT",
+                onLabel = "Apply filters",
+                offLabel = "Show all",
+                size = "mini"
+            ),
             DT::dataTableOutput("keyboardsDT"),
             br(),
             # Insert footer

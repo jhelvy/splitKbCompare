@@ -14,7 +14,16 @@ server <- function(input, output, session) {
             prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     })
-
+    
+    # Make filtered datatable
+    fKeyboardsDT <- reactive({
+        if (input$filterDT) {
+            keyboardNames <- getFilteredKeyboardNames(input, keyboards)
+            keyboardNamesOrg <- gsub(" \\(.*)", "", keyboardNames)
+            keyboardsDT[keyboardsDT$Name %in% keyboardNamesOrg, ]
+        }
+    })
+    
     # Set initial starting layout based on url parameter
     observeEvent("",
         {
@@ -41,7 +50,7 @@ server <- function(input, output, session) {
     # Render keyboard table on "Keyboards" page
     output$keyboardsDT <- DT::renderDataTable({
         DT::datatable(
-            keyboardsDT,
+            if (input$filterDT) fKeyboardsDT() else keyboardsDT,
             escape = FALSE,
             style = "bootstrap",
             rownames = FALSE,
