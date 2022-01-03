@@ -4,13 +4,15 @@ server <- function(input, output, session) {
     # Add pdf folder as ResourcePath
     addResourcePath(prefix = "pdf", directoryPath = file.path("images", "pdf"))
 
+    # Find filtered keyboard names
+    fKeyboardNames <- reactive({getFilteredKeyboardNames(input, keyboards)})
+    
     # Filter keyboard options based on filter options
     observe({
-        keyboardNames <- getFilteredKeyboardNames(input, keyboards)
         updatePrettyCheckboxGroup(
             session = session,
             inputId = "keyboard",
-            choices = keyboardNames,
+            choices = fKeyboardNames(),
             prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
         )
     })
@@ -18,8 +20,9 @@ server <- function(input, output, session) {
     # Make filtered datatable
     fKeyboardsDT <- reactive({
         if (input$filterDT) {
-            keyboardNames <- getFilteredKeyboardNames(input, keyboards)
-            keyboardNamesOrg <- gsub(" \\(.*)", "", keyboardNames)
+            # Get names of the keyboards instead of the display names that
+            # include key counts
+            keyboardNamesOrg <- keyboards$name[keyboards$nameKeys %in% fKeyboardNames()]
             keyboardsDT[keyboardsDT$Name %in% keyboardNamesOrg, ]
         }
     })
@@ -98,12 +101,11 @@ server <- function(input, output, session) {
         {
             # Select all displayed (filtered) keyboards
             # Identical to filtering step but also set selected=`choices list`.
-            keyboardNames <- getFilteredKeyboardNames(input, keyboards)
             updatePrettyCheckboxGroup(
                 session = session,
                 inputId = "keyboard",
-                choices = keyboardNames,
-                selected = keyboardNames,
+                choices = fKeyboardNames(),
+                selected = fKeyboardNames(),
                 prettyOptions = list(shape = "curve", outline = TRUE, animation = "pulse")
             )
         },
