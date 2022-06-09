@@ -8,7 +8,7 @@ loadKeyboards <- function() {
                 paste0(name, " (", nKeysMin, ")"),
                 paste0(name, " (", nKeysMin, " - ", nKeysMax, ")")
             ),
-            openSource = !is.na(url_source)
+            openSource = ifelse(openSource == 1, TRUE, FALSE)
         ) %>%
         arrange(id, desc(nKeysMax), desc(nKeysMin))
     return(keyboards)
