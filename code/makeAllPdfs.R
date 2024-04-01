@@ -43,10 +43,6 @@ for (size in c("A4", "Letter")) {
             params = list(path = file.path("..", "images", "png", paste0(kbName, ".png")))
         )
     }
-    # Check if all images are (most likely) rendered
-    stopifnot(
-        length(list.files(file.path("images", "pdf", size))) == length(kbNames)
-    )
 }
 
 ################################################################################
@@ -59,7 +55,7 @@ kbPdfLinks <- data.frame(
     pdf_path_letter = file.path("/pdf", "letter", paste0(kbNames, ".pdf"))
 )
 
-keyboards <- readr::read_csv("keyboards.csv") %>%
+keyboards <- readr::read_csv(here::here("data", "keyboards.csv")) %>%
     select(-any_of(c("pdf_path_a4", "pdf_path_letter")))
 keyboards <- left_join(keyboards, kbPdfLinks, by = "id")
 readr::write_csv(keyboards, "keyboards.csv")

@@ -32,11 +32,10 @@ keyseebee,44,44,Keyseebee,1,0,0,3,Aggressive,0,0,0,0,1,0,1,1,0,1,0,1,https://git
 kimiko,58,60,Kimiko,1,1,0,4,Aggressive,0,1,0,0,1,0,1,0,0,1,0,1,https://github.com/Keycapsss/Kimiko,https://keycapsss.com/keyboard-parts/pcb/139/kimiko-split-keyboard-pcb,/pdf/a4/kimiko.pdf,/pdf/letter/kimiko.pdf
 kyria,46,50,Kyria,1,0,0,3,Aggressive,0,1,0,0,1,1,1,1,1,1,0,0,https://github.com/splitkb/kyria,https://splitkb.com/,/pdf/a4/kyria.pdf,/pdf/letter/kyria.pdf
 lily58,58,58,Lily58,1,1,0,4,Moderate,0,0,0,0,1,0,1,1,0,1,0,1,https://github.com/kata0510/Lily58,NA,/pdf/a4/lily58.pdf,/pdf/letter/lily58.pdf
-lotus58,58,58,Lotus58,1,1,0,4,Moderate,0,0,0,0,1,0,1,1,0,1,0,1,https://github.com/TweetyDaBird/Lotus58,NA,/pdf/a4/lotus58.pdf,/pdf/letter/lotus58.pdf
 microdox,36,36,Microdox,1,0,0,3,Moderate,0,0,0,0,1,0,1,1,1,1,0,1,https://github.com/boardsource/microdox-goodies,https://boardsource.xyz/store/5f2e7e4a2902de7151494f92,/pdf/a4/microdox.pdf,/pdf/letter/microdox.pdf
 minidox,36,36,Minidox,1,0,0,3,Moderate,0,0,0,0,1,1,1,0,0,1,0,1,https://github.com/dotdash32/Cases/tree/master/Minidox,https://falba.tech/customize-your-keyboard/,/pdf/a4/minidox.pdf,/pdf/letter/minidox.pdf
 mitosis,46,46,Mitosis,1,0,0,3,Aggressive,0,0,1,0,1,0,1,0,0,1,0,1,https://github.com/joric/mitosis-hardware/tree/joric_kicad,NA,/pdf/a4/mitosis.pdf,/pdf/letter/mitosis.pdf
-moonlander,72,72,ZSA Moonlander,1,1,0,5,Moderate,0,0,0,0,0,1,1,0,0,1,0,0,NA,https://www.zsa.io/moonlander/,/pdf/a4/moonlander.pdf,/pdf/letter/moonlander.pdf
+moonlander,72,72,Moonlander,1,1,0,5,Moderate,0,0,0,0,0,1,1,0,0,1,0,0,NA,https://www.zsa.io/moonlander/,/pdf/a4/moonlander.pdf,/pdf/letter/moonlander.pdf
 nyquist,60,60,Nyquist,1,1,0,5,None,0,0,0,0,1,0,1,1,1,1,0,1,https://github.com/keebio/nyquist-case,https://keeb.io/products/nyquist-keyboard,/pdf/a4/nyquist.pdf,/pdf/letter/nyquist.pdf
 pluckey,64,68,Pluckey,1,1,0,5,Moderate,0,1,0,0,1,0,1,1,0,1,0,1,https://github.com/floookay/pluckey,NA,/pdf/a4/pluckey.pdf,/pdf/letter/pluckey.pdf
 pteron,38,56,Pteron,1,1,0,4,Agressive,0,0,0,1,1,0,1,1,1,1,0,1,https://github.com/FSund/pteron-keyboard,NA,/pdf/a4/pteron.pdf,/pdf/letter/pteron.pdf
@@ -56,7 +55,6 @@ squiggle,34,38,Squiggle,1,0,0,3,Aggressive,0,0,0,0,1,0,1,1,0,1,0,1,https://githu
 torn,44,46,Torn,1,0,0,3,Moderate,0,1,0,0,1,0,1,1,0,1,0,1,https://github.com/rtitmuss/torn,NA,/pdf/a4/torn.pdf,/pdf/letter/torn.pdf
 uhk_ansi,63,66,Ultimate Hacking KeyBoard,1,1,1,5,None,1,0,0,0,0,1,1,0,0,1,0,0,NA,https://ultimatehackingkeyboard.com/,/pdf/a4/uhk_ansi.pdf,/pdf/letter/uhk_ansi.pdf
 viterbi,68,70,Viterbi,1,1,0,5,None,0,0,0,0,1,0,1,0,0,1,0,1,https://github.com/keebio/viterbi-case,https://keeb.io/products/viterbi-keyboard-pcbs-5x7-70-split-ortholinear,/pdf/a4/viterbi.pdf,/pdf/letter/viterbi.pdf
-voyager,56,56,ZSA Voyager,1,1,0,4,Moderate,0,0,0,0,0,1,0,0,1,0,1,0,https://github.com/zsa/qmk_firmware/tree/firmware22/keyboards/voyager,https://www.zsa.io/voyager,/pdf/a4/voyager.pdf,/pdf/letter/voyager.pdf
 xenon,44,54,Xenon,1,0,0,3,Aggressive,0,0,0,0,1,0,1,1,0,1,0,1,https://github.com/narinari/xenon-keyboard,NA,/pdf/a4/xenon.pdf,/pdf/letter/xenon.pdf
 yaemk,62,68,YAEMK,1,1,0,1,Agressive,0,1,0,0,1,0,1,0,0,1,0,1,https://karlk90.github.io/yaemk-split-kb/,NA,/pdf/a4/yaemk.pdf,/pdf/letter/yaemk.pdf
 zen2,64,68,Zen 2,1,1,0,5,None,0,0,0,0,1,0,1,1,0,1,0,1,https://github.com/RGBKB/Keyboard-files/tree/master/Zen,https://www.rgbkb.net/products/zen-keyboard?variant=14061935624253,/pdf/a4/zen2.pdf,/pdf/letter/zen2.pdf
@@ -67,6 +65,7 @@ chimera52,52,52,Chimera,0,1,0,3,Agressive,0,0,1,0,1,0,1,0,0,1,0,1,https://github
 kbo_5000,92,96,KBO-5000,0,1,1,6,None,1,1,0,0,1,0,1,0,0,1,0,1,https://github.com/keebio/kbo-5000-case,https://keeb.io/collections/kbo-5000-split-staggered-80-keyboard/products/kbo-5000-split-staggered-80-keyboard,NA,NA
 matias_ergo_pro,86,86,Matias Ergo Pro,0,1,1,6,None,1,0,0,0,0,1,0,0,0,1,0,0,NA,https://matias.ca/ergopro/pc/,NA,NA
 pinky4,64,64,Pinky4,0,1,0,4,Moderate,0,0,0,0,1,0,1,0,0,1,0,1,https://github.com/tamanishi/Pinky4,NA,NA,NA
-hillside,42,48,Hillside,0,0,0,3,Aggressive,0,1,1,0,1,0,0,1,0,0,1,1,https://github.com/mmccoyd/hillside,NA,/pdf/a4/hillside.pdf,/pdf/letter/hillside.pdf
+hillside,42,48,Hillside,0,0,0,3,Aggressive,0,1,1,0,1,0,0,1,0,0,1,1,https://github.com/mmccoyd/hillside,NA,NA,NA
 manibus,62,62,Manibus,0,1,0,5,Agressive,0,0,0,0,1,0,1,0,0,1,0,1,https://github.com/SamuraiKek/manibus-switch-plates,https://blank.computer/,NA,NA
 avalanche,64,64,Avalanche,0,1,0,5,Agressive,0,1,0,0,1,0,1,0,0,1,0,1,https://github.com/vlkv/avalanche,NA,NA,NA
+lotus58,58,58,Lotus58,1,1,0,4,Moderate,0,0,0,0,1,0,1,1,0,1,0,1,https://github.com/TweetyDaBird/Lotus58,NA,/pdf/a4/lotus58.pdf,/pdf/letter/lotus58.pdf
