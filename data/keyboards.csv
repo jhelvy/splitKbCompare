@@ -56,7 +56,7 @@ squiggle,34,38,Squiggle,1,0,0,3,Aggressive,0,0,0,0,1,0,1,1,0,1,0,1,https://githu
 torn,44,46,Torn,1,0,0,3,Moderate,0,1,0,0,1,0,1,1,0,1,0,1,https://github.com/rtitmuss/torn,NA,/pdf/a4/torn.pdf,/pdf/letter/torn.pdf
 uhk_ansi,63,66,Ultimate Hacking KeyBoard,1,1,1,5,None,1,0,0,0,0,1,1,0,0,1,0,0,NA,https://ultimatehackingkeyboard.com/,/pdf/a4/uhk_ansi.pdf,/pdf/letter/uhk_ansi.pdf
 viterbi,68,70,Viterbi,1,1,0,5,None,0,0,0,0,1,0,1,0,0,1,0,1,https://github.com/keebio/viterbi-case,https://keeb.io/products/viterbi-keyboard-pcbs-5x7-70-split-ortholinear,/pdf/a4/viterbi.pdf,/pdf/letter/viterbi.pdf
-voyager,56,56,ZSA Voyager,1,1,0,4,Moderate,0,0,0,0,0,1,0,0,1,0,1,0,https://github.com/zsa/qmk_firmware/tree/firmware22/keyboards/voyager,https://www.zsa.io/voyager,/pdf/a4/voyager.pdf,/pdf/letter/voyager.pdf
+voyager,56,56,ZSA Voyager,1,1,0,4,Moderate,0,0,0,0,0,1,0,1,0,0,1,0,https://github.com/zsa/qmk_firmware/tree/firmware22/keyboards/voyager,https://www.zsa.io/voyager,/pdf/a4/voyager.pdf,/pdf/letter/voyager.pdf
 xenon,44,54,Xenon,1,0,0,3,Aggressive,0,0,0,0,1,0,1,1,0,1,0,1,https://github.com/narinari/xenon-keyboard,NA,/pdf/a4/xenon.pdf,/pdf/letter/xenon.pdf
 yaemk,62,68,YAEMK,1,1,0,1,Agressive,0,1,0,0,1,0,1,0,0,1,0,1,https://karlk90.github.io/yaemk-split-kb/,NA,/pdf/a4/yaemk.pdf,/pdf/letter/yaemk.pdf
 zen2,64,68,Zen 2,1,1,0,5,None,0,0,0,0,1,0,1,1,0,1,0,1,https://github.com/RGBKB/Keyboard-files/tree/master/Zen,https://www.rgbkb.net/products/zen-keyboard?variant=14061935624253,/pdf/a4/zen2.pdf,/pdf/letter/zen2.pdf
