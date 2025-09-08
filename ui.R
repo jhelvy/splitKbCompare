@@ -70,7 +70,7 @@ ui <- navbarPage(
                         ),
                         prettyRadioButtons(
                             inputId   = "printSepPages",
-                            label     = "Print on seperate pages?",
+                            label     = "Print on separate pages?",
                             choices   = list("Yes" = TRUE, "No" = FALSE),
                             selected  = FALSE,
                             animation = "pulse"
