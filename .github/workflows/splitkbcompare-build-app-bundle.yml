@@ -1,0 +1,219 @@
+# =====================================================================
+#  ShinyApps app-layer bundle builder (generic, Route A: prebuilt
+#  desktop bundles, no shell rebuild required).
+#
+#  Place at   <repo>/.github/workflows/<app-id>-build-app-bundle.yml
+#  Configure the `env:` block below, then push a tag vX.Y.Z (or run the
+#  workflow manually).  Produces, per platform:
+#      <app-id>-<version>-<platform>.zip
+#        bundle/app/        your Shiny app (entry = app/app.R)
+#        bundle/rlib/       prebuilt dependency closure (binary R pkgs)
+#        bundle/manifest.json
+#  and attaches both zips to the GitHub Release for the tag.
+#
+#  Entry modes (auto-detected):
+#    * app.R present            -> copied verbatim, wrapped by a generated
+#                                  app/app.R that source()s it and returns
+#                                  the shinyApp object (never runApp()).
+#    * ui.R + server.R present  -> generated app/app.R sources global.R
+#                                  (if any), ui.R, server.R and returns
+#                                  shinyApp(ui, server).
+#  The dependency seed is auto-extracted from library()/require()/pkg::
+#  calls in the copied sources and closed over recursively.
+# =====================================================================
+name: Build app bundle
+
+on:
+  push:
+    tags: ['v*']
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to attach bundles to (e.g. v0.1.0)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  APP_ID: "splitkbcompare"
+  APP_NAME: "splitKbCompare"
+  APP_AUTHOR: "John Helveston"
+  APP_DESC: "Interactive comparison of split ergonomic keyboard layouts - filter by specs, overlay layouts at true scale with distinct colors, and export printable PDFs"
+  APP_HOMEPAGE: "https://github.com/jhelvy/splitKbCompare"
+  APP_LICENSE: "MIT"
+  APP_SUBDIR: "."
+  EXTRA_PKGS: "rmarkdown"
+  EXCLUDE: "rsconnect,images/raw,images/overlays.ai,images/screenshot.png"
+  ARCHIVE_URLS: ""
+  APP_NOTES: "Classic ui.R/server.R app wrapped by a generated app/app.R (sources global.R/ui.R/server.R and returns shinyApp). KNOWN LIMITATION: the dynamic Print-to-scale (PDF) button uses rmarkdown::render(pdf_document) and needs a LaTeX engine absent from the desktop bundle; the 62 pre-generated per-keyboard PDFs still work offline. Ships images/png + images/pdf only (raw/ and .ai sources excluded)."
+  MAX_REQUEST_MB: "1024"
+  R_VERSION: "4.6.1"
+
+jobs:
+  bundle:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, platform: "win-x64" }
+          - { os: macos-14,       platform: "mac-arm64" }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ env.R_VERSION }}
+          use-public-rspm: true
+
+      - name: Install build helpers
+        shell: bash
+        run: Rscript -e 'install.packages(c("jsonlite","zip","digest","BiocManager"), repos="https://cloud.r-project.org")'
+
+      - name: Resolve store version
+        shell: bash
+        run: |
+          V="${{ github.event.release.tag_name }}${{ github.ref_name }}${{ inputs.tag }}"
+          V="${V#v}"
+          if [ -z "$V" ]; then V="0.1.0"; fi
+          echo "VERSION=$V" >> "$GITHUB_ENV"
+
+      - name: Assemble bundle (app/ + rlib/ + manifest.json)
+        shell: Rscript {0}
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          app_id  <- Sys.getenv("APP_ID")
+          sub_    <- Sys.getenv("APP_SUBDIR"); if (!nzchar(sub_)) sub_ <- "."
+          src     <- normalizePath(file.path(getwd(), sub_), winslash = "/", mustWork = TRUE)
+          bundle  <- file.path(getwd(), "bundle"); unlink(bundle, recursive = TRUE); dir.create(bundle, recursive = TRUE)
+          appdir  <- file.path(bundle, "app"); dir.create(appdir, recursive = TRUE)
+          lib     <- file.path(bundle, "rlib"); dir.create(lib, recursive = TRUE)
+
+          # --- 1. copy sources verbatim (skip VCS/meta) ----------------------
+          for (p in list.files(src, all.files = TRUE, no.. = TRUE, full.names = TRUE)) {
+            if (basename(p) %in% c(".git", ".github")) next
+            file.copy(p, appdir, recursive = TRUE)
+          }
+          ex <- strsplit(trimws(Sys.getenv("EXCLUDE")), "[ ,]+")[[1]]; ex <- ex[nzchar(ex)]
+          for (e in ex) { t <- file.path(appdir, e); if (file.exists(t)) unlink(t, recursive = TRUE) }
+
+          # --- 2. generate the entry app/app.R -------------------------------
+          if (file.exists(file.path(src, "app.R"))) {
+            file.copy(file.path(src, "app.R"), file.path(appdir, paste0(app_id, "-app.R")), overwrite = TRUE)
+            writeLines(c(
+              sprintf("# Auto-generated ShinyApps entry for %s.", app_id),
+              sprintf("options(shiny.launch.browser = FALSE, shiny.maxRequestSize = %s * 1024^2)", Sys.getenv("MAX_REQUEST_MB")),
+              sprintf("app <- source(\"%s-app.R\")$value", app_id),
+              "if (!inherits(app, \"shiny.appobj\")) stop(\"upstream app.R did not return a shiny app object\")",
+              "app"
+            ), file.path(appdir, "app.R"))
+          } else if (file.exists(file.path(src, "ui.R")) && file.exists(file.path(src, "server.R"))) {
+            writeLines(c(
+              sprintf("# Auto-generated ShinyApps entry for %s (classic ui.R/server.R app).", app_id),
+              sprintf("options(shiny.launch.browser = FALSE, shiny.maxRequestSize = %s * 1024^2)", Sys.getenv("MAX_REQUEST_MB")),
+              "if (file.exists(\"global.R\")) source(\"global.R\")",
+              "source(\"ui.R\"); source(\"server.R\")",
+              "shiny::shinyApp(ui, server)"
+            ), file.path(appdir, "app.R"))
+          } else stop("cannot determine entry: no app.R and no ui.R/server.R")
+
+          # --- 3. dependency seed from a source scan -------------------------
+          sf <- list.files(appdir, pattern = "[.](R|r|Rmd|rmd)$", recursive = TRUE, full.names = TRUE)
+          txt <- paste(unlist(lapply(sf, function(f) tryCatch(readLines(f, warn = FALSE), error = function(e) character()))), collapse = "\n")
+          grab <- function(pat) { x <- regmatches(txt, gregexpr(pat, txt))[[1]]; if (length(x)) gsub("[()\"']", "", sub(".*?(library|require)", "", x)) else character() }
+          pk <- unique(c(grab("library\\([A-Za-z0-9._\"']+"), grab("require\\([A-Za-z0-9._\"']+"),
+                         sub("::.*$", "", regmatches(txt, gregexpr("([A-Za-z][A-Za-z0-9._]+)::", txt))[[1]])))
+          extra <- strsplit(trimws(Sys.getenv("EXTRA_PKGS")), "[ ,]+")[[1]]; extra <- extra[nzchar(extra)]
+          base_pkgs <- rownames(installed.packages(priority = "base"))
+          seed <- setdiff(unique(c(pk, extra, "shiny")), c(base_pkgs, "base", "methods", "utils", "stats", "graphics", "grDevices", "tools", "parallel"))
+          seed <- seed[grepl("^[A-Za-z][A-Za-z0-9._]+$", seed)]
+          cat("detected seed:", paste(sort(seed), collapse = ", "), "\n")
+
+          # --- 4. close the seed over CRAN/Bioc + archived tarballs ----------
+          repos <- BiocManager::repositories(); options(repos = repos)
+          db <- available.packages(repos = repos)
+          arch <- strsplit(trimws(Sys.getenv("ARCHIVE_URLS")), "[ ,]+")[[1]]; arch <- arch[nzchar(arch)]
+          arch_names <- sub("_.*$", "", sub("[.]tar[.]gz$", "", basename(arch)))
+          arch_deps <- character()
+          for (u in arch) {
+            f <- tempfile(fileext = ".tar.gz"); download.file(u, f, mode = "wb", quiet = TRUE)
+            gt <- tempfile(); dir.create(gt); utils::untar(f, exdir = gt)
+            dp <- list.files(gt, pattern = "^DESCRIPTION$", recursive = TRUE, full.names = TRUE)[1]
+            dd <- read.dcf(dp)
+            v <- na.omit(unlist(dd[1, intersect(c("Depends", "Imports"), colnames(dd))]))
+            v <- trimws(sub("[[:space:]]*\\(.*\\)$", "", trimws(unlist(strsplit(paste(v, collapse = ","), ",")))))
+            arch_deps <- c(arch_deps, setdiff(v[nzchar(v) & v != "R"], "ggplot2"))
+          }
+          root <- setdiff(c(seed, arch_deps), arch_names)
+          closure <- unique(c(root, arch_names, unlist(tools::package_dependencies(root, db = db, recursive = TRUE))))
+          closure <- setdiff(closure, base_pkgs)
+          unk <- setdiff(closure, rownames(db)); if (length(unk)) cat("WARN not in CRAN/Bioc:", paste(unk, collapse = ", "), "\n")
+          closure <- intersect(closure, rownames(db))
+          li <- function(p, type) if (length(p)) install.packages(p, lib = lib, repos = repos, type = type, dependencies = FALSE, Ncpus = 2)
+          have <- function() basename(list.dirs(lib, recursive = FALSE))
+
+          li(closure, "binary")
+          nb <- setdiff(closure, have()); if (length(nb)) { cat("source fallback:", length(nb), "\n"); li(nb, "source") }
+          for (u in arch) install.packages(u, lib = lib, repos = NULL, type = "source", dependencies = FALSE)
+          miss <- setdiff(seed, have()); if (length(miss)) stop("missing from rlib: ", paste(miss, collapse = ", "))
+          cat("rlib packages:", length(have()), "\n")
+
+          # --- 5. manifest.json ----------------------------------------------
+          pkgs <- as.data.frame(installed.packages(lib.loc = lib), stringsAsFactors = FALSE)
+          man <- list(
+            schema = 1L, id = app_id, name = Sys.getenv("APP_NAME"), version = Sys.getenv("VERSION"),
+            author = Sys.getenv("APP_AUTHOR"), description = Sys.getenv("APP_DESC"),
+            homepage = Sys.getenv("APP_HOMEPAGE"), license = Sys.getenv("APP_LICENSE"),
+            runtime = "r-shiny", entry = "app/app.R", platform = "${{ matrix.platform }}",
+            r_version = Sys.getenv("R_VERSION"), min_shell_version = "0.1.0",
+            notes = Sys.getenv("APP_NOTES"),
+            packages = lapply(seq_len(nrow(pkgs)), function(i) list(
+              name = pkgs$Package[i], version = pkgs$Version[i],
+              path = file.path("rlib", pkgs$Package[i]), source = "cran")))
+          jsonlite::write_json(man, file.path(bundle, "manifest.json"), pretty = TRUE, auto_unbox = TRUE)
+
+      - name: Zip + sha256
+        shell: Rscript {0}
+        run: |
+          out <- sprintf("%s-%s-%s.zip", Sys.getenv("APP_ID"), Sys.getenv("VERSION"), "${{ matrix.platform }}")
+          bundle <- file.path(getwd(), "bundle"); old <- setwd(bundle); on.exit(setwd(old))
+          zip::zipr(out, files = list.files(".", all.files = TRUE, no.. = TRUE))
+          entries <- utils::unzip(out, list = TRUE)$Name
+          if (!any(grepl("^rlib/", entries))) stop("zip is missing rlib/ -- aborting")
+          if (!any(grepl("^app/app[.]R$", entries))) stop("zip is missing app/app.R -- aborting")
+          setwd(old); file.rename(file.path(bundle, out), out)
+          sha <- digest::digest(out, algo = "sha256", file = TRUE); sz <- file.size(out)
+          cat("bundle zip size (bytes):", sz, "\n")
+          if (sz > 2 * 1024^3) warning("bundle exceeds the 2 GiB GitHub Release asset limit.")
+          writeLines(sprintf('{"platform":"%s","file":"%s","sha256":"%s","size":%d}', "${{ matrix.platform }}", out, sha, sz),
+                     sprintf("meta-%s.json", "${{ matrix.platform }}"))
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-${{ matrix.platform }}
+          path: |
+            *.zip
+            meta-*.json
+
+  release:
+    needs: bundle
+    if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v') || inputs.tag != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag || github.ref_name }}
+          name: ${{ inputs.tag || github.ref_name }}
+          files: artifacts/*.zip
